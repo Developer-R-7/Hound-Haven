@@ -17,6 +17,7 @@ const Login = () => {
 
 		try {
 			const loginRes = await Axios.post("/users/login", {
+				// could just be form?
 				email: form.email,
 				password: form.password,
 			});

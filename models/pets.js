@@ -23,7 +23,7 @@ const petSchema = new mongoose.Schema({
         },
         Breed:{
             type: String
-        }
+        },
         VetVisits: [{
                 VisitDate: {
                     type: Date

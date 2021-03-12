@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-
 import UserContext from "./Context/UserContext";
 
 function App() {
@@ -57,6 +56,7 @@ function App() {
 						<Route path="/login" component={Login} />
 						<Route path="/register" component={Register} />
 						<Route path="/" component={Home} />
+						
 					</Switch>
 				</UserContext.Provider>
 			</Router>
