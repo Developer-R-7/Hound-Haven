@@ -21,6 +21,9 @@ const petSchema = new mongoose.Schema({
             type: String, 
             required: true
         },
+        Breed:{
+            type: String
+        }
         VetVisits: [{
                 VisitDate: {
                     type: Date
