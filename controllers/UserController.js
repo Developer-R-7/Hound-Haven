@@ -1,5 +1,4 @@
 require("dotenv").config();
-const auth = require("../middleware/auth");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -9,26 +8,27 @@ module.exports = {
 		try {
 			const { email, password, passwordCheck, displayName } = req.body;
 
-			// validation (need one conditional for email validation)
-			if (!email || !password || !passwordCheck || !displayName)
+			if (!email || !password || !passwordCheck || !displayName) {
 				return res
 					.status(400)
-					.json({ msg: "Not all fields have been entered!" });
+					.json({ msg: "Not all fields have been entered" });
+			}
 
-			if (password.length < 8)
+			if (passwordCheck.length < 8) {
+				return res.status(400).json({ msg: "You need a longer password" });
+			}
+
+			if (password !== passwordCheck) {
 				return res
 					.status(400)
-					.json({ msg: "Password needs to be at least 8 characters long!" });
-
-			if (password !== passwordCheck)
-				return res.status(400).json({ msg: "Password not match!" });
+					.json({ msg: "password does not match the password check" });
+			}
 
 			const existingUser = await User.findOne({ email: email });
 
-			if (existingUser)
-				return res
-					.status(400)
-					.json({ msg: "An account with this email already exists!" });
+			if (existingUser) {
+				return res.status(400).json({ msg: "User already exists" });
+			}
 
 			const salt = await bcrypt.genSalt();
 			const passwordHash = await bcrypt.hash(password, salt);
@@ -40,10 +40,9 @@ module.exports = {
 			});
 
 			const savedUser = await newUser.save();
-
 			res.json(savedUser);
 		} catch (err) {
-			res.status(500).json({ error: err.message });
+			res.status(500).json({ msg: err });
 		}
 	},
 
@@ -51,22 +50,21 @@ module.exports = {
 		try {
 			const { email, password } = req.body;
 
-			// validation
-			if (!email || !password)
-				return res
-					.status(400)
-					.json({ msg: "Not all fields have been entered!" });
+			if (!email || !password) {
+				res.status(400).json({ msg: "all required fields were not sent" });
+			}
 
 			const user = await User.findOne({ email: email });
 
-			if (!user)
-				return res
-					.status(400)
-					.json({ msg: "No account with this email has been registered." });
+			if (!user) {
+				res.status(400).json({ msg: "User downs exist" });
+			}
 
 			const isMatch = await bcrypt.compare(password, user.password);
-			if (!isMatch)
-				return res.status(400).json({ msg: "Invalid credentials!" });
+
+			if (!isMatch) {
+				res.status(400).json({ msg: "this was an incorrect password" });
+			}
 
 			const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
 				expiresIn: "24h",
@@ -74,30 +72,23 @@ module.exports = {
 
 			res.json({
 				token,
-				user: {
-					id: user._id,
-					displayName: user.displayName,
-				},
+				user: { id: user._id, displayName: user.displayName },
 			});
 		} catch (err) {
-			res.status(500).json({ error: err.message });
-		}
-	},
-
-	remove: async (req, res) => {
-		try {
-			const deletedUser = await User.findByIdAndDelete(req.user);
-			res.json(deletedUser);
-		} catch (err) {
-			res.status(500).json({ error: err.message });
+			res.status(500).json({ msg: err });
 		}
 	},
 
 	getUser: async (req, res) => {
-		const user = await User.findById(req.user);
-		res.json({
-			displayName: user.displayName,
-			id: user._id,
-		});
+		try {
+			const user = await User.findById(req.user);
+
+			res.json({
+				displayName: user.displayName,
+				id: user._id,
+			});
+		} catch (err) {
+			res.send(err.response);
+		}
 	},
 };
