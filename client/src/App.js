@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home";
+import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
+
 import UserContext from "./Context/UserContext";
 
 function App() {
@@ -14,28 +15,23 @@ function App() {
 
 	const checkLoggedIn = async () => {
 		let token = localStorage.getItem("auth-token");
-
 		if (token === null) {
 			localStorage.setItem("auth-token", "");
-			token = "";
 		} else {
-			const userRes = await axios.get("/users/", {
-				headers: { "x-auth-token": token },
-			});
+			try {
+				const userRes = await axios.get("/users", {
+					headers: { "x-auth-token": token },
+				});
 
-			setUserData({
-				token,
-				user: userRes.data,
-			});
+				setUserData({ token, user: userRes.data });
+			} catch (err) {
+				console.log("User must login");
+			}
 		}
 	};
 
 	const logout = () => {
-		setUserData({
-			token: undefined,
-			user: undefined,
-		});
-
+		setUserData({ token: undefined, user: undefined });
 		localStorage.setItem("auth-token", "");
 	};
 
@@ -45,14 +41,13 @@ function App() {
 
 	return (
 		<div className="App">
-			<BrowserRouter>
+			<Router>
 				{!userData.user ? (
 					<>
-						<Link to="/signup">Signup</Link>
-						<Link to="/login">Login</Link>
+						<Link to="/login">Login</Link> <Link to="/register">Register</Link>
 					</>
 				) : (
-					<Link to="/login" onClick={logout}>
+					<Link to="/" onClick={logout}>
 						Logout
 					</Link>
 				)}
@@ -60,12 +55,13 @@ function App() {
 				<UserContext.Provider value={{ userData, setUserData }}>
 					<Switch>
 						<Route path="/login" component={Login} />
-						<Route path="/signup" component={Signup} />
+						<Route path="/register" component={Register} />
 						<Route path="/" component={Home} />
 					</Switch>
 				</UserContext.Provider>
-			</BrowserRouter>
+			</Router>
 		</div>
 	);
 }
+
 export default App;
