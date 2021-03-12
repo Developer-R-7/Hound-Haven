@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const petSchema = new mongoose.Schema({
         PetName: {
-            type: String
+            type: String, 
+            required: true
         },
         BirthDate: {
             type: Date
@@ -10,11 +11,15 @@ const petSchema = new mongoose.Schema({
         Parent: {
             type: String
         },
+        PetImageLoc:{
+            type: String
+        },
         Gender: {
             type: String
         },
         TypeOfPet: {
-            type: String
+            type: String, 
+            required: true
         },
         VetVisits: [{
                 VisitDate: {
