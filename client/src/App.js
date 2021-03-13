@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import NavBar from './Components/NavBar';
+import { ToastContainer } from "react-toastify";
 
 import UserContext from "./Context/UserContext";
 
@@ -43,33 +44,15 @@ function App() {
 	return (
 		<div className="App">
 			<Router>
-				{!userData.user ? (
-					<nav className="navbar navbar-expand-lg navbar-light">
-						<ul className="navbar-nav mr-auto">
-							<li class="nav-item">
-								<Link to="/login">Login</Link>
-							</li> 
-							<li class="nav-item">
-								<Link to="/register">Register</Link>
-							</li>	
-					   </ul>
-					</nav>
-				) : (
-					<nav className="navbar navbar-expand-lg navbar-light">
-					<Link to="/" onClick={logout}>
-						Logout
-					</Link>
-					</nav>
-				)}
-	
-
-				<UserContext.Provider value={{ userData, setUserData }}>
-	
-					<Switch>
-						<Route path="/login" component={Login} />
-						<Route path="/register" component={Register} />
-						<Route path="/" component={Home} />
-					</Switch>
+				<ToastContainer />
+  
+        		<UserContext.Provider value={{ userData, setUserData }}>
+        			<NavBar />
+						<Switch>
+							<Route path="/login" component={Login} />
+							<Route path="/register" component={Register} />
+							<Route path="/" component={Home} />
+						</Switch>
 				</UserContext.Provider>
 			</Router>
 		</div>

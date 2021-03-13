@@ -31,14 +31,15 @@ const NavBar = () => {
 	  }, [userData])
 
 
-
 	return (
-	<nav className="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-            <h2>My Pet</h2>
-            <ul className="navbar-nav mr-auto">
-              {links}
-            </ul>      
-	</nav>
+	<div>
+		<nav className="navbar navbar-light bg-light">
+				<a>My Pet</a>
+				<ul className="navbar-nav mr-auto">
+				{links}
+				</ul>      
+		</nav>
+	</div>
 	)
 };
 
