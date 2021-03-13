@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../Context/UserContext";
-import API from "../../../controllers/petController";
 
 //return data from user, append any saved pets as buttons
 //when a saved pets button is clicked ..routes to that pets dash
@@ -10,18 +9,18 @@ import API from "../../../controllers/petController";
 const Home = () => {
   const { userData } = useContext(UserContext);
   const history = useHistory();
-  const [pets, setUserPets] = useState([]);
+  // const [pets, setUserPets] = useState([]);
 
   //not sure if this is the way to go about getting users pets?
-  function loadUserPets(userID) {
-    API.getPetsByUser(userID)
-      .then((res) => setUserPets(res.data))
-      .catch((err) => res.send(err));
-  }
+  // function loadUserPets(userID) {
+  //   API.getPetsByUser(userID)
+  //     .then((res) => setUserPets(res.data))
+  //     .catch((err) => res.send(err));
+  // }
 
-  useEffect(() => {
-    loadUserPets();
-  }, []);
+  // useEffect(() => {
+  //   loadUserPets();
+  // }, []);
 
   useEffect(() => {
     if (!userData.user) history.push("/login");
@@ -35,7 +34,11 @@ const Home = () => {
           <div className="header-styles">
             <h2 className="myPet-header">My Pet</h2>
           </div>
-          {pets.length ? (
+          {/* placeholder button for now */}
+          <button type="button" className="saved-pet-btn btn">
+            Georgina
+          </button>
+          {/* {pets.length ? (
             <ul>
               {pets.map((pet) => (
                 <li className="pet-list" key={pet.id}>
@@ -47,7 +50,7 @@ const Home = () => {
             </ul>
           ) : (
             <h2>Click the "+" to add your pets!</h2>
-          )}
+          )} */}
         </div>
       </div>
       <div className="add-new-pet">
