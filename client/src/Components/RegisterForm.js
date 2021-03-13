@@ -18,7 +18,7 @@ const LoginForm = () => {
 			  try {
 				console.log(form);
 				const newUser = await axios.post("/users/register", form);
-				history.push('/confirmation')
+				history.push('/login')
 			  } catch (err) {
 				toast.error(err.response);
 			  }
@@ -44,7 +44,7 @@ const LoginForm = () => {
 						</div>
 						<div className="form-group">
 							<label>Password Check</label>
-							<input onChange={onChange} type="passwordCheck" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+							<input onChange={onChange} type="password" name="passwordCheck" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
 						</div>
 
 							<button  type="submit">Register</button>
