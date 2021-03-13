@@ -1,14 +1,14 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../Context/UserContext";
+import UserContext from "../Context/UserContext";
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
-    if (!userData.user) history.push("./login");
+    if (!userData.user) history.push("/");
   }, [userData.user, history]);
 
   return (
