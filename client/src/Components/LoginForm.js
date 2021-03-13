@@ -17,6 +17,7 @@ const LoginForm = () => {
     try {
       const { data } = await axios.post("/users/login", form);
 
+	//   confirmation logic starts here
       if (!data.user.confirmed) {
         history.push("/confirm");
       } else {

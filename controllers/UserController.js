@@ -2,6 +2,9 @@ require("dotenv").config();
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const Confirm = require("../models/confirmModel");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 module.exports = {
   register: async (req, res) => {
@@ -38,6 +41,18 @@ module.exports = {
         password: passwordHash,
         displayName,
       });
+
+      // confirmation with email starts here
+      const confirmationToken = new Confirm({
+        token: crypto.randomBytes(10).toString("hex"),
+        userID: newUser._id,
+      });
+
+      console.log(confirmationToken)
+
+      const transporter = nodemailer.createTransport({
+        
+      })
 
       const savedUser = await newUser.save();
       res.json(savedUser);
