@@ -4,13 +4,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-import Confirm from "./Pages/Confirm"
+import Confirm from "./Pages/Confirm";
+import Confirmed from "./Pages/Confirmed";
 import PetDash from "./Pages/PetDash";
-import NavBar from './Components/NavBar';
+import NavBar from "./Components/NavBar";
 import { ToastContainer } from "react-toastify";
 
 import UserContext from "./Context/UserContext";
-
 
 function App() {
   const [userData, setUserData] = useState({
@@ -44,24 +44,25 @@ function App() {
     checkLoggedIn();
   }, []);
 
-	return (
-		<div className="App">
-			<Router>
-				<ToastContainer />
-  
-        		<UserContext.Provider value={{ userData, setUserData }}>
-        			<NavBar />
-						<Switch>
-							<Route path="/login" component={Login} />
-							<Route path="/register" component={Register} />
-              <Route path="/petDash" component={PetDash} />
-              <Route path="/confirm" component={Confirm}/>
-							<Route path="/" component={Home} />
-						</Switch>
-				</UserContext.Provider>
-			</Router>
-		</div>
-	);
+  return (
+    <div className="App">
+      <Router>
+        <ToastContainer />
+
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <NavBar />
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/petDash" component={PetDash} />
+            <Route path="/confirm" component={Confirm} />
+            <Route path="/confirm_token/:token" component={Confirmed} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </UserContext.Provider>
+      </Router>
+    </div>
+  );
 }
 
 export default App;

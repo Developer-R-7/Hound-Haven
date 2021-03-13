@@ -62,17 +62,20 @@ module.exports = {
         from: "confirmmypet@gmail.com",
         to: newUser.email,
         subject: "Thanks for signing up",
-        text: `Click to confirm http://localhost:5000/confirm_token/${confirmationToken.token}`,
+        text: `Click to confirm http://localhost:3000/confirm_token/${confirmationToken.token}`,
       };
 
-      transporter.sendMail(mailOptions, (error, info)=>{
-        if(error){
-          console.log(error)
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
         } else {
-          console.log(`Email was sent: http://localhost:5000/confirm_token/${confirmationToken.token}`)
+          console.log(
+            `Email was sent: http://localhost:3000/confirm_token/${confirmationToken.token}`
+          );
         }
-      })
+      });
 
+      await confirmationToken.save();
       const savedUser = await newUser.save();
       res.json(savedUser);
     } catch (err) {
