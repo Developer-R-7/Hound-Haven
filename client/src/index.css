@@ -1,6 +1,7 @@
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family:'Single Day', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -11,3 +12,54 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* add new pet button styles */
+.btn-circle.btn-xl {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.add-pet-btn {
+  position: absolute;
+  width: 103px;
+  height: 102px;
+  left: 550px;
+  top: 500px;
+  background: #ff6464;
+}
+
+/* saved pet pet button styles */
+.saved-pet-btn {
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 450px;
+  top: 215px;
+  background: #ff9999;
+}
+
+/* "My Pet" header styles */
+
+.myPet-header {
+  position: absolute;
+  width: 322px;
+  height: 40px;
+  left: 420px;
+  top: 150px;
+  background: #c4c4c4;
+  text-align: center;
+}
+
+.pets-container {
+  position: relative;
+  width: 1438px;
+  height: 1024px;
+  position: relative;
+  width: 1438px;
+  height: 1024px;
+}
+
