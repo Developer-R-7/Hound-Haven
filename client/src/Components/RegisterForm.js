@@ -46,9 +46,11 @@ const LoginForm = () => {
 							<label>Password Check</label>
 							<input onChange={onChange} type="password" name="passwordCheck" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
 						</div>
-
-							<button  type="submit">Register</button>
-						
+						<div className="form-group">
+							<label>Password Check</label>
+							<input onChange={onChange} type="text" name="displayName" className="form-control" id="exampleInputPassword1" placeholder="Preferred Name"/>
+						</div>
+							<button  type="submit">Register</button>	
 					
 					</form>
 				</div>
