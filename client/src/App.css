@@ -1,38 +1,49 @@
-.App {
+/* add new pet button styles */
+.btn-circle.btn-xl {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.add-pet-btn {
+  position: absolute;
+  width: 103px;
+  height: 102px;
+  left: 550px;
+  top: 500px;
+  background: #ff6464;
+}
+
+/* saved pet pet button styles */
+.saved-pet-btn {
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 450px;
+  top: 215px;
+  background: #ff9999;
+}
+
+/* "My Pet" header styles */
+
+.myPet-header {
+  position: absolute;
+  width: 322px;
+  height: 40px;
+  left: 420px;
+  top: 150px;
+  background: #c4c4c4;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pets-container {
+  position: relative;
+  width: 1438px;
+  height: 1024px;
+  position: relative;
+  width: 1438px;
+  height: 1024px;
 }
