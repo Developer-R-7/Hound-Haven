@@ -4,11 +4,26 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 require('./models/mongoConnection');
+const socketIo = require('socket.io');
+const cors = require("cors");
 
+
+// testing Socket.io
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
 
 // setup express
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 
 // setup routes
