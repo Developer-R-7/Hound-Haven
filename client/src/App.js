@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
+import NavBar from './Components/NavBar';
+import { ToastContainer } from "react-toastify";
+
 import UserContext from "./Context/UserContext";
 import PetDash from "./Pages/PetDash";
 
@@ -39,30 +42,23 @@ function App() {
     checkLoggedIn();
   }, []);
 
-  return (
-    <div className="App">
-      <Router>
-        {!userData.user ? (
-          <>
-            <Link to="/login">Login</Link> <Link to="/register">Register</Link>
-          </>
-        ) : (
-          <Link to="/" onClick={logout}>
-            Logout
-          </Link>
-        )}
-
-        <UserContext.Provider value={{ userData, setUserData }}>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/petDash" component={PetDash} />
-            <Route path="/" component={Home} />
-          </Switch>
-        </UserContext.Provider>
-      </Router>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Router>
+				<ToastContainer />
+  
+        		<UserContext.Provider value={{ userData, setUserData }}>
+        			<NavBar />
+						<Switch>
+							<Route path="/login" component={Login} />
+							<Route path="/register" component={Register} />
+              <Route path="/petDash" component={PetDash} />
+							<Route path="/" component={Home} />
+						</Switch>
+				</UserContext.Provider>
+			</Router>
+		</div>
+	);
 }
 
 export default App;
