@@ -48,11 +48,22 @@ module.exports = {
         userID: newUser._id,
       });
 
-      console.log(confirmationToken)
+      console.log(confirmationToken);
 
       const transporter = nodemailer.createTransport({
-        
-      })
+        service: "gmail",
+        auth: {
+          user: "confirmmypet@gmail.com",
+          pass: process.env.EPASS,
+        },
+      });
+
+      const mailOptions = {
+        from: "confirmmypet@gmail.com",
+        to: newUser.email,
+        subject: "Thanks for signing up",
+        text: `Click to confirm http://localhost:5000/confirm_token/${confirmationToken.token}`,
+      };
 
       const savedUser = await newUser.save();
       res.json(savedUser);
