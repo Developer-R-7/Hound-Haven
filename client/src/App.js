@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
+import NavBar from './Components/NavBar';
 
 import UserContext from "./Context/UserContext";
 
@@ -43,16 +44,27 @@ function App() {
 		<div className="App">
 			<Router>
 				{!userData.user ? (
-					<>
-						<Link to="/login">Login</Link> <Link to="/register">Register</Link>
-					</>
+					<nav className="navbar navbar-expand-lg navbar-light">
+						<ul className="navbar-nav mr-auto">
+							<li class="nav-item">
+								<Link to="/login">Login</Link>
+							</li> 
+							<li class="nav-item">
+								<Link to="/register">Register</Link>
+							</li>	
+					   </ul>
+					</nav>
 				) : (
+					<nav className="navbar navbar-expand-lg navbar-light">
 					<Link to="/" onClick={logout}>
 						Logout
 					</Link>
+					</nav>
 				)}
+	
 
 				<UserContext.Provider value={{ userData, setUserData }}>
+	
 					<Switch>
 						<Route path="/login" component={Login} />
 						<Route path="/register" component={Register} />
