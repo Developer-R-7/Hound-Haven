@@ -7,7 +7,7 @@ module.exports = {
       const confirmation = await Confirm.findOne({ token: req.body.token });
       console.log(confirmation.userID);
 
-      const confirmedUser = await User.findById(confirmation.userId);
+      const confirmedUser = await User.findById(confirmation.userID);
 
       confirmedUser.confirmed = true;
       confirmedUser.save();
