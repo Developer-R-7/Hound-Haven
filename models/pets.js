@@ -56,6 +56,7 @@ const petSchema = new mongoose.Schema({
 	],
 	ParentID: {
 		type: String,
+		required: true,
 	},
 });
 
