@@ -1,37 +1,24 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useContext, useEffect } from "react";
+import UserContext from "../Context/UserContext.js";
+import { useHistory } from "react-router-dom";
+import RegisterForm from "../Components/RegisterForm.js";
+import About from "../Components/About.js";
 
 const Register = () => {
-	const [form, setForm] = useState();
-
-	const onChange = (e) => {
-		setForm({ ...form, [e.target.name]: e.target.value });
-	};
-
-	const submit = async (e) => {
-		e.preventDefault();
-
-		try {
-			const newUser = await axios.post("/users/register", form);
-			console.log(newUser);
-		} catch (err) {
-			console.log(err.response);
-		}
-	};
+	const { userData, setUserData } = useContext(UserContext);
+	const history = useHistory();
+	useEffect(() => {
+		if (userData.user) history.push("/");
+	}, [userData.user, history]);
 
 	return (
 		<div>
-			<form onSubmit={submit}>
-				<label>Email</label>
-				<input onChange={onChange} type="text" name="email" />
-				<label>Password</label>
-				<input onChange={onChange} type="text" name="password" />
-				<label>Password Check</label>
-				<input onChange={onChange} type="text" name="passwordCheck" />
-				<label>Display Name</label>
-				<input onChange={onChange} type="text" name="displayName" />
-				<input type="submit" />
-			</form>
+			<div className="container-fluid">
+				<div className="row align-items-center ">
+				<About />	
+				<RegisterForm />			
+				</div>
+			</div>
 		</div>
 	);
 };
