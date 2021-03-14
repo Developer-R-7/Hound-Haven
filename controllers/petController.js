@@ -10,7 +10,7 @@ module.exports = {
   getPetsByUser: async (req, res) => {
     //verified code works
     Pets.find({
-      userID: req.params.id,
+      ParentID: req.params.id,
     })
       .then((dbPets) => res.json(dbPets))
       .catch((err) => res.status(400).json(err));
