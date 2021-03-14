@@ -19,7 +19,7 @@ const PetDash = () => {
       <div className="container">
         <div className="row">
           <div className="col-sm-3">
-            <div className="card">
+            <div className="card m-2">
               <img
                 src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081"
                 className="card-img-top"
@@ -40,40 +40,46 @@ const PetDash = () => {
           </div>
           <div className="col-sm-9">
             <div className="row">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    With supporting text below as a natural lead-in to
-                    additional content.
+              <div className="card m-2">
+                <div className="card-body">
+                  <h2 className="card-title">Weight Chart</h2>
+                  <p className="card-text">
+                    Graph goes here
                   </p>
-                  <a href="#" class="btn btn-primary">
-                    Button
-                  </a>
+                  <button
+                    style={buttonStyle}
+                    className=" btn btn-circle btn-xl"
+                  >
+                    Edit
+                  </button>
                 </div>
               </div>{" "}
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    With supporting text below as a natural lead-in to
-                    additional content.
+              <div className="card m-2">
+                <div className="card-body">
+                  <h2 className="card-title">Vet Visits</h2>
+                  <p className="card-text">
+                    Vet dates with notes go here
                   </p>
-                  <a href="#" class="btn btn-primary">
-                    Button
-                  </a>
+                  <button
+                    style={buttonStyle}
+                    className=" btn btn-circle btn-xl"
+                  >
+                    Edit
+                  </button>
                 </div>
               </div>{" "}
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    With supporting text below as a natural lead-in to
-                    additional content.
+              <div className="card m-2">
+                <div className="card-body">
+                  <h2 className="card-title">Medications</h2>
+                  <p className="card-text">
+                   Medication name, dose, frequency go here
                   </p>
-                  <a href="#" class="btn btn-primary">
-                    Button
-                  </a>
+                  <button
+                    style={buttonStyle}
+                    className=" btn btn-circle btn-xl"
+                  >
+                    Edit
+                  </button>
                 </div>
               </div>
             </div>
