@@ -56,8 +56,8 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
 
-            {/* <Route path="/confirm" component={Confirm} />
-            <Route path="/confirm_token/:token" component={Confirmed} /> */}
+            <Route path="/confirm" component={Confirm} />
+            <Route path="/confirm_token/:token" component={Confirmed} />
             <Route path="/" component={Home} />
           </Switch>
         </UserContext.Provider>
