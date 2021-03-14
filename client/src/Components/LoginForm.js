@@ -17,18 +17,26 @@ const LoginForm = () => {
     try {
       const { data } = await axios.post("/users/login", form);
 
-	//   confirmation logic starts here
-      if (!data.user.confirmed) {
-        history.push("/confirm");
-      } else {
-        setUserData({
-          token: data.token,
-          user: data.user,
-        });
+      //   confirmation logic starts here
+      // if (!data.user.confirmed) {
+      //   history.push("/confirm");
+      // } else {
+      //   setUserData({
+      //     token: data.token,
+      //     user: data.user,
+      //   });
 
-        localStorage.setItem("auth-token", data.token);
-        history.push("/");
-      }
+      //   localStorage.setItem("auth-token", data.token);
+      //   history.push("/");
+      // }
+
+      setUserData({
+        token: data.token,
+        user: data.user,
+      });
+
+      localStorage.setItem("auth-token", data.token);
+      history.push("/");
     } catch (err) {
       console.log("err", err.response);
       toast.error(err.response.data.msg);
