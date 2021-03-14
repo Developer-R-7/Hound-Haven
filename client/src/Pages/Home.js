@@ -40,7 +40,16 @@ const Home = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log("hey");
+    // console.log("hey");
+    // <Link to={{ 
+    //   pathname: "/petDash", 
+    //   state: petDash 
+    //  }}>
+    //  </Link>
+    //console.log(petData)
+     petData && history.push({
+      pathname:"/petDash", 
+      state: {info: petData}});
   }, [petData]);
 
   const routePet = async (e, id) => {
