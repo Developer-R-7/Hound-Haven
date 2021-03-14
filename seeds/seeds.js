@@ -20,18 +20,21 @@ const newUser1 = new User({
 	email: "seed1@admin.com",
 	password: "password",
 	displayName: "Steve",
+	confirmed: true,
 });
 
 const newUser2 = new User({
 	email: "seed2@admin.com",
 	password: "password",
 	displayName: "Kim",
+	confirmed: true,
 });
 
 const newUser3 = new User({
 	email: "seed3@admin.com",
 	password: "password",
 	displayName: "John",
+	confirmed: true,
 });
 
 const newPet1 = new Pet({
