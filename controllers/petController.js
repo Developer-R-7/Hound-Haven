@@ -40,4 +40,24 @@ module.exports = {
         res.status(400).json(err);
       });
   },
+  addPetMed: (req, res) => {
+    let pet_id = req.params.id;
+    console.log("body",req)
+    pet_id.trim(); //make sure no spaces
+    //findOneAndUpdate(filter, update, options)
+    Pets.findOneAndUpdate(
+        {_id: pet_id}, // filter
+        {
+            $push: {
+                Medications: req.body
+        }},//update
+        {new: true}//options
+    )
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+      }       
 };

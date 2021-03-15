@@ -38,6 +38,7 @@ const petSchema = new mongoose.Schema({
 			},
 			DueDate: {
 				type: Date,
+				default: Date.now
 			},
 			Dose: {
 				type: String,

@@ -64,7 +64,6 @@ const AddMeds = (props) => {
 				name="numDoses"
 				className="form-control"
 				placeholder="Number of Doses"
-				value={1}
       			min={1} 
 				max={90}
 			/>
@@ -77,7 +76,6 @@ const AddMeds = (props) => {
 				name="frequency"
 				className="form-control"
 				placeholder="Interval in days"
-				value={1}
       			min={1}
 				max={365}  
 			/>
