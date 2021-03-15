@@ -32,6 +32,9 @@ code {
   background: #ff6464;
 }
 
+.btn {
+  background: #ff9999; 
+}
 /* saved pet pet button styles */
 .saved-pet-btn {
   position: relative;
