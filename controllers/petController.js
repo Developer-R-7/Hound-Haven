@@ -40,4 +40,61 @@ module.exports = {
         res.status(400).json(err);
       });
   },
+  addPetMed: (req, res) => {
+    let pet_id = req.params.id;
+    pet_id.trim(); //make sure no spaces
+    //findOneAndUpdate(filter, update, options)
+    Pets.findOneAndUpdate(
+        {_id: pet_id}, // filter
+        {
+            $push: {
+                Medications: req.body
+        }},//update
+        {new: true}//options
+    )
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+      },
+      addPetVisit: (req, res) => {
+        let pet_id = req.params.id;
+        pet_id.trim(); //make sure no spaces
+        //findOneAndUpdate(filter, update, options)
+        Pets.findOneAndUpdate(
+            {_id: pet_id}, // filter
+            {
+                $push: {
+                    VetVisits: req.body
+            }},//update
+            {new: true}//options
+        )
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.status(400).json(err);
+            });
+          },
+      addPetVital: (req, res) => {
+        let pet_id = req.params.id;
+        pet_id.trim(); //make sure no spaces
+        //findOneAndUpdate(filter, update, options)
+        Pets.findOneAndUpdate(
+            {_id: pet_id}, // filter
+            {
+                $push: {
+                    Vitals: req.body
+            }},//update
+            {new: true}//options
+        )
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.status(400).json(err);
+            });
+          }         
 };

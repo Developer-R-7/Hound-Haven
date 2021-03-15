@@ -5,6 +5,8 @@ import Moment from 'react-moment'
 import ReactDOM from 'react-dom';
 import AddMeds from "./Modals/AddMeds";
 import { Button, Modal } from "react-bootstrap";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 
 
@@ -30,28 +32,40 @@ const Medications = (props) => {
     console.log(meds);
 
     const  handleAddMed = async (e, form) => {
-        let medName = form.addMedForm.medication.value;
-        let medDate = form.addMedForm.startDate.value;
-        let medFreq = form.addMedForm.frequency.value;
-        let medNmDosrs = form.addMedForm.numDoses.value;
-        let medDose = form.addMedForm.dose.value;
-        if (medDose === 1){
-        setAddMed({
-            MedicationName: medName,
-            DueDate: medDate,
-            Dose: medDose
-        })
-        console.log(addMed)
-        }
-
-        
         e.preventDefault();
         //show the modal dialog
         //get the dialog from the form
         //do the calclations and add the medications
-  
+
+        let medName = form.addMedForm.medication.value;
+        let medDate = form.addMedForm.startDate.value;
+        // let medFreq = form.addMedForm.frequency.value;
+        // let medNmDoses = form.addMedForm.numDoses.value;
+        let medDose = form.addMedForm.dose.value;
+        
+        const vals = {
+            MedicationName: medName,
+            DueDate: medDate,
+            Dose: medDose
+        }
     
-    }
+         try {
+			console.log("trying", vals);
+            let url=`/api/addpetmed/${petId}`;
+            console.log(url)
+			let resp = await axios.put(url, vals,
+            { headers: { "x-auth-token": localStorage.getItem("auth-token") } });
+            handleClose();
+            console.log(resp)
+		} catch (err) {
+            console.log(err)
+			toast.error(err.response);
+		}
+      
+        
+        }
+
+    
     const updateMed = async (e,meid) => {
         e.preventDefault();
         //show the modal dialog
@@ -60,7 +74,6 @@ const Medications = (props) => {
         console.log('button to update medication',meid)
     }
    
-
     const buttonStyle = {
         backgroundColor: "rgb(255, 100, 100)",
     };

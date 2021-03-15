@@ -25,6 +25,7 @@ const NavBar = () => {
 				<li className="nav-item active"><Link to="/notify" >
 				</Link></li>	
 				<li className="nav-item active"><Link to="/" onClick={logout} >Logout</Link></li>
+				<li className="nav-item active"><Link to="/home" >Home</Link></li>
 			  </Fragment>
 			)
 		  }       
