@@ -44,33 +44,19 @@ const createPet = async(newUser,pet) => {
 		Gender: pet.gender,
 		TypeOfPet: pet.type,
 		Breed: pet.breed,
-		VetVisits: [
-			{
-				VisitDate: pet.vdate,
-			},
-			{
+		VetVisits: [{
+				VisitDate: pet.vdate,	
 				VisitNotes:pet.vnote,
-			},
-		],
-		Medications: [
-			{
+		}],
+		Medications: [{
 				MedicationName: pet.med,
-			},
-			{
 				DueDate: pet.mdate,
-			},
-			{
 				Dose: pet.mdose,
-			},
-		],
-		Vitals: [
-			{
+			}],
+		Vitals: [{
 				Date: pet.vidate,
-			},
-			{
 				Weight: pet.viweight,
-			},
-		],
+			}],
 		ParentID: newUser._id,
 	});
 
@@ -196,9 +182,7 @@ catch (err) {
 } 
 }
 
-
-
-addUsers();  
+addUsers()
 
 
 

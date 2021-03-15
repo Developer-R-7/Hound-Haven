@@ -2,6 +2,7 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { useHistory,useLocation } from "react-router-dom";
 import UserContext from "../Context/UserContext";
+import VetVisits from "../Components/VetVisits";
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
@@ -67,20 +68,9 @@ const PetDash = () => {
                   </button>
                 </div>
               </div>{" "}
-              <div className="card m-2">
-                <div className="card-body">
-                  <h2 className="card-title">Vet Visits</h2>
-                  <p className="card-text">
-                    Vet dates with notes go here
-                  </p>
-                  <button
-                    style={buttonStyle}
-                    className=" btn btn-circle btn-xl"
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>{" "}
+           
+                    {data && <VetVisits vists={data.VetVisits} />}
+          
               <div className="card m-2">
                 <div className="card-body">
                   <h2 className="card-title">Medications</h2>
