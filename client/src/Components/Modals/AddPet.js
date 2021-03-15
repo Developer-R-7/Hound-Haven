@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const AddPet = () => {
+	//state for new pet data to be added
+	const [newPet, setnewPet] = useState(null);
+
+	//handle change of form data to be set for newPet state
+	const handleChange = (e) => {
+		setnewPet({ ...newPet, [e.target.name]: e.target.value });
+	};
+
+	//handel save button to add a new pet to db
+	const saveNewPet = async (e) => {
+		e.preventDefault();
+		try {
+			const pet = await axios.post("/api/pet", newPet, {
+				headers: { "x-auth-token": localStorage.getItem("auth-token") },
+			});
+			console.log(pet);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<div className="modal" id="addAPetModal" tabIndex="-1">
 			<div className="modal-dialog modal-lg">
@@ -36,32 +58,61 @@ const AddPet = () => {
 										}}
 									/>
 								</div>
-								<input type="file" accept="image/*" multiple="false" />
+								<input
+									onChange={handleChange}
+									type="file"
+									accept="image/*"
+									multiple="false"
+									name="PetImageLoc"
+								/>
 							</div>
 							<p></p>
 							<div className="form-group">
-								<input placeholder="Pet name" name="PetName" type="text" />
+								<input
+									onChange={handleChange}
+									placeholder="Pet name"
+									name="PetName"
+									type="text"
+								/>
 							</div>
 							<div className="form-group">
 								<label>Birth Date</label>
 								<br />
-								<input placeholder="Birth Date" name="BirthDate" type="date" />
+								<input
+									onChange={handleChange}
+									placeholder="Birth Date"
+									name="BirthDate"
+									type="date"
+								/>
 							</div>
 							<div className="form-group">
 								<input
-									id="test"
+									onChange={handleChange}
 									placeholder="Gender"
 									name="Gender"
 									type="text"
 								/>
 							</div>
 							<div className="form-group">
-								<input placeholder="Type" name="TypeOfPet" type="text" />
+								<input
+									onChange={handleChange}
+									placeholder="Type"
+									name="TypeOfPet"
+									type="text"
+								/>
+							</div>
+							<div className="form-group">
+								<input
+									onChange={handleChange}
+									placeholder="Breed"
+									name="Breed"
+									type="text"
+								/>
 							</div>
 						</form>
 					</div>
-					<div className="modal-footer">
-						<button type="button" className="btn btn-primary">
+					<div onClick={saveNewPet} className="modal-footer">
+						<button type="submit" className="btn btn-primary">
 							Save Pet
 						</button>
 					</div>
