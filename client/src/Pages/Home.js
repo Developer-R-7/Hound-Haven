@@ -19,13 +19,17 @@ const Home = () => {
 
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
+    console.log(user);
+    let url =   `/api/getpetbyuser/${user}`
+    let token = localStorage.getItem("auth-token")
+    console.log(url);
+    console.log(token);
     try {
-      const { data } = await axios.get(
-        `/api/getpetbyuser/${user}`,
-
+      const { data } = await axios.get(url,
         { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
       );
       data && setUserPets(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +44,9 @@ const Home = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log("hey");
+     petData && history.push({
+      pathname:"/petDash", 
+      state: {info: petData}});
   }, [petData]);
 
   const routePet = async (e, id) => {

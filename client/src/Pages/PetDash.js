@@ -1,15 +1,27 @@
 import React from "react";
-import { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useHistory,useLocation } from "react-router-dom";
 import UserContext from "../Context/UserContext";
+import VetVisits from "../Components/VetVisits";
+import Medications from "../Components/Medications";
+import PetVitals from "../Components/PetVitals";
+import Moment from 'react-moment'
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
+  const [data,setData] =  useState()
   const history = useHistory();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   if (!userData.user) history.push("/login");
-  // }, [userData.user, history]);
+  useEffect(() => {
+    console.log(location.state.info); 
+    setData(location.state.info) // petdata
+ }, [location]);
+
+
+  useEffect(() => {
+    if (!userData.user) history.push("/");
+  }, [userData.user, history]);
 
   const buttonStyle = {
     backgroundColor: "rgb(255, 100, 100)",
@@ -18,19 +30,26 @@ const PetDash = () => {
     <div className="container-fluid">
       <div className="container">
         <div className="row">
+          {data &&
           <div className="col-sm-3">
+          
             <div className="card m-2">
               <img
-                src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081"
+                src={data.PetImageLoc}
                 className="card-img-top"
                 alt="petImage"
               ></img>
-              <div className="card-body">
-                <h1 className="card-title">Pet Info</h1>
-                <h4 className="card-title">Name</h4>
-                <h4 className="card-title">Birthday</h4>
-                <h4 className="card-title">Gender</h4>
-                <h4 className="card-title">Breed</h4>
+
+              <div className="card-body text-center">
+                <h1 className="card-title">{data.PetName}</h1>
+                <h4 className="card-title">
+                  Birth Date: &nbsp;  
+                  <Moment format="MM/DD/YYYY">
+                    {data.BirthDate}
+                  </Moment>
+                </h4>
+                <h4 className="card-title">{data.Gender}</h4>
+                <h4 className="card-title">{data.Breed}</h4>
 
                 <button style={buttonStyle} className="btn">
                   Edit
@@ -38,50 +57,15 @@ const PetDash = () => {
               </div>
             </div>
           </div>
+          }
           <div className="col-sm-9">
             <div className="row">
-              <div className="card m-2">
-                <div className="card-body">
-                  <h2 className="card-title">Weight Chart</h2>
-                  <p className="card-text">
-                    Graph goes here
-                  </p>
-                  <button
-                    style={buttonStyle}
-                    className=" btn btn-circle btn-xl"
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>{" "}
-              <div className="card m-2">
-                <div className="card-body">
-                  <h2 className="card-title">Vet Visits</h2>
-                  <p className="card-text">
-                    Vet dates with notes go here
-                  </p>
-                  <button
-                    style={buttonStyle}
-                    className=" btn btn-circle btn-xl"
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>{" "}
-              <div className="card m-2">
-                <div className="card-body">
-                  <h2 className="card-title">Medications</h2>
-                  <p className="card-text">
-                   Medication name, dose, frequency go here
-                  </p>
-                  <button
-                    style={buttonStyle}
-                    className=" btn btn-circle btn-xl"
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>
+
+            {data && <PetVitals petId={data._id} vitals={data.Vitals} />}
+            {data && <VetVisits  petId={data._id}  vists={data.VetVisits} />}
+            {data && <Medications  petId={data._id} meds={data.Medications} />}
+          
+    
             </div>
           </div>
         </div>
