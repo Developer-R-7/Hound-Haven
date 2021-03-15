@@ -56,7 +56,8 @@ const AddMeds = (props) => {
 				placeholder="Enter Medication Name"
 			/>
 		</div>
-		<div className="form-group">
+		{/* /////// IF WE DECIDE TO CALCULATE DOSES NEED THIS 
+		    <div className="form-group">
 			<label>Number of Doses</label>
 			<input
 				onChange={onChange}
@@ -83,7 +84,7 @@ const AddMeds = (props) => {
 				Maximum is 365 days (1 year)
 			</small>
 		</div>
-		
+		 */}
 		<div className="form-group">
 			<label>Start Date</label>
 			<input

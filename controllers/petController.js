@@ -42,7 +42,6 @@ module.exports = {
   },
   addPetMed: (req, res) => {
     let pet_id = req.params.id;
-    console.log("body",req)
     pet_id.trim(); //make sure no spaces
     //findOneAndUpdate(filter, update, options)
     Pets.findOneAndUpdate(

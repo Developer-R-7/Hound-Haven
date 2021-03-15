@@ -39,8 +39,8 @@ const Medications = (props) => {
 
         let medName = form.addMedForm.medication.value;
         let medDate = form.addMedForm.startDate.value;
-        let medFreq = form.addMedForm.frequency.value;
-        let medNmDoses = form.addMedForm.numDoses.value;
+        // let medFreq = form.addMedForm.frequency.value;
+        // let medNmDoses = form.addMedForm.numDoses.value;
         let medDose = form.addMedForm.dose.value;
         
         const vals = {
@@ -55,6 +55,7 @@ const Medications = (props) => {
             console.log(url)
 			let resp = await axios.put(url, vals,
             { headers: { "x-auth-token": localStorage.getItem("auth-token") } });
+            handleClose();
             console.log(resp)
 		} catch (err) {
             console.log(err)
