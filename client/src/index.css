@@ -34,7 +34,7 @@ code {
 
 /* saved pet pet button styles */
 .saved-pet-btn {
-  position: absolute;
+  position: relative;
   width: 275px;
   height: 40px;
   left: 450px;

@@ -52,9 +52,10 @@ function App() {
         <UserContext.Provider value={{ userData, setUserData }}>
           <NavBar />
           <Switch>
+            <Route exact path="/petDash" component={PetDash} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/petDash" component={PetDash} />
+
             {/* <Route path="/confirm" component={Confirm} />
             <Route path="/confirm_token/:token" component={Confirmed} /> */}
             <Route path="/" component={Home} />
