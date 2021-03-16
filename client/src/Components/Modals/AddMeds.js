@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 
+
+const AddMeds = (props) => {
+    const petId = props.petId;
+	const [form, setForm] = useState({});
+
 	const onChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
@@ -76,5 +81,3 @@ import React, { useState } from "react";
 };
 
 export default AddMeds;
-
-
