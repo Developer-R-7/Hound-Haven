@@ -77,7 +77,7 @@ import { toast } from "react-toastify";
     
     return (
         <div className="card m-2">
-        <div className="card-body text-center">
+        <div className="card-body text-center ">
          <h3 className="card-title">Visits</h3>
                  <div class="pet-table">
                      <ul>
