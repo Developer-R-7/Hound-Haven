@@ -8,7 +8,7 @@
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "client": "npm start --prefix client",
     "start": "node server.js",
-    "seed": "node seeds/seeds.js"
+    "seed": "node seeds/seeds1.js"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +23,14 @@
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.11.18",
+    "morgan": "^1.10.0",
     "nodemailer": "^6.5.0",
+    "react-bootstrap": "^1.5.2",
+    "react-modal": "^3.12.1",
+    "react-moment": "^1.1.1",
+    "react-simple-hook-modal": "^1.1.0",
     "react-toastify": "^7.0.3",
     "socket.io": "^4.0.0",
     "util": "^0.12.3"
