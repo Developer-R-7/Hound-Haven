@@ -1,51 +1,19 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
-import ReactDOM from "react-dom";
-import { Button, Modal } from "react-bootstrap";
-
-
-
 
 
 const AddMeds = (props) => {
     const petId = props.petId;
-	const history = useHistory();
 	const [form, setForm] = useState({});
-	const [isOpen, setIsOpen] = useState(true);
-	const [show, setShow] = useState(false);
-
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
-
-
 
 	const onChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
 
-	const submit = async (e) => {
-		e.preventDefault();
-		try {
-			console.log(form);
-			//const newUser = await axios.post(`/api/updatepet/${petId}`, form);
-			//history.push("/login");
-		} catch (err) {
-			toast.error(err.response);
-		}
-		//}
-	};
-
-	function toggleModal() {
-		history.goBack();
-	  }
-
 
   return (
 	  
 	<div className="col-md-6">
-	<form onSubmit={submit} name='addMedForm'>
+	<form name='addMedForm'>
 		<div className="form-group">
 			<label>Medication Namel</label>
 			<input
@@ -113,5 +81,3 @@ const AddMeds = (props) => {
 };
 
 export default AddMeds;
-
-
