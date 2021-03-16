@@ -87,7 +87,7 @@ const Medications = (props) => {
     
     return (
         <div className="card m-2">
-           <div className="card-body text-center">
+           <div className="card-body text-center ">
             <h3 className="card-title">Medications</h3>
                     <div class="pet-table">
                         <ul>

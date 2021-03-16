@@ -74,3 +74,10 @@ code {
   height: 1024px;
 }
 
+.navbar,.footer{
+  background-color: #FFC2C2;
+}
+
+.height{
+  height: 250px;
+}
