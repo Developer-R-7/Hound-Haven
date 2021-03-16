@@ -1,8 +1,6 @@
 import React from "react";
-import { useContext, useEffect, useState } from "react";
-import { useHistory,useLocation } from "react-router-dom";
+import { useState } from "react";
 import Moment from 'react-moment'
-import ReactDOM from 'react-dom';
 import AddMeds from "./Modals/AddMeds";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
@@ -25,11 +23,18 @@ const Medications = (props) => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	// const onChange = (e) => {
-	// 	setForm({ ...form, [e.target.name]: e.target.value });
-	// };
+    //sort descending so the newest one on the top
+    meds.sort(function(a, b){
+        var nameA=a.DueDate, nameB=b.DueDate
+        if (nameA < nameB) //sort string ascending
+            return 1
+        if (nameA > nameB)
+            return -1
+        return 0 //default return value (no sorting)
+    })
 
-    console.log(meds);
+ 
+
 
     const  handleAddMed = async (e, form) => {
         e.preventDefault();
@@ -39,6 +44,7 @@ const Medications = (props) => {
 
         let medName = form.addMedForm.medication.value;
         let medDate = form.addMedForm.startDate.value;
+        // these can be made available if we want the user to add medications that are needed for example monthly
         // let medFreq = form.addMedForm.frequency.value;
         // let medNmDoses = form.addMedForm.numDoses.value;
         let medDose = form.addMedForm.dose.value;
@@ -81,25 +87,27 @@ const Medications = (props) => {
     
     return (
         <div className="card m-2">
-           <div className="card-body text-center">
+           <div className="card-body text-center ">
             <h3 className="card-title">Medications</h3>
-               <ul>
-                {meds.map((med) => (
-                    <li
-                    onClick={(e) => updateMed(e)}
-                        key={med._id}
-                        className="pet-list btn">
-                        {med.MedicationName} &nbsp;
-                       Next Dose: &nbsp; 
-                        <span>
-                        <Moment format="MM/DD/YYYY">
-                            {med.DueDate}
-                        </Moment>
-                        </span> 
-                    </li>
-                    ))}
-                </ul>      
-
+                    <div class="pet-table">
+                        <ul>
+                            {meds.map((med) => (
+                                <li
+                                onClick={(e) => updateMed(e)}
+                                    key={med._id}
+                                    className="pet-list btn">
+                                    {med.MedicationName} &nbsp;
+                                Next Dose: &nbsp; 
+                                    <span>
+                                    <Moment format="MM/DD/YYYY">
+                                        {med.DueDate}
+                                    </Moment>
+                                    </span> 
+                                    &nbsp; {med.Dose}
+                                </li>
+                                ))}
+                            </ul>      
+                    </div>           
                 <button
                onClick={handleShow}
                     style={buttonStyle}

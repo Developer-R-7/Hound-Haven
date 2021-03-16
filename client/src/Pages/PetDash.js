@@ -26,8 +26,10 @@ const PetDash = () => {
   const buttonStyle = {
     backgroundColor: "rgb(255, 100, 100)",
   };
+
+
   return (
-    <div className="container-fluid">
+    <div className="container-fluid" style={{backgroundColor: "#9F939A"}}>
       <div className="container">
         <div className="row">
           {data &&
@@ -62,7 +64,7 @@ const PetDash = () => {
             <div className="row">
 
             {data && <PetVitals petId={data._id} vitals={data.Vitals} />}
-            {data && <VetVisits  petId={data._id}  vists={data.VetVisits} />}
+            {data && <VetVisits  petId={data._id}  visits={data.VetVisits} />}
             {data && <Medications  petId={data._id} meds={data.Medications} />}
           
     

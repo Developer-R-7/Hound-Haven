@@ -34,7 +34,7 @@ const NavBar = () => {
 
 	return (
 	<div>
-		<nav className="navbar navbar-light bg-light">
+		<nav className="navbar navbar-light">
 				<a>My Pet</a>
 				<ul className="navbar-nav mr-auto">
 				{links}
