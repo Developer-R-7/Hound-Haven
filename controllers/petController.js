@@ -49,11 +49,8 @@ module.exports = {
 		}
 	},
 	addPetMed: (req, res) => {
-		let pet_id = req.params.id;
-		pet_id.trim(); //make sure no spaces
-		//findOneAndUpdate(filter, update, options)
 		Pets.findOneAndUpdate(
-			{ _id: pet_id }, // filter
+			{ _id: req.params.id }, // filter
 			{
 				$push: {
 					Medications: req.body,
@@ -69,11 +66,8 @@ module.exports = {
 			});
 	},
 	addPetVisit: (req, res) => {
-		let pet_id = req.params.id;
-		pet_id.trim(); //make sure no spaces
-		//findOneAndUpdate(filter, update, options)
 		Pets.findOneAndUpdate(
-			{ _id: pet_id }, // filter
+			{ _id: req.params.id }, // filter
 			{
 				$push: {
 					VetVisits: req.body,
@@ -88,16 +82,12 @@ module.exports = {
 				res.status(400).json(err);
 			});
 	},
-	addPetVital: (req, res) => {
-		let pet_id = req.params.id;
-		pet_id.trim(); //make sure no spaces
-		//findOneAndUpdate(filter, update, options)
+	addPetReminder: (req, res) => {
 		Pets.findOneAndUpdate(
-			{ 		_id: petId, 
-				'Vitals._id': medI }, // filter
+			{ 		_id: params.id }, // filter
 			{
 				$push: {
-					Vitals: req.body,
+					Reminders: req.body,
 				}
 			}, //update
 			{ new: true } //options
@@ -127,16 +117,12 @@ module.exports = {
   updatePetVisit: async (req, res) => {
     	//findOneAndUpdate(filter, update, options)
       console.log(req.body);
-      let petId = req.params.id;
-      let visitId = req.params.visitid;
-      let visitDate = req.body.VisitDate;
-      let visitNotes = req.body.VisitNotes;
 		Pets.findOneAndUpdate({
-			_id: petId, 
-			'VetVisits._id': visitId			   
+			_id: req.params.id, 
+			'VetVisits._id': req.params.visitid			   
       },{ 
-		$set:{ 'VetVisits.$.VisitDate': visitDate,
-         'VetVisits.$.VisitNotes': visitNotes}},
+		$set:{ 'VetVisits.$.VisitDate': req.body.VisitDate,
+         'VetVisits.$.VisitNotes': req.body.VisitNotes}},
       { new: true,upsert: true,rawResult: true  }).exec()
 			.then((dbModel) => res.json(dbModel))
 			.catch((err) => res.status(422).json(err));
@@ -152,5 +138,17 @@ module.exports = {
    	})
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err))
-}
+},
+delPetVisit: async (req, res) => {
+	//findOneAndUpdate(filter, update, options)
+  console.log(req.body);
+	Pets.findOneAndUpdate({
+		_id: req.params.id, 
+		'VetVisits._id': req.params.visitid			   
+  },{ 
+	$pull: 'VetVisits.$'},
+  { new: true,upsert: true,rawResult: true  }).exec()
+		.then((dbModel) => res.json(dbModel))
+		.catch((err) => res.status(422).json(err));
+},
 };
