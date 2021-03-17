@@ -103,7 +103,7 @@ const Home = () => {
                       onClick={(e) => routePet(e, pet._id)}
                       key={pet._id}
                       type="button"
-                      className="pet-list saved-pet-btn btn"
+                      className="pet-list-btns saved-pet-btn btn"
                     >
                       {pet.PetName}
                     </button>

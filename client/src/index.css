@@ -1,15 +1,13 @@
-
 body {
   margin: 0;
-  font-family:'Single Day', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Single Day", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -32,8 +30,8 @@ code {
   background: #ff6464;
 }
 
-/* .pet-list {
-  background: #ff9999; 
+.pet-list {
+  background: #ff9999;
   display: table;
   list-style-type: none;
   width: 350px;
@@ -41,7 +39,7 @@ code {
   align-items: center;
   margin: 0 auto;
   margin-top: 10px;
-} */
+}
 
 /* saved pet pet button styles */
 .saved-pet-btn {
@@ -70,10 +68,11 @@ code {
   margin-bottom: 50px;
 }
 
-.navbar,.footer{
-  background-color: #FFC2C2;
+.navbar,
+.footer {
+  background-color: #ffc2c2;
 }
 
-.height{
+.height {
   height: 250px;
 }
