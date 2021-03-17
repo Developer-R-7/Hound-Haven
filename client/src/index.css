@@ -24,7 +24,7 @@ code {
 }
 
 .add-pet-btn {
-  position: absolute;
+  /* position: absolute; */
   width: 103px;
   height: 102px;
   left: 550px;
@@ -32,7 +32,7 @@ code {
   background: #ff6464;
 }
 
-.pet-list {
+/* .pet-list {
   background: #ff9999; 
   display: table;
   list-style-type: none;
@@ -41,36 +41,39 @@ code {
   align-items: center;
   margin: 0 auto;
   margin-top: 10px;
-}
+} */
 
 /* saved pet pet button styles */
 .saved-pet-btn {
-  position: relative;
+  /* position: relative; */
   width: 275px;
   height: 40px;
-  left: 450px;
-  top: 215px;
+  /* left: 450px;
+  top: 215px; */
   background: #ff9999;
 }
 
 /* "My Pet" header styles */
 
 .myPet-header {
-  position: absolute;
+  /* position: absolute; */
   width: 322px;
   height: 40px;
-  left: 420px;
-  top: 150px;
+  /* left: 420px;
+  top: 150px; */
   background: #c4c4c4;
   text-align: center;
 }
 
 .pets-container {
-  position: relative;
-  width: 1438px;
-  height: 1024px;
-  position: relative;
-  width: 1438px;
-  height: 1024px;
+  /* position: relative; */
+  margin-bottom: 50px;
 }
 
+.navbar,.footer{
+  background-color: #FFC2C2;
+}
+
+.height{
+  height: 250px;
+}

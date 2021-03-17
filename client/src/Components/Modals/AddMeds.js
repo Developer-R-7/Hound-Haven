@@ -81,5 +81,3 @@ const AddMeds = (props) => {
 };
 
 export default AddMeds;
-
-

@@ -9,6 +9,7 @@ import Confirmed from "./Pages/Confirmed";
 import PetDash from "./Pages/PetDash";
 import NavBar from "./Components/NavBar";
 import { ToastContainer } from "react-toastify";
+import Footer from "./Components/Footer";
 
 import UserContext from "./Context/UserContext";
 
@@ -60,6 +61,7 @@ function App() {
             <Route path="/confirm_token/:token" component={Confirmed} /> */}
             <Route path="/" component={Home} />
           </Switch>
+          <Footer/>
         </UserContext.Provider>
       </Router>
     </div>
