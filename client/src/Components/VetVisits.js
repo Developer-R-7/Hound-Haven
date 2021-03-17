@@ -22,13 +22,12 @@ import {  getPetData } from './Helpers/PetFunctions'
     },[modalData])
 
 
-    useEffect(() => {
-        setVisits(newData.VetVisits)
-
-    }, [newData]);  
-     
  
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+        setShow(false);
+        getPetData(petId)
+        .then(data => setVisits(data.VetVisits))
+    }
 	const handleShow = (e,data) => {
         if(e.target.name !== 'addVisitBtn') setModalData (data)
         setShow(true)
@@ -61,20 +60,25 @@ import {  getPetData } from './Helpers/PetFunctions'
 
      
     const postVisit = async (url, vals,petId) =>  {
+        let resp;
          try {
-			// console.log("trying", vals);
-            // console.log(url)
-			let resp = await axios.put(url, vals,
-            { headers: { "x-auth-token": localStorage.getItem("auth-token") } });
-            newData =  await getPetData(petId)
+			resp = await axios.put(url, vals,
+            { headers: { "x-auth-token": localStorage.getItem("auth-token") } });         
             handleClose();      
 		} catch (err) {
             console.log(err)
 			toast.error(err.response);
 		}
+
     
     }
     
+
+
+    useEffect(() => {
+       
+   }, [handleClose]);  
+
     const update = async (e,data) => {
         e.preventDefault();
         setModalData(data)
@@ -103,6 +107,8 @@ import {  getPetData } from './Helpers/PetFunctions'
         backgroundColor: "rgb(255, 100, 100)",
     };
     
+
+     
     return (
         <div className="card m-2">
         <div className="card-body text-center ">
