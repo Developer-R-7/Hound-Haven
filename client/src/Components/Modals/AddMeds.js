@@ -15,7 +15,7 @@ const AddMeds = (props) => {
 	<div className="col-md-6">
 	<form name='addMedForm'>
 		<div className="form-group">
-			<label>Medication Namel</label>
+			<label>Medication Name</label>
 			<input
 				onChange={onChange}
 				name="medication"
