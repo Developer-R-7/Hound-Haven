@@ -1,20 +1,38 @@
 //Function to get the petdata 
-import axios from 'axios';
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { Route, Link } from "react-router-dom";
 
 async function getPetData(petid) {
-   let data,id;
+   let data;
     try {
       const { data } = await axios.get(
         `/api/pet/${petid}`,
         { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
       );
-      console.log(id);
     } catch (error) {
       console.log(error);
     }
-
     return (data); 
 
   }  
 
-export{ getPetData }
+	const loadUserPets = async (user) => {
+    let data;
+		console.log(user);
+		let url = `/api/getpetbyuser/${user}`;
+		let token = localStorage.getItem("auth-token");
+		console.log(url);
+		console.log(token);
+		try {
+			const { data } = await axios.get(url, {
+				headers: { "x-auth-token": localStorage.getItem("auth-token") },
+			});
+		} catch (error) {
+			console.log(error);
+		}
+    return (data); 
+	};
+
+export{ getPetData, loadUserPets }

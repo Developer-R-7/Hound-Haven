@@ -10,13 +10,13 @@ const AddReminder = (props) => {
 
 	return(
 			<div className="col-md-6">
-			<form name='addVitalsForm'>
+			<form name='addReminderForm'>
 			<div className="form-group">
 					<label>Date</label>
 					<input
 						onChange={onChange}
 						type="date"
-						name="reminderDate"
+						name="date"
 						className="form-control"
 						placeholder="Date reminder needed"
 					/>
