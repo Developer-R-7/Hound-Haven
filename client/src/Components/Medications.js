@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import Moment from "react-moment";
 import AddMeds from "./Modals/AddMeds";
-import UpdateMeds from "./Modals/UpdateMeds";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -17,18 +16,11 @@ const Medications = (props) => {
   const [form, setForm] = useState({});
   const [isOpen, setIsOpen] = useState(true);
   const [show, setShow] = useState(false);
-  const [update, showUpdate] = useState(false);
-  const [medToUpdate, setUpdate] = useState();
+  const [modalData, setModalData] = useState(null);
+  const [existing, setExisting] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const updateHandleClose = () => showUpdate(false);
-  const updateHandleShow = (e, med) => {
-    showUpdate(true);
-    console.log(med);
-    setUpdate(med);
-  };
 
   //sort descending so the newest one on the top
   meds.sort(function (a, b) {
@@ -41,8 +33,9 @@ const Medications = (props) => {
     return 0; //default return value (no sorting)
   });
 
-  const handleAddMed = async (e, form) => {
+  const handleAddUpdateMed = async (e, form, cb) => {
     e.preventDefault();
+    console.log("from click ", form.addVisitInfo);
     //show the modal dialog
     //get the dialog from the form
     //do the calclations and add the medications
@@ -75,14 +68,21 @@ const Medications = (props) => {
     }
   };
 
-  const updateMed = async (e, meid) => {
-    e.preventDefault();
-    console.log(e.target);
+  const postMed = async (url, vals, petId) => {
+    try {
+      console.log("trying ", vals);
+      console.log(url);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    //show the modal dialog
-    //get the dialog from the form
-    //do the calclations and add the medications
-    console.log("button to update medication", meid);
+  const update = async (e, data) => {
+    e.preventDefault();
+    setModalData(data);
+    setExisting(true);
+
+    console.log("button to update med", data);
   };
 
   const buttonStyle = {
@@ -97,7 +97,7 @@ const Medications = (props) => {
           <ul>
             {meds.map((med) => (
               <div
-                onClick={(e) => updateHandleShow(e, med)}
+                onClick={(e) => update(e, med)}
                 key={med._id}
                 className="pet-list card-body"
               >
@@ -131,25 +131,8 @@ const Medications = (props) => {
             </Button>
             <Button
               variant="primary"
-              onClick={(e) => handleAddMed(e, document.forms)}
+              onClick={(e) => handleAddUpdateMed(e, document.forms, postMed)}
             >
-              Submit Form
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-        <Modal show={update} onHide={updateHandleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Update Med</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <UpdateMeds medToUpdate={medToUpdate} petId={petId} />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={updateHandleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={(e) => updateMed(e)}>
               Submit Form
             </Button>
           </Modal.Footer>
