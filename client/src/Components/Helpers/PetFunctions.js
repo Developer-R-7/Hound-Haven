@@ -11,10 +11,11 @@ async function getPetData(petid) {
         `/api/pet/${petid}`,
         { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
       );
+      return (data);
     } catch (error) {
       console.log(error);
     }
-    return (data); 
+ 
 
   }  
 
