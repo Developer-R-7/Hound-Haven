@@ -1,17 +1,40 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
+import Moment from 'moment';
 
 const AddVisit = (props) => {
     const petId = props.petId;
-	const [form, setForm] = useState({});
+	const [visitId] = useState(props.data._id)
+	console.log(props.data.VisitDate)
+	
+	const [form, setForm] = useState({
+		VisitDate: Moment(props.data.VisitDate).format('YYYY-MM-DD'),
+		VisitNotes: props.data.VisitNotes
+	});
+	const [visitDate,setVisitDate] = useState('');
+	const [visitNotes,setVisitNotes] = useState('');
 
 	const onChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
+		console.log('yp', form)
 	};
-
+    
+  useEffect(() => {
+    if(visitId !== 0)
+	{
+	setVisitDate(props.data.VisitDate);
+	setVisitNotes(props.data.VisitNotes);	
+	}
+  },[visitId])
+ 
+  const submit = async (e) => {
+	e.preventDefault();
+	console.log("submit",form);
+	}
 
 	return (		  
 	<div className="col-md-6">
-		<form name='addVisitForm'>
+		<form name='addVisitForm' onSubmit={submit}>
+			<input type="hidden" id="visitId" name="visitId" value={visitId}/>
 			<div className="form-group">
 				<label>Visit Date</label>
 				<input
@@ -20,16 +43,22 @@ const AddVisit = (props) => {
 					name="VisitDate"
 					className="form-control"
 					placeholder="Date of Visit"
+					defaultValue={Moment(visitDate).format('YYYY-MM-DD')}
+					value={form.VisitDate}
+				
+					//defaultValue='2020-01-01'
 				/>
 			</div>
 			<div className="form-group">
-				<label>Doseage</label>
+				<label>Notes</label>
 				<input
 					onChange={onChange}
 					type="text"
 					name="VisitNotes"
 					className="form-control"
 					placeholder="Enter Notes from the Visit"
+					defaultValue={visitNotes}
+					value={form.VisitNotes}
 				/>
 			</div>
 			

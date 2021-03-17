@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Moment from 'react-moment'
 import AddVisit from "./Modals/AddVisit";
 import { Button, Modal } from "react-bootstrap";
@@ -12,12 +12,24 @@ import { toast } from "react-toastify";
     const petId = props.petId;
     const [visits,setVisits] = useState(props.visits); 
     const [addVisit, setAddVisit] = useState();
-    const [form, setForm] = useState({});
+    // const [form, setForm] = useState({});
     const [isOpen, setIsOpen] = useState(true);
 	const [show, setShow] = useState(false);
+    const [modalData,setModalData] = useState(null);
+
+    useEffect(() => {
+        modalData && setShow(true)
+    },[modalData])
+
+    // const onChange = (e) => {
+	// 	setForm({ ...form, [e.target.name]: e.target.value });
+	// };
  
 	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleShow = (e,data) => {
+        if(e.target.name !== 'addVisitBtn') setModalData (data)
+        setShow(true)
+      };
 
     visits.sort(function(a, b){
         var nameA=a.VisitDate, nameB=b.VisitDate
@@ -27,27 +39,22 @@ import { toast } from "react-toastify";
             return 1
         return 0 //default return value (no sorting)
     })
-    const  handleAddVisit = async (e, form) => {
+    const  handleAddUpdateVisit = async (e, form) => {
         e.preventDefault();
-        //show the modal dialog
-        //get the dialog from the form
-        //do the calclations and add the medications
-        /// this time can try the spread <div className="
-        setForm({  ...form.addVisitForm, [e.target.name]: e.target.value });
-
+        console.log("from click",form.addVisitForm)
+        // setForm({  ...form.addVisitForm, [e.target.name]: e.target.value });
+         let  visitId = form.addVisitForm.visitId.value
         const vals = {
             VisitDate: form.addVisitForm.VisitDate.value,
             VisitNotes: form.addVisitForm.VisitNotes.value
         }
-     
-        // these can be made available if we want the user to add medications that are needed for example monthly
-        // let medFreq = form.addMedForm.frequency.value;
-        // let medNmDoses = form.addMedForm.numDoses.value;
-     
-       
+       // if ID is zero then it is a new visit....
+       let url = `/api/addpetvisit/${petId}`
+       if (visitId !== 0) {
+           url =  `/api/updatepetvisit/${petId}/${visitId}`
+       }
         try {
 			console.log("trying", vals);
-            let url=`/api/addpetvisit/${petId}`;
             console.log(url)
 			let resp = await axios.put(url, vals,
             { headers: { "x-auth-token": localStorage.getItem("auth-token") } });
@@ -60,16 +67,28 @@ import { toast } from "react-toastify";
       
 
     }
-
-        
-    const updateVisit = async (e,VisitId) => {
+    
+    const update = async (e,data) => {
         e.preventDefault();
+        setModalData(data)
         //show the modal dialog
         //get the dialog from the form  and allow update of individual note
-        console.log('button to update medication',VisitId)
+        console.log('button to update visit',data)
     }
    
-
+            
+    const add = async (e,data) => {
+        e.preventDefault();
+        console.log(e)
+        //show the modal dialog
+        //get the dialog from the form  and allow update of individual note
+        setModalData(data)
+        console.log('button to add visit',data)
+    }
+    const submit = async (e) => {
+		e.preventDefault();
+       // console.log("submit",form);
+    }
 
     const buttonStyle = {
         backgroundColor: "rgb(255, 100, 100)",
@@ -83,11 +102,12 @@ import { toast } from "react-toastify";
                      <ul>
                          {visits.map((visit) => (
                              <li
-                             onClick={(e) => updateVisit(e, visit._id)}
+                             name="editVisitBtn" 
+                             onClick={(e) => update(e, visit)}
                                  key={visit._id}
                                  className="pet-list btn">
                                  <div>
-                                 <Moment format="MM/DD/YYYY">
+                                 <Moment format="MM/DD/YYYY" >
                                      {visit.VisitDate}
                                  </Moment>
                                  </div> 
@@ -97,7 +117,8 @@ import { toast } from "react-toastify";
                          </ul>      
                  </div>           
              <button
-            onClick={handleShow}
+            name="addVisitBtn" 
+            onClick={(e) => add(e,'{_id: 0}')}
                  style={buttonStyle}
                  className=" btn btn-circle btn-xl">
                      +
@@ -107,23 +128,19 @@ import { toast } from "react-toastify";
                      <Modal.Title>Modal heading</Modal.Title>
                  </Modal.Header>
                  <Modal.Body>
-                     <AddVisit petId={petId}/>
+                     <AddVisit petId={petId} data={modalData}/>
                  </Modal.Body>
                  <Modal.Footer>
                          <Button variant="secondary" onClick={handleClose}>
                              Close
                          </Button>
-                         <Button variant="primary" onClick={(e) => handleAddVisit(e,  document.forms)}>
+                         <Button variant="primary" onClick={(e) => handleAddUpdateVisit(e, document.forms)}>
                              Submit Form
                          </Button>
                          </Modal.Footer>
                  </Modal>
-
          </div>
-  
      </div>
-    
-
     )
 }
 
