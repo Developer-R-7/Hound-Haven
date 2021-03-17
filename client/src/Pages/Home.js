@@ -20,14 +20,14 @@ const Home = () => {
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
     console.log(user);
-    let url =   `/api/getpetbyuser/${user}`
-    let token = localStorage.getItem("auth-token")
+    let url = `/api/getpetbyuser/${user}`;
+    let token = localStorage.getItem("auth-token");
     console.log(url);
     console.log(token);
     try {
-      const { data } = await axios.get(url,
-        { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
-      );
+      const { data } = await axios.get(url, {
+        headers: { "x-auth-token": localStorage.getItem("auth-token") },
+      });
       data && setUserPets(data);
       console.log(data);
     } catch (error) {
@@ -43,11 +43,29 @@ const Home = () => {
     loadUserPets(user);
   }, [user]);
 
+  // useEffect(() => {
+  //   loadUserPets(user);
+  // }, [pets]);
+
   useEffect(() => {
-     petData && history.push({
-      pathname:"/petDash", 
-      state: {info: petData}});
+    petData &&
+      history.push({
+        pathname: "/petDash",
+        state: { info: petData },
+      });
   }, [petData]);
+
+  const deletePet = async (e, id) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.delete(`/api/pet/${id}`, {
+        headers: { "x-auth-token": localStorage.getItem("auth-token") },
+      });
+      loadUserPets(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const routePet = async (e, id) => {
     e.preventDefault();
@@ -68,13 +86,18 @@ const Home = () => {
     <>
       <div className="container pets-container">
         <div className="row">
-          <div className="col-lg-6 col-xs-12 py-5">
+          <div className="col-xs-12 py-5">
             <div className="header-styles">
               <h2 className="myPet-header">My Pet</h2>
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12 py-5">
             {pets ? (
               <div>
-                {pets.map((pet) => (
+                {console.log(pets)}
+                {pets.map((pet, i) => (
                   <div>
                     <button
                       onClick={(e) => routePet(e, pet._id)}
@@ -83,6 +106,14 @@ const Home = () => {
                       className="pet-list saved-pet-btn btn"
                     >
                       {pet.PetName}
+                    </button>
+                    <button
+                      onClick={(e) => deletePet(e, pet._id)}
+                      key={i}
+                      type="button"
+                      className=" delete-pet-btn btn"
+                    >
+                      delete
                     </button>
                   </div>
                 ))}
