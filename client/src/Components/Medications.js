@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Moment from "react-moment";
 import AddMeds from "./Modals/AddMeds";
 import { Button, Modal } from "react-bootstrap";
@@ -21,6 +21,10 @@ const Medications = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    modalData && setShow(true);
+  }, [modalData]);
 
   //sort descending so the newest one on the top
   meds.sort(function (a, b) {
@@ -85,6 +89,14 @@ const Medications = (props) => {
     console.log("button to update med", data);
   };
 
+  const add = (e, data) => {
+    e.preventDefault();
+    setModalData(data);
+    setExisting(false);
+
+    console.log("button to add med", data);
+  };
+
   const buttonStyle = {
     backgroundColor: "rgb(255, 100, 100)",
   };
@@ -111,7 +123,8 @@ const Medications = (props) => {
           </ul>
         </div>
         <button
-          onClick={handleShow}
+          name="addMedBtn"
+          onClick={(e) => add(e, "{_id: 0}")}
           style={buttonStyle}
           className=" btn btn-circle btn-xl"
         >
@@ -120,15 +133,12 @@ const Medications = (props) => {
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Add / Edit Medication</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AddMeds petId={petId} />
+            <AddMeds petId={petId} data={modalData} existing={false} />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
             <Button
               variant="primary"
               onClick={(e) => handleAddUpdateMed(e, document.forms, postMed)}

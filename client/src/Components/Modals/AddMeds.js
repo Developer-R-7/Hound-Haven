@@ -3,7 +3,8 @@ import React, { useState } from "react";
 
 const AddMeds = (props) => {
     const petId = props.petId;
-	const [form, setForm] = useState({});
+	const [medId] = useState(props.data._id)
+	const [form, setForm] = useState();
 
 	const onChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
