@@ -12,7 +12,8 @@ const {
   addPetVisit,
   updatePetVisit,
   findPetVisit,
-  delPetVisit
+  delPetVisit,
+  delPetMed
 } = require("../controllers/PetController");
 
 router.get("/getpets", auth, getPets);
@@ -26,8 +27,8 @@ router.put("/addPetReminder/:id", auth, addPetReminder);
 router.put("/addPetVisit/:id", auth, addPetVisit);
 router.put("/updatePetVisit/:id/:visitid", auth, updatePetVisit);
 router.get("/findpetvisit/:id/:visitid", auth, findPetVisit);
-router.delete("/delPetVisit/:id/:visitid", auth, delPetVisit);
-
+router.put("/delPetVisit/:id/:visitid", auth, delPetVisit);
+router.put("/delPetMed/:id/:medid", auth, delPetMed);
 
 
 module.exports = router;

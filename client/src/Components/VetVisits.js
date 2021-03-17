@@ -57,12 +57,29 @@ import {  getPetData } from './Helpers/PetFunctions'
  
         return cb(url,vals,petId)
     }
+  
+    const  handleDelVisit = async (e, form) => {
+        e.preventDefault();
+            let visitId = form.addVisitForm.visitId.value
+            let url =  `/api/delPetVisit/${petId}/${visitId}`
+            try {
+            let resp = await axios.put(url, 
+                { headers: { "x-auth-token": localStorage.getItem("auth-token") } }); 
+            } catch (err) {
+                console.log(err)
+                toast.error(err.response);
+            }
+            
+    }
+
+
+
 
      
     const postVisit = async (url, vals,petId) =>  {
-        let resp;
+     
          try {
-			resp = await axios.put(url, vals,
+			let resp = await axios.put(url, vals,
             { headers: { "x-auth-token": localStorage.getItem("auth-token") } });         
             handleClose();      
 		} catch (err) {
@@ -146,8 +163,11 @@ import {  getPetData } from './Helpers/PetFunctions'
                      <AddVisit petId={petId} data={modalData} existing={false}/>
                  </Modal.Body>
                  <Modal.Footer>
+                        <Button variant="primary" onClick={(e) => handleDelVisit(e, document.forms, postVisit)}>
+                            Delete Visit
+                         </Button>
                          <Button variant="primary" onClick={(e) => handleAddUpdateVisit(e, document.forms, postVisit)}>
-                             Submit Form
+                             Submit Visit
                          </Button>
                          </Modal.Footer>
                  </Modal>
