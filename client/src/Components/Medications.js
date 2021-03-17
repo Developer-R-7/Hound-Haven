@@ -64,26 +64,11 @@ const Medications = (props) => {
     }
 
     return cb(url, vals, petId);
-    // try {
-    //   console.log("trying", vals);
-    //   let url = `/api/addpetmed/${petId}`;
-    //   console.log(url);
-    //   let resp = await axios.put(url, vals, {
-    //     headers: { "x-auth-token": localStorage.getItem("auth-token") },
-    //   });
-    //   handleClose();
-    //   console.log(resp);
-    //   console.log(form.addMedForm.medId.value);
-    // } catch (err) {
-    //   console.log(err);
-    //   toast.error(err.response);
-    // }
+
   };
 
   const postMed = async (url, vals, petId) => {
     try {
-      // console.log("trying ", vals);
-      console.log(url);
       let resp = await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
