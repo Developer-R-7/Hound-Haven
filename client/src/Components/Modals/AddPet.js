@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const AddPet = () => {
-	//state for new pet data to be added
+	//state for new pet data to be added to db
 	const [newPet, setnewPet] = useState(null);
 
 	//handle change of form data to be set for newPet state
@@ -17,7 +17,7 @@ const AddPet = () => {
 			const pet = await axios.post("/api/pet", newPet, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
-			console.log(pet);
+			// console.log(pet);
 		} catch (error) {
 			console.log(error);
 		}
@@ -62,7 +62,7 @@ const AddPet = () => {
 									onChange={handleChange}
 									type="file"
 									accept="image/*"
-									multiple="false"
+									multiple={false}
 									name="PetImageLoc"
 								/>
 							</div>
