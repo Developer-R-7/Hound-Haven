@@ -13,7 +13,8 @@ const {
   updatePetVisit,
   findPetVisit,
   delPetVisit,
-  delPetMed
+  delPetMed,
+  updatePetMed,
 } = require("../controllers/PetController");
 
 router.get("/getpets", auth, getPets);
@@ -29,6 +30,6 @@ router.put("/updatePetVisit/:id/:visitid", auth, updatePetVisit);
 router.get("/findpetvisit/:id/:visitid", auth, findPetVisit);
 router.put("/delPetVisit/:id/:visitid", auth, delPetVisit);
 router.put("/delPetMed/:id/:medid", auth, delPetMed);
-
+router.put("/updatePetMed/:id/:medid", auth, updatePetMed);
 
 module.exports = router;
