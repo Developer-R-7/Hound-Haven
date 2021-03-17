@@ -49,11 +49,8 @@ module.exports = {
 		}
 	},
 	addPetMed: (req, res) => {
-		let pet_id = req.params.id;
-		pet_id.trim(); //make sure no spaces
-		//findOneAndUpdate(filter, update, options)
 		Pets.findOneAndUpdate(
-			{ _id: pet_id }, // filter
+			{ _id: req.params.id }, // filter
 			{
 				$push: {
 					Medications: req.body,
@@ -69,11 +66,8 @@ module.exports = {
 			});
 	},
 	addPetVisit: (req, res) => {
-		let pet_id = req.params.id;
-		pet_id.trim(); //make sure no spaces
-		//findOneAndUpdate(filter, update, options)
 		Pets.findOneAndUpdate(
-			{ _id: pet_id }, // filter
+			{ _id: req.params.id }, // filter
 			{
 				$push: {
 					VetVisits: req.body,
@@ -88,16 +82,12 @@ module.exports = {
 				res.status(400).json(err);
 			});
 	},
-	addPetVital: (req, res) => {
-		let pet_id = req.params.id;
-		pet_id.trim(); //make sure no spaces
-		//findOneAndUpdate(filter, update, options)
+	addPetReminder: (req, res) => {
 		Pets.findOneAndUpdate(
-			{ 		_id: petId, 
-				'Vitals._id': medI }, // filter
+			{ 		_id: params.id }, // filter
 			{
 				$push: {
-					Vitals: req.body,
+					Reminders: req.body,
 				}
 			}, //update
 			{ new: true } //options

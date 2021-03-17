@@ -4,7 +4,7 @@ import Moment from 'moment';
 const AddVisit = (props) => {
     const petId = props.petId;
 	const [visitId] = useState(props.data._id)
-	console.log(props.data.VisitDate)
+	console.log(props.data)
 	
 	const [form, setForm] = useState({
 		VisitDate: Moment(props.data.VisitDate).format('YYYY-MM-DD'),
@@ -45,8 +45,6 @@ const AddVisit = (props) => {
 					placeholder="Date of Visit"
 					defaultValue={Moment(visitDate).format('YYYY-MM-DD')}
 					value={form.VisitDate}
-				
-					//defaultValue='2020-01-01'
 				/>
 			</div>
 			<div className="form-group">

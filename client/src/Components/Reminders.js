@@ -25,13 +25,14 @@ import { toast } from "react-toastify";
         setForm({  ...form.addVitalsForm, [e.target.name]: e.target.value });
 
         const vals = {
-            WeightDate: form.addVitalsForm.WeightDate.value,
-            VitalWeight: form.addVitalsForm.VitalWeight.value
+            Date: form.addReminderForm.date.value,
+            Title: form.addReminderForm.title.value,
+            Note: form.addReminderForm.note.value
         }
 
         try {
 			console.log("trying", vals);
-            let url=`/api/addpetvital/${petId}`;
+            let url=`/api/addPetReminder/${petId}`;
             console.log(url)
 			let resp = await axios.put(url, vals,
             { headers: { "x-auth-token": localStorage.getItem("auth-token") } });

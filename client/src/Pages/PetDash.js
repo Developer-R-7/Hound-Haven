@@ -64,7 +64,7 @@ const PetDash = () => {
             <div className="row">
 
             {data && <Reminders petId={data._id} reminders={data.Reminders} />}
-            {data && <VetVisits  petId={data._id}  visits={data.VetVisits} />}
+            {data && <VetVisits  petId={data._id}  VetVisits={data.VetVisits} />}
             {data && <Medications  petId={data._id} meds={data.Medications} />}
           
     
