@@ -5,16 +5,12 @@ import AddMeds from "./Modals/AddMeds";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { getPetData } from "./Helpers/PetFunctions";
 
 const Medications = (props) => {
-  //const {isShowing, toggle} = useModal();
-
-  console.log(props);
+  let newData = props;
   const petId = props.petId;
   const [meds, setMeds] = useState(props.meds);
-  const [addMed, setAddMed] = useState();
-  const [form, setForm] = useState({});
-  const [isOpen, setIsOpen] = useState(true);
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [existing, setExisting] = useState(false);
@@ -25,6 +21,10 @@ const Medications = (props) => {
   useEffect(() => {
     modalData && setShow(true);
   }, [modalData]);
+
+  useEffect(() => {
+    setMeds(newData.meds);
+  }, [newData]);
 
   //sort descending so the newest one on the top
   meds.sort(function (a, b) {
@@ -39,11 +39,11 @@ const Medications = (props) => {
 
   const handleAddUpdateMed = async (e, form, cb) => {
     e.preventDefault();
-    console.log("from click ", form.addVisitInfo);
     //show the modal dialog
     //get the dialog from the form
     //do the calclations and add the medications
-
+    let url;
+  
     let medName = form.addMedForm.medication.value;
     let medDate = form.addMedForm.startDate.value;
     // these can be made available if we want the user to add medications that are needed for example monthly
@@ -57,6 +57,10 @@ const Medications = (props) => {
       Dose: medDose,
     };
 
+
+    if(existing){
+      url=`/api/update/${petId}/${}`
+    }
     try {
       console.log("trying", vals);
       let url = `/api/addpetmed/${petId}`;
@@ -74,8 +78,13 @@ const Medications = (props) => {
 
   const postMed = async (url, vals, petId) => {
     try {
-      console.log("trying ", vals);
-      console.log(url);
+      // console.log("trying ", vals);
+      // console.log(url);
+      let resp = await axios.put(url, vals, {
+        headers: { "x-auth-token": localStorage.getItem("auth-token") },
+      });
+      newData = await getPetData(petId);
+      handleClose();
     } catch (err) {
       console.log(err);
     }
