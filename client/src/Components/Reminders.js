@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import Moment from 'react-moment'
-import AddVital from "./Modals/AddVital";
+import AddReminder from "./Modals/AddReminder";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
     const PetVitals = (props) => {
     console.log(props);
     const petId = props.petId;
-    const [vitals,setVitals] = useState(props.vitals); 
+    const [reminders,setReminders] = useState(props.reminders); 
     const [addVitals, setAddVitals] = useState();
     const [form, setForm] = useState({});
     const [isOpen, setIsOpen] = useState(true);
@@ -18,14 +18,7 @@ import { toast } from "react-toastify";
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-    vitals.sort(function(a, b){
-        var nameA=a.WeightDate, nameB=b.WeightDate
-        if (nameA < nameB) //sort string ascending
-            return -1
-        if (nameA > nameB)
-            return 1
-        return 0 //default return value (no sorting)
-    })
+
 
     const  handleAddVitals = async (e, form) => {
         e.preventDefault();
@@ -67,20 +60,20 @@ import { toast } from "react-toastify";
     return (
         <div className="card m-2">
         <div className="card-body text-center ">
-            <h3 className="card-title">Vitals</h3>
+            <h3 className="card-title">Reminders</h3>
                     <div class="pet-table">
                         <ul>
-                            {vitals.map((vital) => (
+                            {reminders.map((rem) => (
                                 <li
-                                onClick={(e) => updateVitals(e, vital._id)}
-                                    key={vital._id}
+                                onClick={(e) => updateVitals(e, reminders._id)}
+                                    key={rem._id}
                                     className="pet-list btn">
                                     <div>
                                     <Moment format="MM/DD/YYYY">
-                                        {vital.WeightDate}
+                                        {rem.Date}
                                     </Moment>
                                     </div> 
-                                    &nbsp; {vital.VitalWeight}
+                                    &nbsp; {rem.Title}
                                 </li>
                                 ))}
                             </ul>      
@@ -96,7 +89,7 @@ import { toast } from "react-toastify";
                         <Modal.Title>Modal heading</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddVital petId={petId}/>
+                        <AddReminder petId={petId}/>
                     </Modal.Body>
                     <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>

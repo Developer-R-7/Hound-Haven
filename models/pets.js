@@ -29,6 +29,9 @@ const petSchema = new mongoose.Schema({
 			VisitNotes: {
 				type: String,
 			},
+			Weight: {
+				type: Number,
+			}
 		},
 	],
 	Medications: [
@@ -45,14 +48,17 @@ const petSchema = new mongoose.Schema({
 			},
 		},
 	],
-	Vitals: [
+	Reminders: [
 		{
 			Date: {
 				type: Date,
 			},
-			Weight: {
-				type: Number,
+			Title: {
+				type: String,
 			},
+			Note: {
+				type: String,
+			}
 		},
 	],
 	ParentID: {

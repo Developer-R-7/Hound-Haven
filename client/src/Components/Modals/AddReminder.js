@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddVital = (props) => {
+const AddReminder = (props) => {
 	const petId = props.petId;
 	const [form, setForm] = useState({});
 
@@ -16,25 +16,35 @@ const AddVital = (props) => {
 					<input
 						onChange={onChange}
 						type="date"
-						name="WeightDate"
+						name="reminderDate"
 						className="form-control"
-						placeholder="Date Weight Taken"
+						placeholder="Date reminder needed"
 					/>
-				<div className="form-group">
-					<label>Weight</label>
+			
+					<label>Title</label>
 					<input
 						onChange={onChange}
 						type="text"
-						name="VitalWeight"
+						name="title"
 						className="form-control"
-						placeholder="Enter Weight in lbs"
+						placeholder="title"
+					/>
+				
+							
+				<label>Note</label>
+					<input
+						onChange={onChange}
+						type="text"
+						name="note"
+						className="form-control"
+						placeholder="note"
 					/>
 				</div>
-				</div>
+		
 				
 			</form>
 		</div>
 	)
 };
 
-export default AddVital;
+export default AddReminder;
