@@ -146,8 +146,20 @@ delPetVisit: async (req, res) => {
 		_id: req.params.id, 
 		'VetVisits._id': req.params.visitid			   
   },{ 
-	$pull: 'VetVisits.$'},
-  { new: true,upsert: true,rawResult: true  }).exec()
+	$pull: {VetVisits: {_id: req.params.visitid}}},
+  { new: true,rawResult: true  }).exec()
+		.then((dbModel) => res.json(dbModel))
+		.catch((err) => res.status(422).json(err));
+},
+delPetMed: async (req, res) => {
+	//findOneAndUpdate(filter, update, options)
+  console.log(req.body);
+	Pets.findOneAndUpdate({
+		_id: req.params.id, 
+		'Medications._id': req.params.medid			   
+  },{ 
+	$pull: {Medications: {_id: req.params.medid}}},
+  { new: true,rawResult: true  }).exec()
 		.then((dbModel) => res.json(dbModel))
 		.catch((err) => res.status(422).json(err));
 },
