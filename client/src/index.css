@@ -1,15 +1,13 @@
-
 body {
   margin: 0;
-  font-family:'Single Day', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Single Day", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -24,7 +22,7 @@ code {
 }
 
 .add-pet-btn {
-  position: absolute;
+  /* position: absolute; */
   width: 103px;
   height: 102px;
   left: 550px;
@@ -33,7 +31,7 @@ code {
 }
 
 .pet-list {
-  background: #ff9999; 
+  background: #ff9999;
   display: table;
   list-style-type: none;
   width: 350px;
@@ -45,39 +43,36 @@ code {
 
 /* saved pet pet button styles */
 .saved-pet-btn {
-  position: relative;
+  /* position: relative; */
   width: 275px;
   height: 40px;
-  left: 450px;
-  top: 215px;
+  /* left: 450px;
+  top: 215px; */
   background: #ff9999;
 }
 
 /* "My Pet" header styles */
 
 .myPet-header {
-  position: absolute;
+  /* position: absolute; */
   width: 322px;
   height: 40px;
-  left: 420px;
-  top: 150px;
+  /* left: 420px;
+  top: 150px; */
   background: #c4c4c4;
   text-align: center;
 }
 
 .pets-container {
-  position: relative;
-  width: 1438px;
-  height: 1024px;
-  position: relative;
-  width: 1438px;
-  height: 1024px;
+  /* position: relative; */
+  margin-bottom: 50px;
 }
 
-.navbar,.footer{
-  background-color: #FFC2C2;
+.navbar,
+.footer {
+  background-color: #ffc2c2;
 }
 
-.height{
+.height {
   height: 250px;
 }
