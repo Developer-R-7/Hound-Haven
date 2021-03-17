@@ -43,7 +43,7 @@ const Medications = (props) => {
     //get the dialog from the form
     //do the calclations and add the medications
     let url;
-  
+
     let medName = form.addMedForm.medication.value;
     let medDate = form.addMedForm.startDate.value;
     // these can be made available if we want the user to add medications that are needed for example monthly
@@ -57,29 +57,33 @@ const Medications = (props) => {
       Dose: medDose,
     };
 
+    if (existing) {
+      url = `/api/updatePetMed/${petId}/${form.addMedForm.medId.value}`;
+    } else {
+      url = `/api/addpetmed/${petId}`;
+    }
 
-    if(existing){
-      url=`/api/update/${petId}/${}`
-    }
-    try {
-      console.log("trying", vals);
-      let url = `/api/addpetmed/${petId}`;
-      console.log(url);
-      let resp = await axios.put(url, vals, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      handleClose();
-      console.log(resp);
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response);
-    }
+    return cb(url, vals, petId);
+    // try {
+    //   console.log("trying", vals);
+    //   let url = `/api/addpetmed/${petId}`;
+    //   console.log(url);
+    //   let resp = await axios.put(url, vals, {
+    //     headers: { "x-auth-token": localStorage.getItem("auth-token") },
+    //   });
+    //   handleClose();
+    //   console.log(resp);
+    //   console.log(form.addMedForm.medId.value);
+    // } catch (err) {
+    //   console.log(err);
+    //   toast.error(err.response);
+    // }
   };
 
   const postMed = async (url, vals, petId) => {
     try {
       // console.log("trying ", vals);
-      // console.log(url);
+      console.log(url);
       let resp = await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
@@ -117,17 +121,15 @@ const Medications = (props) => {
         <div class="pet-table">
           <ul>
             {meds.map((med) => (
-              <div
+              <li
                 onClick={(e) => update(e, med)}
                 key={med._id}
                 className="pet-list card-body"
               >
-                <li>{med.MedicationName}</li>
-                <li>
-                  Next Dose: <Moment format="MM/DD/YYYY">{med.DueDate}</Moment>
-                </li>
-                <li>{med.Dose}</li>
-              </div>
+                {med.MedicationName}
+                Next Dose: <Moment format="MM/DD/YYYY">{med.DueDate}</Moment>
+                {med.Dose}
+              </li>
             ))}
           </ul>
         </div>
