@@ -93,11 +93,12 @@ module.exports = {
 		pet_id.trim(); //make sure no spaces
 		//findOneAndUpdate(filter, update, options)
 		Pets.findOneAndUpdate(
-			{ _id: pet_id }, // filter
+			{ 		_id: petId, 
+				'Vitals._id': medI }, // filter
 			{
 				$push: {
 					Vitals: req.body,
-				},
+				}
 			}, //update
 			{ new: true } //options
 		)
@@ -108,4 +109,48 @@ module.exports = {
 				res.status(400).json(err);
 			});
 	},
+  updatePetMed: async (req, res) => {
+    	//findOneAndUpdate(filter, update, options)
+      let petId = req.params.id;
+      let medId = req.params.medid;
+		Pets.findOneAndUpdate(
+      { 
+		_id: petId, 
+		'Medications._id': medId	
+      },{
+      $set: {
+        Medications: req.body
+      }})
+			.then((dbModel) => res.json(dbModel))
+			.catch((err) => res.status(422).json(err));
+	},
+  updatePetVisit: async (req, res) => {
+    	//findOneAndUpdate(filter, update, options)
+      console.log(req.body);
+      let petId = req.params.id;
+      let visitId = req.params.visitid;
+      let visitDate = req.body.VisitDate;
+      let visitNotes = req.body.VisitNotes;
+		Pets.findOneAndUpdate({
+			_id: petId, 
+			'VetVisits._id': visitId			   
+      },{ 
+		$set:{ 'VetVisits.$.VisitDate': visitDate,
+         'VetVisits.$.VisitNotes': visitNotes}},
+      { new: true,upsert: true,rawResult: true  }).exec()
+			.then((dbModel) => res.json(dbModel))
+			.catch((err) => res.status(422).json(err));
+	},
+  findPetVisit: async (req, res) => {
+    //findOneAndUpdate(filter, update, options)
+    console.log(req.body);
+    let petId = req.params.id;
+    let visitId = req.params.visitid;
+   Pets.findOne({  
+    _id: petId, 
+    'VetVisits._id': visitId
+   	})
+    .then((dbModel) => res.json(dbModel))
+    .catch((err) => res.status(422).json(err))
+}
 };
