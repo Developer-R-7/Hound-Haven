@@ -11,7 +11,8 @@ const {
   addPetVital,
   addPetVisit,
   updatePetVisit,
-  findPetVisit
+  findPetVisit,
+  delPetVisit
 } = require("../controllers/PetController");
 
 router.get("/getpets", auth, getPets);
@@ -25,6 +26,7 @@ router.put("/addpetvital/:id", auth, addPetVital);
 router.put("/addpetvisit/:id", auth, addPetVisit);
 router.put("/updatepetvisit/:id/:visitid", auth, updatePetVisit);
 router.get("/findpetvisit/:id/:visitid", auth, findPetVisit);
+router.delete("/delPetVisit/:id/:visitid", auth, delPetVisit);
 
 
 

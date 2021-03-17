@@ -4,7 +4,7 @@ import { useHistory,useLocation } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import VetVisits from "../Components/VetVisits";
 import Medications from "../Components/Medications";
-import PetVitals from "../Components/PetVitals";
+import Reminders from "../Components/Reminders";
 import Moment from 'react-moment'
 
 const PetDash = () => {
@@ -63,7 +63,7 @@ const PetDash = () => {
           <div className="col-sm-9">
             <div className="row">
 
-            {data && <PetVitals petId={data._id} vitals={data.Vitals} />}
+            {data && <Reminders petId={data._id} reminders={data.Reminders} />}
             {data && <VetVisits  petId={data._id}  visits={data.VetVisits} />}
             {data && <Medications  petId={data._id} meds={data.Medications} />}
           

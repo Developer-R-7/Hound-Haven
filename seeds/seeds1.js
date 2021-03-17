@@ -47,15 +47,17 @@ const createPet = async(newUser,pet) => {
 		VetVisits: [{
 				VisitDate: pet.vdate,	
 				VisitNotes:pet.vnote,
+				Weight: pet.weight
 		}],
 		Medications: [{
 				MedicationName: pet.med,
 				DueDate: pet.mdate,
 				Dose: pet.mdose,
 			}],
-		Vitals: [{
-				Date: pet.vidate,
-				Weight: pet.viweight,
+		Reminders: [{
+				Date: pet.remdate,
+				Title: pet.remtitle,
+				Note: pet.remnote,
 			}],
 		ParentID: newUser._id,
 	});
@@ -82,8 +84,10 @@ const newUser1 = async () => {
 		pet.med =  "Bunny Meds";
 		pet.mdate =  Date.parse("2021-04-05");
 		pet.mdose = '2ml';
-		pet.vidate = Date.now();
-		pet.viweight = 30; 
+		pet.weight = 30; 
+		pet.remdate = Date.now();
+		pet.remtitle = 'Buy Hay';
+		pet.remnote = "Remember the hay for the bunny, she was allergic to the last brand so vet reccommend oat based hay.";
 
 	createUser(email,password,displayName).then(user => {
 	createPet(user,pet);
@@ -109,8 +113,9 @@ const newUser2 = async() => {
 		pet.med =  "Dog Meds";
 		pet.mdate =  Date.parse("2021-05-05");
 		pet.mdose = '2ml';
-		pet.vidate = Date.now();
-		pet.viweight = 35;  
+		pet.weight = 35;  
+		pet.remdate = Date.parse("2021-03-18");
+		pet.remtitle = "Remember the pet food";
 		
 		createUser(email,password,displayName).then(user => {
 			createPet(user,pet);
@@ -136,8 +141,9 @@ const newUser3 = async() => {
 		pet.med =  "Bunny Meds";
 		pet.mdate =  Date.parse("2021-04-05");
 		pet.mdose = '2ml';
-		pet.vidate = Date.now();
-		pet.viweight = 15;
+		pet.weight = 15;
+		pet.remdate =Date.parse("2021-03-18");
+		pet.remtitle = "Remember the pet food";
  
 
    let pet2 = {};
@@ -153,8 +159,10 @@ const newUser3 = async() => {
 		pet2.med =  "GP Meds";
 		pet2.mdate =  Date.parse("2021-04-05");
 		pet2.mdose = '2ml';
-		pet2.vidate = Date.now();
+		pet2.vidate = Date.parse("2021-03-18");
 		pet2.viweight = 2.5;
+		pet2.remdate = Date.now();
+		pet2.remtitle = "Please Remember the pet food";
 		createUser(email,password,displayName).then(user => {
 			createPet(user,pet)
 			createPet(user,pet2);
