@@ -1,33 +1,33 @@
-const Pets = require("../models/pets");
+const Pet = require("../models/pets");
 
 module.exports = {
   getPets: async (req, res) => {
     //verified code works
-    Pets.find({})
+    Pet.find({})
       .then((dbPets) => res.json(dbPets))
       .catch((err) => res.status(400).json(err));
   },
   getPetsByUser: async (req, res) => {
     //verified code works
-    Pets.find({
+    Pet.find({
       ParentID: req.params.id,
     })
       .then((dbPets) => res.json(dbPets))
       .catch((err) => res.status(400).json(err));
   },
   delPet: async (req, res) => {
-    Pets.findById({ _id: req.params.id })
+    Pet.findById({ _id: req.params.id })
       .then((dbPets) => dbPets.remove())
       .then((dbPets) => res.json(dbPets))
       .catch((err) => res.status(422).json(err));
   },
   updatePet: async (req, res) => {
-    Pets.findOneAndUpdate({ _id: req.params.id }, req.body)
+    Pet.findOneAndUpdate({ _id: req.params.id }, req.body)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
   getPetByID: async (req, res) => {
-    Pets.findById(req.params.id)
+    Pet.findById(req.params.id)
       .then((dbPets) => res.json(dbPets))
       .catch((err) => res.status(422).json(err));
   },
@@ -49,7 +49,7 @@ module.exports = {
     }
   },
   addPetMed: (req, res) => {
-    Pets.findOneAndUpdate(
+    Pet.findOneAndUpdate(
       { _id: req.params.id }, // filter
       {
         $push: {
@@ -66,7 +66,7 @@ module.exports = {
       });
   },
   addPetVisit: (req, res) => {
-    Pets.findOneAndUpdate(
+    Pet.findOneAndUpdate(
       { _id: req.params.id }, // filter
       {
         $push: {
@@ -83,7 +83,7 @@ module.exports = {
       });
   },
   addPetReminder: (req, res) => {
-    Pets.findOneAndUpdate(
+    Pet.findOneAndUpdate(
       { _id: params.id }, // filter
       {
         $push: {
@@ -103,7 +103,7 @@ module.exports = {
     //findOneAndUpdate(filter, update, options)
     let petId = req.params.id;
     let medId = req.params.medid;
-    Pets.findOneAndUpdate(
+    Pet.findOneAndUpdate(
       {
         _id: petId,
         "Medications._id": medId,
@@ -122,7 +122,7 @@ module.exports = {
   updatePetVisit: async (req, res) => {
     //findOneAndUpdate(filter, update, options)
     console.log(req.body);
-    Pets.findOneAndUpdate(
+    Pet.findOneAndUpdate(
       {
         _id: req.params.id,
         "VetVisits._id": req.params.visitid,
@@ -144,7 +144,7 @@ module.exports = {
     console.log(req.body);
     let petId = req.params.id;
     let visitId = req.params.visitid;
-    Pets.findOne({
+    Pet.findOne({
       _id: petId,
       "VetVisits._id": visitId,
     })
@@ -154,7 +154,7 @@ module.exports = {
   delPetVisit: async (req, res) => {
     //findOneAndUpdate(filter, update, options)
     console.log(req.body);
-    Pets.findOneAndUpdate(
+    Pet.findOneAndUpdate(
       {
         _id: req.params.id,
         "VetVisits._id": req.params.visitid,
@@ -171,7 +171,7 @@ module.exports = {
   delPetMed: async (req, res) => {
     //findOneAndUpdate(filter, update, options)
     console.log(req.body);
-    Pets.findOneAndUpdate(
+    Pet.findOneAndUpdate(
       {
         _id: req.params.id,
         "Medications._id": req.params.medid,

@@ -15,7 +15,7 @@ const {
   delPetVisit,
   delPetMed,
   updatePetMed,
-} = require("../controllers/PetController");
+} = require("../controllers/petController");
 
 router.get("/getpets", auth, getPets);
 router.get("/getpetbyuser/:id", auth, getPetsByUser);
