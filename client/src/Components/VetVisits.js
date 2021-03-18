@@ -28,10 +28,6 @@ import {  getPetData } from './Helpers/PetFunctions'
         getPetData(petId)
         .then(data => setVisits(data.VetVisits))
     }
-	const handleShow = (e,data) => {
-        if(e.target.name !== 'addVisitBtn') setModalData (data)
-        setShow(true)
-      };
 
     visits.sort(function(a, b){
         var nameA=a.VisitDate, nameB=b.VisitDate
@@ -41,6 +37,7 @@ import {  getPetData } from './Helpers/PetFunctions'
             return -1
         return 0 //default return value (no sorting)
     })
+
     const  handleAddUpdateVisit = async (e, form,cb) => {
         e.preventDefault();
         console.log("from click",form.addVisitForm)
@@ -53,30 +50,20 @@ import {  getPetData } from './Helpers/PetFunctions'
   
         if (existing) {
             url =  `/api/updatePetVisit/${petId}/${visitId}`
-        } else {url = `/api/addPetVisit/${petId}` }
- 
-        return cb(url,vals,petId)
+        } else  {url = `/api/addPetVisit/${petId}` }
+        return cb(url,vals)
     }
   
-    const  handleDelVisit = async (e, form) => {
+    const  handleDelVisit = async (e, form, cb) => {
         e.preventDefault();
             let visitId = form.addVisitForm.visitId.value
+            let vals = {}
             let url =  `/api/delPetVisit/${petId}/${visitId}`
-            try {
-            let resp = await axios.put(url, 
-                { headers: { "x-auth-token": localStorage.getItem("auth-token") } }); 
-            } catch (err) {
-                console.log(err)
-                toast.error(err.response);
-            }
-            
+            return cb(url,vals)
     }
 
-
-
-
      
-    const postVisit = async (url, vals,petId) =>  {
+    const postVisit = async (url, vals) =>  {
      
          try {
 			let resp = await axios.put(url, vals,
