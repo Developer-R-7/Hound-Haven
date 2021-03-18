@@ -9,6 +9,7 @@ const cors = require("cors");
 const morgan = require('morgan');
 app.use(morgan());
 
+
 // testing Socket.io
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
@@ -34,6 +35,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/register", require("./routes/confirmRoutes"));
 app.use("/users", require("./routes/userRoutes"));
 app.use("/api", require("./routes/petRoutes"));
+app.use("/api", require("./routes/imageRoutes"));
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
