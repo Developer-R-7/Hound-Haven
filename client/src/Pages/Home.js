@@ -45,11 +45,11 @@ const Home = () => {
 
   useEffect(() => {
     loadUserPets(user);
-  }, [user]);
+  }, [user, newPetData]);
 
-  useEffect(() => {
-    loadUserPets(user);
-  }, [newPetData]);
+  // useEffect(() => {
+  //   loadUserPets(user);
+  // }, [newPetData]);
 
   useEffect(() => {
     petData &&
