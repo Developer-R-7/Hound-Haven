@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import AddPet from "../Components/Modals/AddPet";
 import UserContext from "../Context/UserContext";
+import PetContext from "../Context/PetContext";
 import axios from "axios";
 import PetDash from "./PetDash";
 import { Route, Link } from "react-router-dom";
+import { set } from "mongoose";
 
 //return data from user, append any saved pets as buttons
 //when a saved pets button is clicked ..routes to that pets dash
@@ -12,6 +14,7 @@ import { Route, Link } from "react-router-dom";
 
 const Home = () => {
   const { userData } = useContext(UserContext);
+  const { newPetData, setNewPetData } = useContext(PetContext);
   const history = useHistory();
   const [pets, setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
@@ -29,6 +32,7 @@ const Home = () => {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       data && setUserPets(data);
+      setNewPetData(false);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -41,11 +45,11 @@ const Home = () => {
 
   useEffect(() => {
     loadUserPets(user);
-  }, [user]);
+  }, [user, newPetData]);
 
   // useEffect(() => {
   //   loadUserPets(user);
-  // }, [pets]);
+  // }, [newPetData]);
 
   useEffect(() => {
     petData &&
@@ -81,6 +85,7 @@ const Home = () => {
       console.log(error);
     }
   };
+
   //map user data and send pets as buttons in list items
   return (
     <>

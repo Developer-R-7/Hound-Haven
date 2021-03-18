@@ -1,30 +1,56 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import Moment from "moment";
 
 const AddMeds = (props) => {
-    const petId = props.petId;
-	const [form, setForm] = useState({});
+  const petId = props.petId;
+  const [medId] = useState(props.data._id);
 
-	const onChange = (e) => {
-		setForm({ ...form, [e.target.name]: e.target.value });
-	};
+  console.log(props.data);
+  const [form, setForm] = useState({
+    medName: props.data.MedicationName,
+    due: Moment(props.data.DueDate).format("YYYY-MM-DD"),
+    dose: props.data.Dose,
+  });
 
+  const [medName, setName] = useState("");
+  const [due, setDueDate] = useState("");
+  const [dose, setDose] = useState("");
+
+  useEffect(() => {
+    if (medId !== 0) {
+      setName(props.data.MedicationName);
+      setDueDate(props.data.DueDate);
+      setDose(props.data.Dose);
+    }
+  }, [medId]);
+
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(form);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    console.log("submit", form);
+  };
 
   return (
-	  
-	<div className="col-md-6">
-	<form name='addMedForm'>
-		<div className="form-group">
-			<label>Medication Namel</label>
-			<input
-				onChange={onChange}
-				name="medication"
-				type="text"
-				className="form-control"
-				placeholder="Enter Medication Name"
-			/>
-		</div>
-		{/* /////// IF WE DECIDE TO CALCULATE DOSES NEED THIS 
+    <div className="col-md-6">
+      <form name="addMedForm" onSubmit={submit}>
+        <input type="hidden" id="medId" name="medId" value={medId} />
+        <div className="form-group">
+          <label>Medication Name</label>
+          <input
+            onChange={onChange}
+            name="medication"
+            type="text"
+            className="form-control"
+            placeholder="Enter Medication Name"
+            defaultValue={medName}
+            // value={form.medName}
+          />
+        </div>
+        {/* /////// IF WE DECIDE TO CALCULATE DOSES NEED THIS 
 		    <div className="form-group">
 			<label>Number of Doses</label>
 			<input
@@ -53,30 +79,32 @@ const AddMeds = (props) => {
 			</small>
 		</div>
 		 */}
-		<div className="form-group">
-			<label>Start Date</label>
-			<input
-				onChange={onChange}
-				type="date"
-				name="startDate"
-				className="form-control"
-				placeholder="Start Date"
-			/>
-		</div>
-		<div className="form-group">
-			<label>Doseage</label>
-			<input
-				onChange={onChange}
-				type="text"
-				name="dose"
-				className="form-control"
-				placeholder="Ener Dosage"
-			/>
-		</div>
-		
-	</form>
-</div>
-
+        <div className="form-group">
+          <label>Start Date</label>
+          <input
+            onChange={onChange}
+            type="date"
+            name="startDate"
+            className="form-control"
+            placeholder="Start Date"
+            defaultValue={Moment(due).format("YYYY-MM-DD")}
+            // value={form.due}
+          />
+        </div>
+        <div className="form-group">
+          <label>Doseage</label>
+          <input
+            onChange={onChange}
+            type="text"
+            name="dose"
+            className="form-control"
+            placeholder="Ener Dosage"
+            defaultValue={dose}
+            // value={form.Dose}
+          />
+        </div>
+      </form>
+    </div>
   );
 };
 

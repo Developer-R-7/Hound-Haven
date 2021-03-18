@@ -10,7 +10,7 @@ import PetDash from "./Pages/PetDash";
 import NavBar from "./Components/NavBar";
 import { ToastContainer } from "react-toastify";
 import Footer from "./Components/Footer";
-
+import PetContext from "./Context/PetContext";
 import UserContext from "./Context/UserContext";
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
     user: undefined,
     token: undefined,
   });
+  const [newPetData, setNewPetData] = useState("pet babies");
 
   const checkLoggedIn = async () => {
     let token = localStorage.getItem("auth-token");
@@ -51,17 +52,19 @@ function App() {
         <ToastContainer />
 
         <UserContext.Provider value={{ userData, setUserData }}>
-          <NavBar />
-          <Switch>
-            <Route exact path="/petDash" component={PetDash} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+          <PetContext.Provider value={{ newPetData, setNewPetData }}>
+            <NavBar />
+            <Switch>
+              <Route exact path="/petDash" component={PetDash} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
 
-            {/* <Route path="/confirm" component={Confirm} />
-            <Route path="/confirm_token/:token" component={Confirmed} /> */}
-            <Route path="/" component={Home} />
-          </Switch>
-          <Footer/>
+              <Route path="/confirm" component={Confirm} />
+              <Route path="/confirm_token/:token" component={Confirmed} />
+              <Route path="/" component={Home} />
+            </Switch>
+            <Footer />
+          </PetContext.Provider>
         </UserContext.Provider>
       </Router>
     </div>
