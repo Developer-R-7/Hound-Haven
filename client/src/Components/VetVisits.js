@@ -40,7 +40,6 @@ import {  getPetData } from './Helpers/PetFunctions'
 
     const  handleAddUpdateVisit = async (e, form,cb) => {
         e.preventDefault();
-        console.log("from click",form.addVisitForm)
         let url; 
             let visitId = form.addVisitForm.visitId.value
         const vals = {
