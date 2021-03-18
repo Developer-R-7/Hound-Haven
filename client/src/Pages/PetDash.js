@@ -6,6 +6,7 @@ import VetVisits from "../Components/VetVisits";
 import Medications from "../Components/Medications";
 import Reminders from "../Components/Reminders";
 import Moment from 'react-moment'
+import EditPet from "../Components/EditPet";
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
@@ -32,7 +33,7 @@ const PetDash = () => {
     <div className="container-fluid" style={{backgroundColor: "#9F939A"}}>
       <div className="container">
         <div className="row">
-          {data &&
+          {/* {data &&
           <div className="col-sm-3">
           
             <div className="card m-2">
@@ -58,10 +59,11 @@ const PetDash = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */
+          <EditPet/>
           }
           <div className="col-sm-9">
-            <div className="row">
+            {/* <div className="row"> */}
 
             {data && <Reminders petId={data._id} reminders={data.Reminders} />}
             {data && <VetVisits  petId={data._id}  VetVisits={data.VetVisits} />}
@@ -71,8 +73,8 @@ const PetDash = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    //   </div>
+    // </div>
   );
 };
 
