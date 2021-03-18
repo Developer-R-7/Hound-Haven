@@ -5,7 +5,7 @@ const AddMeds = (props) => {
   const petId = props.petId;
   const [medId] = useState(props.data._id);
 
-  console.log(props.data);
+  // console.log(props.data);
   const [form, setForm] = useState({
     medName: props.data.MedicationName,
     due: Moment(props.data.DueDate).format("YYYY-MM-DD"),
@@ -22,11 +22,13 @@ const AddMeds = (props) => {
       setDueDate(props.data.DueDate);
       setDose(props.data.Dose);
     }
+
+    console.log(form);
   }, [medId]);
 
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log(form);
+    // console.log(form);
   };
 
   const submit = (e) => {
@@ -47,7 +49,7 @@ const AddMeds = (props) => {
             className="form-control"
             placeholder="Enter Medication Name"
             defaultValue={medName}
-            // value={form.medName}
+            value={form.medName}
           />
         </div>
         {/* /////// IF WE DECIDE TO CALCULATE DOSES NEED THIS 
@@ -88,7 +90,7 @@ const AddMeds = (props) => {
             className="form-control"
             placeholder="Start Date"
             defaultValue={Moment(due).format("YYYY-MM-DD")}
-            // value={form.due}
+            value={form.due}
           />
         </div>
         <div className="form-group">
@@ -100,7 +102,7 @@ const AddMeds = (props) => {
             className="form-control"
             placeholder="Ener Dosage"
             defaultValue={dose}
-            // value={form.Dose}
+            value={form.dose}
           />
         </div>
       </form>

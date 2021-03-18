@@ -15,7 +15,10 @@ const Medications = (props) => {
   const [modalData, setModalData] = useState(null);
   const [existing, setExisting] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    getPetData(petId).then((data) => setMeds(data.Medications));
+  };
   const handleShow = () => setShow(true);
 
   useEffect(() => {
@@ -64,7 +67,6 @@ const Medications = (props) => {
     }
 
     return cb(url, vals, petId);
-
   };
 
   const postMed = async (url, vals, petId) => {
