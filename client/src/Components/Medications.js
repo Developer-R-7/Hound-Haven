@@ -114,7 +114,7 @@ const Medications = (props) => {
                 className="pet-list card-body"
               >
                 {med.MedicationName}
-                Next Dose: <Moment format="MM/DD/YYYY">{med.DueDate}</Moment>
+                Next Dose: <Moment utc format="MM/DD/YYYY">{med.DueDate}</Moment>
                 {med.Dose}
               </li>
             ))}

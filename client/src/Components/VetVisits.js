@@ -125,7 +125,7 @@ import {  getPetData } from './Helpers/PetFunctions'
                                  key={visit._id}
                                  className="pet-list btn">
                                  <div>
-                                 <Moment format="MM/DD/YYYY" >
+                                 <Moment utc format="MM/DD/YYYY" >
                                      {visit.VisitDate}
                                  </Moment>
                                  </div> 
