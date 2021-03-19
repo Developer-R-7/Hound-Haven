@@ -67,7 +67,7 @@ const PetDash = () => {
               </div>
             </div>
           </div>}
-          <ChangePet/>
+          <ChangePet data= {data}/>
           
           <div className="col-sm-9">
             <div className="row"> 

@@ -1,15 +1,20 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import axios from "axios";
 import PetContext from "../../Context/PetContext";
 
-const ChangePet = () => {
+const ChangePet = (props) => {
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
   //state for new pet data to be added to db
+  console.log(props.data)
   const [newPet, setnewPet] = useState(null);
   const [PetImageLoc, setPetImgLoc] = useState(null);
   const { newPetData, setNewPetData } = useContext(PetContext);
+  const pet= props.data
 
+  useEffect(() => {
+    pet && setnewPet(pet);
+  }, [pet])
   //handle change of form data to be set for newPet state
   const handleChange = (e) => {
     setnewPet({ ...newPet, [e.target.name]: e.target.value });
@@ -120,6 +125,7 @@ const ChangePet = () => {
                   placeholder="Pet name"
                   name="PetName"
                   type="text"
+                  defaultValue={newPet && newPet.PetName}
                   
                 />
               </div>
