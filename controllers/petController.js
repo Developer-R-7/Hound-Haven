@@ -82,23 +82,6 @@ module.exports = {
         res.status(400).json(err);
       });
   },
-  addPetReminder: (req, res) => {
-    Pet.findOneAndUpdate(
-      { _id: params.id }, // filter
-      {
-        $push: {
-          Reminders: req.body,
-        },
-      }, //update
-      { new: true } //options
-    )
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
-  },
   updatePetMed: async (req, res) => {
     //findOneAndUpdate(filter, update, options)
     let petId = req.params.id;
@@ -178,6 +161,58 @@ module.exports = {
       },
       {
         $pull: { Medications: { _id: req.params.medid } },
+      },
+      { new: true, rawResult: true }
+    )
+      .exec()
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+  addPetReminder: (req, res) => {
+    Pet.findOneAndUpdate(
+      { _id: req.params.id }, // filter
+      {
+        $push: {
+          Reminders: req.body,
+        },
+      }, //update
+      { new: true } //options
+    )
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  },
+  updatePetReminder: async (req, res) => {
+    console.log(req.body);
+    Pet.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        "Reminders._id": req.params.reminderid,
+      },
+      {
+        $set: {
+          "Reminders.$.Date": req.body.Date,
+          "Reminders.$.Title": req.body.Title,
+          "Reminders.$.Note": req.body.Note,
+        },
+      },
+      { new: true, upsert: true, rawResult: true }
+    )
+      .exec()
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+  delPetReminder: async (req, res) => {
+    Pet.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        "Reminders._id": req.params.reminderid,
+      },
+      {
+        $pull: { Reminders: { _id: req.params.reminderid } },
       },
       { new: true, rawResult: true }
     )

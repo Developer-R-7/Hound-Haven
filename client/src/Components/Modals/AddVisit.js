@@ -7,7 +7,7 @@ const AddVisit = (props) => {
   // console.log(props.data)
 
   const [form, setForm] = useState({
-    VisitDate: Moment(props.data.VisitDate).format("YYYY-MM-DD"),
+    VisitDate: Moment.utc(props.data.VisitDate).format("YYYY-MM-DD"),
     VisitNotes: props.data.VisitNotes,
   });
 
@@ -44,7 +44,7 @@ const AddVisit = (props) => {
             name="VisitDate"
             className="form-control"
             placeholder="Date of Visit"
-            defaultValue={Moment(visitDate).format("YYYY-MM-DD")}
+            defaultValue={Moment.utc(visitDate).format("YYYY-MM-DD")}
             value={form.VisitDate}
           />
         </div>
