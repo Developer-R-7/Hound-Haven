@@ -15,7 +15,10 @@ const Medications = (props) => {
   const [modalData, setModalData] = useState(null);
   const [existing, setExisting] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    getPetData(petId).then((data) => setMeds(data.Medications));
+  };
   const handleShow = () => setShow(true);
 
   useEffect(() => {
@@ -64,26 +67,10 @@ const Medications = (props) => {
     }
 
     return cb(url, vals, petId);
-    // try {
-    //   console.log("trying", vals);
-    //   let url = `/api/addpetmed/${petId}`;
-    //   console.log(url);
-    //   let resp = await axios.put(url, vals, {
-    //     headers: { "x-auth-token": localStorage.getItem("auth-token") },
-    //   });
-    //   handleClose();
-    //   console.log(resp);
-    //   console.log(form.addMedForm.medId.value);
-    // } catch (err) {
-    //   console.log(err);
-    //   toast.error(err.response);
-    // }
   };
 
   const postMed = async (url, vals, petId) => {
     try {
-      // console.log("trying ", vals);
-      console.log(url);
       let resp = await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
@@ -127,7 +114,7 @@ const Medications = (props) => {
                 className="pet-list card-body"
               >
                 {med.MedicationName}
-                Next Dose: <Moment format="MM/DD/YYYY">{med.DueDate}</Moment>
+                Next Dose: <Moment utc format="MM/DD/YYYY">{med.DueDate}</Moment>
                 {med.Dose}
               </li>
             ))}
