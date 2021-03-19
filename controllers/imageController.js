@@ -5,7 +5,6 @@ const fs = require("fs");
 
 module.exports = {
     saveImage: async (req,res,next) => {
-		console.log(req.file);
 		if(!req.file) {
 		  res.status(500);
 		  return next(err);
