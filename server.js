@@ -23,7 +23,14 @@ io.on("connection", (socket) => {
 });
 
 // setup express
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
+
+
+app.use(express.urlencoded({
+  limit: '50mb',
+  parameterLimit: 100000,
+  extended: true 
+}));
 app.use(express.json());
 app.use(cors());
 
