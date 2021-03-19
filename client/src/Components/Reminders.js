@@ -8,33 +8,21 @@ import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
 
 const Reminders = (props) => {
-  console.log(props);
   let newData = props;
   const petId = props.petId;
+  const [reminders, setReminders] = useState(newData.Reminders);
   const [existing, setExisting] = useState(false);
-  const [reminders, setReminders] = useState(props.reminders);
-  const [modalData, setModalData] = useState(null);
-  const [isOpen, setIsOpen] = useState(true);
   const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    modalData && setShow(true);
-  }, [modalData]);
+  const [modalData, setModalData] = useState(null);
 
   const handleClose = () => {
     setShow(false);
-    getPetData(petId).then((data) => setReminders(data.reminders));
+    getPetData(petId).then((data) => setReminders(data.Reminders));
   };
 
-  //   useEffect(() => {
-  //     setReminders(newData.reminders);
-  //   }, [newData]);
-
-  const handleShow = () => setShow(true);
-
   reminders.sort(function (a, b) {
-    var nameA = a.ReminderDate,
-      nameB = b.ReminderDate;
+    var nameA = a.Date,
+      nameB = b.Date;
     if (nameA < nameB)
       //sort string ascending
       return 1;
@@ -42,15 +30,15 @@ const Reminders = (props) => {
     return 0; //default return value (no sorting)
   });
 
-  const handleAddUpdateVisit = async (e, form, cb) => {
+  const handleAddUpdateReminder = async (e, form, cb) => {
     e.preventDefault();
-    console.log("from click", form.addVisitForm);
+    console.log("from click", form.addReminderForm);
     let url;
-    let reminderId = form.addVisitForm.visitId.value;
+    let reminderId = form.addReminderForm.reminderId.value;
     const vals = {
-      Date: form.addReminderForm.date.value,
-      Title: form.addReminderForm.title.value,
-      Note: form.addReminderForm.note.value,
+      Date: form.addReminderForm.Date.value,
+      Title: form.addReminderForm.Title.value,
+      Note: form.addReminderForm.Note.value,
     };
 
     if (existing) {
@@ -59,18 +47,22 @@ const Reminders = (props) => {
       url = `/api/addPetReminder/${petId}`;
     }
 
-    return cb(url, vals, petId);
+    return cb(url, vals);
   };
 
-  const handleAddReminders = async (vals, url) => {
+  const handleDelReminder = async (e, form, cb) => {
+    e.preventDefault();
+    let reminderId = form.addReminderForm.reminderId.value;
+    let vals = {};
+    let url = `/api/delPetReminder/${petId}/${reminderId}`;
+    return cb(url, vals);
+  };
+
+  const postReminder = async (url, vals) => {
     try {
-      console.log("trying", vals);
-      let url = `/api/addPetReminder/${petId}`;
-      console.log(url);
       let resp = await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
-      newData = await getPetData(petId);
       handleClose();
       console.log(resp);
     } catch (err) {
@@ -79,11 +71,20 @@ const Reminders = (props) => {
     }
   };
 
-  const updateReminders = async (e, ReminderId) => {
+  useEffect(() => {}, [handleClose]);
+
+  const update = async (e, data) => {
     e.preventDefault();
-    //show the modal dialog
-    //get the dialog from the form  and allow update of individual note
-    console.log("button to update reminders", ReminderId);
+    setModalData(data);
+    setExisting(true);
+    setShow(true);
+  };
+
+  const add = async (e, data) => {
+    e.preventDefault();
+    setExisting(false);
+    setShow(true);
+    setModalData(data);
   };
 
   const buttonStyle = {
@@ -98,21 +99,21 @@ const Reminders = (props) => {
           <ul>
             {reminders.map((rem) => (
               <li
-                onClick={(e) => updateReminders(e, rem._id)}
+                onClick={(e) => update(e, rem)}
                 key={rem._id}
                 className="pet-list btn"
               >
                 <div>
-                  {rem.ReminderName}
                   <Moment format="MM/DD/YYYY">{rem.Date}</Moment>
                 </div>
-                &nbsp; {rem.Title}
+                <div>{rem.Title}</div>
+                &nbsp; {rem.Note}
               </li>
             ))}
           </ul>
         </div>
         <button
-          onClick={handleShow}
+          onClick={(e) => add(e, "{_id: 0}")}
           style={buttonStyle}
           className=" btn btn-circle btn-xl"
         >
@@ -120,18 +121,27 @@ const Reminders = (props) => {
         </button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Reminders</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AddReminder petId={petId} data={modalData} existing={false} />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
+            {existing ? (
+              <Button
+                variant="danger"
+                onClick={(e) =>
+                  handleDelReminder(e, document.forms, postReminder)
+                }
+              >
+                Delete Reminder
+              </Button>
+            ) : null}
             <Button
               variant="primary"
-              onClick={(e) => handleAddReminders(e, document.forms)}
+              onClick={(e) =>
+                handleAddUpdateReminder(e, document.forms, postReminder)
+              }
             >
               Submit Form
             </Button>
