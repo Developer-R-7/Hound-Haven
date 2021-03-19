@@ -6,7 +6,7 @@ import VetVisits from "../Components/VetVisits";
 import Medications from "../Components/Medications";
 import Reminders from "../Components/Reminders";
 import Moment from 'react-moment'
-import EditPet from "../Components/EditPet";
+import ChangePet from "../Components/Modals/ChangePet";
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
@@ -33,7 +33,7 @@ const PetDash = () => {
     <div className="container-fluid" style={{backgroundColor: "#9F939A"}}>
       <div className="container">
         <div className="row">
-          {/* {data &&
+          {data &&
           <div className="col-sm-3">
           
             <div className="card m-2">
@@ -54,16 +54,23 @@ const PetDash = () => {
                 <h4 className="card-title">{data.Gender}</h4>
                 <h4 className="card-title">{data.Breed}</h4>
 
-                <button style={buttonStyle} className="btn">
-                  Edit
-                </button>
+                <div className="edit-new-pet">
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#editAPetModal"
+                    type="button"
+                    className="edit-pet-btn btn btn-xl"
+                  >
+                    Edit
+                  </button>
+                </div>
               </div>
             </div>
-          </div> */
-          <EditPet/>
-          }
+          </div>}
+          <ChangePet/>
+          
           <div className="col-sm-9">
-            {/* <div className="row"> */}
+            <div className="row"> 
 
             {data && <Reminders petId={data._id} reminders={data.Reminders} />}
             {data && <VetVisits  petId={data._id}  VetVisits={data.VetVisits} />}
@@ -73,8 +80,9 @@ const PetDash = () => {
             </div>
           </div>
         </div>
-    //   </div>
-    // </div>
+    </div>
+  </div>
+
   );
 };
 
