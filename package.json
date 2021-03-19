@@ -8,7 +8,10 @@
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "client": "npm start --prefix client",
     "start": "node server.js",
-    "seed": "node seeds/seeds1.js"
+    "seed": "node seeds/seeds1.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [],
   "author": "",
