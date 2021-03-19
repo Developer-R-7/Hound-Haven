@@ -19,6 +19,8 @@ const Home = () => {
   const [pets, setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
+  const [petAlert, setPetAlert] = useState({});
+
 
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
@@ -85,6 +87,18 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  const newCalendar = async () => {
+    const today = new Date()
+    let tomorrow =  new Date()
+    tomorrow.setDate(today.getDate() + 1)
+    pets.forEach(pet => {
+       console.log(pet);
+     
+      });
+  }
+
+  newCalendar();
 
   //map user data and send pets as buttons in list items
   return (
