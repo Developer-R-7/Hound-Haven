@@ -20,6 +20,7 @@ const Home = () => {
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
   const [petAlert, setPetAlert] = useState({});
+  const [data, setData] = useState();
 
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
@@ -122,13 +123,22 @@ const Home = () => {
                       type="button"
                       className="pet-list-btns saved-pet-btn btn"
                     >
+                      <img
+                        style={{
+                          height: "30px",
+                          width: "30px",
+                          borderRadius: "100%",
+                        }}
+                        src={pet.PetImageLoc}
+                      />
+                      {" " + " "}
                       {pet.PetName}
                     </button>
                     <button
                       onClick={(e) => {
                         if (
                           window.confirm(
-                            "Are you sure you wish to delete this item?"
+                            "Are you sure you wish to delete this pet?"
                           )
                         )
                           deletePet(e, pet._id);
