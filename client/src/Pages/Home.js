@@ -129,7 +129,7 @@ const Home = () => {
                           width: "30px",
                           borderRadius: "100%",
                         }}
-                        src={pet.PetImageLoc}
+                        src={`http://localhost:3000/api/getImage/${pet.PetImageLoc}`}
                       />
                       {" " + " "}
                       {pet.PetName}
