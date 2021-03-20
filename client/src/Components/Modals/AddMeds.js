@@ -5,7 +5,6 @@ const AddMeds = (props) => {
   const petId = props.petId;
   const [medId] = useState(props.data._id);
 
-  // console.log(props.data);
   const [form, setForm] = useState({
     MedicationName: props.data.MedicationName,
     DueDate: Moment.utc(props.data.DueDate).format("YYYY-MM-DD"),
