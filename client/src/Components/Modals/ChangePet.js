@@ -1,53 +1,47 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import axios from "axios";
 import PetContext from "../../Context/PetContext";
+import { useHistory } from "react-router-dom";
+import Moment from "react-moment";
 
 const ChangePet = (props) => {
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
+  
   //state for new pet data to be added to db
   console.log(props.data)
   const [newPet, setnewPet] = useState(null);
   const [PetImageLoc, setPetImgLoc] = useState(null);
   const { newPetData, setNewPetData } = useContext(PetContext);
-  const pet= props.data
+  const pet= props.data;
+  const history = useHistory();
 
   useEffect(() => {
     pet && setnewPet(pet);
   }, [pet])
-  // useEffect(()=>{
-  //   pet && setNewPetData(pet);
-  // }, [newPetData])
+
+  useEffect(()=>{
+    newPetData &&
+    history.push({
+      pathname: "/petDash",
+      state: { info: newPetData },
+    });
+  }, [newPetData])
+
   //handle change of form data to be set for newPet state
   const handleChange = (e) => {
     setnewPet({ ...newPet, [e.target.name]: e.target.value });
   };
 
-  //handel save button to add a new pet to db
-  // const saveNewPet = async (e) => {
-  //   newPet.PetImageLoc = PetImageLoc;
-  //   console.log(newPet)
-  //   e.preventDefault();
-  //   try {
-  //     const pet = await axios.post("/api/pet", newPet, {
-  //       headers: { "x-auth-token": localStorage.getItem("auth-token") },
-  //     });
-  //     // console.log(pet);
-  //     setNewPetData(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   const updatePet = async (e) => {
     newPet.PetImageLoc = PetImageLoc;
-    console.log(newPet)
     e.preventDefault();
     try {
-      const pet = await axios.put("/api/updatepet/"+newPet._id, newPet, {
+      const pet = await axios.patch("/api/updatepet/"+newPet._id, newPet, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      // console.log(pet);
+      })
       setNewPetData(true);
+
     } catch (error) {
       console.log(error);
     }
@@ -129,12 +123,7 @@ const ChangePet = (props) => {
                   style={{
                     display: "none"
                   }}/>
-    
       </div>
-      
-
-
-
               <p></p>
               <div className="form-group">
                 <input
@@ -154,7 +143,7 @@ const ChangePet = (props) => {
                   placeholder="Birth Date"
                   name="BirthDate"
                   type="date"
-                  defaultValue={newPet && new Date(newPet.BirthDate).toISOString().substr(0,10)}
+                  defaultValue={newPet && <Moment format="MM/DD/YYYY">{newPet.BirthDate}</Moment>}
                 />
               </div>
               <div className="form-group">
