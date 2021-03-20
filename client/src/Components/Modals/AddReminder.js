@@ -4,24 +4,28 @@ import Moment from "moment";
 const AddReminder = (props) => {
   const petId = props.petId;
   const [reminderId] = useState(props.data._id);
+
   const [form, setForm] = useState({
-    ReminderDate: Moment(props.data.ReminderDate).format("YYYY-MM-DD"),
-    ReminderNotes: props.data.ReminderNotes,
+    Date: Moment(props.data.Date).format("YYYY-MM-DD"),
+    Title: props.data.Title,
+    Note: props.data.Note,
   });
 
-  const [reminderDate, setReminderDate] = useState("");
-  const [reminderNotes, setReminderNotes] = useState("");
+  const [date, setReminderDate] = useState("");
+  const [note, setReminderNotes] = useState("");
+  const [title, setReminder] = useState("");
+
+  useEffect(() => {
+    if (reminderId !== 0) {
+      setReminderDate(props.data.Date);
+      setReminderNotes(props.data.Note);
+      setReminder(props.data.Title);
+    }
+  }, [reminderId]);
 
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
-  useEffect(() => {
-    if (reminderId !== 0) {
-      setReminderDate(props.data.ReminderDate);
-      setReminderNotes(props.data.ReminderNotes);
-    }
-  }, [reminderId]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -42,31 +46,33 @@ const AddReminder = (props) => {
           <input
             onChange={onChange}
             type="date"
-            name="date"
+            name="Date"
             className="form-control"
             placeholder="Date reminder needed"
-            defaultValue={Moment(reminderDate).format("YYYY-MM-DD")}
-            value={form.ReminderDate}
+            defaultValue={Moment(date).format("YYYY-MM-DD")}
+            value={form.Date}
           />
 
           <label>Title</label>
           <input
             onChange={onChange}
             type="text"
-            name="title"
+            name="Title"
             className="form-control"
             placeholder="title"
+            defaultValue={title}
+            value={form.Title}
           />
 
           <label>Note</label>
           <input
             onChange={onChange}
             type="text"
-            name="Remindernotes"
+            name="Note"
             className="form-control"
             placeholder="note"
-            defaultValue={reminderNotes}
-            value={form.ReminderNotes}
+            defaultValue={note}
+            value={form.Note}
           />
         </div>
       </form>

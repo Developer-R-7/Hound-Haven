@@ -8,7 +8,7 @@ const AddMeds = (props) => {
   // console.log(props.data);
   const [form, setForm] = useState({
     MedicationName: props.data.MedicationName,
-    DueDate: Moment(props.data.DueDate).format("YYYY-MM-DD"),
+    DueDate: Moment.utc(props.data.DueDate).format("YYYY-MM-DD"),
     Dose: props.data.Dose,
   });
 
@@ -89,7 +89,7 @@ const AddMeds = (props) => {
             name="startDate"
             className="form-control"
             placeholder="Start Date"
-            defaultValue={Moment(due).format("YYYY-MM-DD")}
+            defaultValue={Moment.utc(due).format("YYYY-MM-DD")}
             // value={form.DueDate}
           />
         </div>

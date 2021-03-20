@@ -21,13 +21,17 @@ const Medications = (props) => {
   };
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    modalData && setShow(true);
-  }, [modalData]);
+  useEffect(() => {}, [handleClose]);
 
-  useEffect(() => {
-    setMeds(newData.meds);
-  }, [newData]);
+  
+
+  // useEffect(() => {
+  //   modalData && setShow(true);
+  // }, [modalData]);
+
+  // useEffect(() => {
+  //   setMeds(newData.meds);
+  // }, [newData]);
 
   //sort descending so the newest one on the top
   meds.sort(function (a, b) {
@@ -66,7 +70,18 @@ const Medications = (props) => {
       url = `/api/addpetmed/${petId}`;
     }
 
-    return cb(url, vals, petId);
+    return cb(url, vals);
+  };
+
+  const handleDelMed = async (e, form, cb) => {
+    e.preventDefault();
+    let vals = {};
+    const medId = form.addMedForm.medId.value;
+    const url = `/api/delPetMed/${petId}/${medId}`;
+    // console.log(form.addMedForm.medId.value);
+    console.log(url, vals, medId);
+
+    return cb(url, vals);
   };
 
   const postMed = async (url, vals, petId) => {
@@ -74,17 +89,20 @@ const Medications = (props) => {
       let resp = await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
-      newData = await getPetData(petId);
+      // newData = await getPetData(petId);
       handleClose();
     } catch (err) {
       console.log(err);
     }
   };
 
+  
+
   const update = async (e, data) => {
     e.preventDefault();
     setModalData(data);
     setExisting(true);
+    setShow(true)
 
     console.log("button to update med", data);
   };
@@ -93,6 +111,7 @@ const Medications = (props) => {
     e.preventDefault();
     setModalData(data);
     setExisting(false);
+    setShow(true)
 
     console.log("button to add med", data);
   };
@@ -105,7 +124,7 @@ const Medications = (props) => {
     <div className="card m-2">
       <div className="card-body text-center ">
         <h3 className="card-title">Medications</h3>
-        <div class="pet-table">
+        <div className="pet-table">
           <ul>
             {meds.map((med) => (
               <li
@@ -114,7 +133,10 @@ const Medications = (props) => {
                 className="pet-list card-body"
               >
                 {med.MedicationName}
-                Next Dose: <Moment utc format="MM/DD/YYYY">{med.DueDate}</Moment>
+                Next Dose:{" "}
+                <Moment utc format="MM/DD/YYYY">
+                  {med.DueDate}
+                </Moment>
                 {med.Dose}
               </li>
             ))}
@@ -137,6 +159,14 @@ const Medications = (props) => {
             <AddMeds petId={petId} data={modalData} existing={false} />
           </Modal.Body>
           <Modal.Footer>
+            {existing ? (
+              <Button
+                variant="primary"
+                onClick={(e) => handleDelMed(e, document.forms, postMed)}
+              >
+                Delete Visit
+              </Button>
+            ) : null}
             <Button
               variant="primary"
               onClick={(e) => handleAddUpdateMed(e, document.forms, postMed)}
