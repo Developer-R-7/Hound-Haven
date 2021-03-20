@@ -13,6 +13,6 @@ router.post("/login", login);
 
 router.get("/", auth, getUser);
 
-router.delete("/delete/:id", deleteUser);
+router.delete("/delete/:id", auth, deleteUser);
 
 module.exports = router;
