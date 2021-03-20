@@ -19,6 +19,7 @@ function App() {
     token: undefined,
   });
   const [newPetData, setNewPetData] = useState("pet babies");
+  const [petId, setPetId] = useState("");
 
   const checkLoggedIn = async () => {
     let token = localStorage.getItem("auth-token");
@@ -52,7 +53,9 @@ function App() {
         <ToastContainer />
 
         <UserContext.Provider value={{ userData, setUserData }}>
-          <PetContext.Provider value={{ newPetData, setNewPetData }}>
+          <PetContext.Provider
+            value={{ newPetData, setNewPetData, petId, setPetId }}
+          >
             <NavBar />
             <Switch>
               <Route exact path="/petDash" component={PetDash} />
