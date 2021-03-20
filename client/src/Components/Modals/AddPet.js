@@ -51,8 +51,8 @@ const AddPet = () => {
 						headers: { "x-auth-token": localStorage.getItem("auth-token") },
 					})
 					.then((data) => {
-						console.log(data.data.fileUrl);
-						setPetImgLoc(data.data.fileUrl);
+						console.log(data.data);
+						setPetImgLoc(data.data);
 					});
 			}
 		} catch (error) {
