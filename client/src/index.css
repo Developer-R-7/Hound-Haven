@@ -1,70 +1,72 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
+
 body {
-  margin: 0;
-  font-family: "Acme", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: "Acme", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
 
 /* add new pet button styles */
 .btn-circle.btn-xl {
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-  font-size: 20px;
-  text-align: center;
-  font-weight: bolder;
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	font-size: 20px;
+	text-align: center;
+	font-weight: bolder;
 }
 
 .add-pet-btn {
-  /* position: absolute; */
-  width: 103px;
-  height: 102px;
-  left: 550px;
-  top: 500px;
-  background: #ff6464;
+	/* position: absolute; */
+	width: 103px;
+	height: 102px;
+	left: 550px;
+	top: 500px;
+	background: #ff6464;
 }
 
 .pet-list {
-  background: #ff9999;
-  display: table;
-  list-style-type: none;
-  width: 350px;
-  padding: 5px;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: 10px;
+	background: #ff9999;
+	display: table;
+	list-style-type: none;
+	width: 350px;
+	padding: 5px;
+	align-items: center;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 /* saved pet pet button styles */
 .saved-pet-btn {
-  /* position: relative; */
-  width: 275px;
-  height: 40px;
-  /* left: 450px;
+	/* position: relative; */
+	width: 275px;
+	height: 40px;
+	/* left: 450px;
   top: 215px; */
-  background: #ff9999;
+	background: #ff9999;
 }
 
 /* "My Pet" header styles */
 
 .myPet-header {
-  /* position: absolute; */
-  width: 322px;
-  height: 40px;
-  /* left: 420px;
+	/* position: absolute; */
+	width: 322px;
+	height: 40px;
+	/* left: 420px;
   top: 150px; */
-  background: #c4c4c4;
-  text-align: center;
+	background: #c4c4c4;
+	text-align: center;
 }
 
 .pets-container {
-  /* position: relative; */
-  margin-bottom: 50px;
+	/* position: relative; */
+	margin-bottom: 50px;
 }
 
 .navbar,
@@ -73,5 +75,5 @@ code {
 } */
 
 .height {
-  height: 250px;
+	height: 250px;
 }
