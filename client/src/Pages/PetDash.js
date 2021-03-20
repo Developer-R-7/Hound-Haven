@@ -8,24 +8,36 @@ import Reminders from "../Components/Reminders";
 import Moment from "react-moment";
 import ChangePet from "../Components/Modals/ChangePet";
 import axios from 'axios';
+import PetContext from "../Context/PetContext";
+import {getPetData} from "../Components/Helpers/PetFunctions";
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
   const [data, setData] = useState();
   const [img, setImg] = useState();
+  const [PetName, setPetName] = useState();
   const history = useHistory();
   const location = useLocation();
+  const { newPetData, setNewPetData } = useContext(PetContext);
+  let petId;
 
   useEffect(() => {
     setData(location.state.info); // added this to refersh after update
+    data? petId = data._id: petId ="";
+  }, [location, newPetData]);
 
-  }, [location]);
-
+setNewPetData(false);
 
   useEffect(() => {
     console.log(data)
     data && getImg(data.PetImageLoc)
+
   }, [data]);
+
+useEffect( async() => {
+  const data = await getPetData(petId)
+  data && setData(data)
+}, [newPetData])
 
 
   useEffect(() => {
