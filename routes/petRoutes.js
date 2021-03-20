@@ -21,7 +21,7 @@ const {
 
 router.get("/getpets", auth, getPets);
 router.get("/getpetbyuser/:id", auth, getPetsByUser);
-router.put("/updatepet/:id", auth, updatePet);
+router.patch("/updatepet/:id", auth, updatePet);
 router.delete("/pet/:id", auth, delPet);
 router.post("/pet", auth, createPet);
 router.get("/pet/:id", auth, getPetByID);
