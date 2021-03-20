@@ -15,29 +15,29 @@ const ChangePet = (props) => {
   useEffect(() => {
     pet && setnewPet(pet);
   }, [pet])
-  useEffect(()=>{
-    pet
-  }, [newPetData])
+  // useEffect(()=>{
+  //   pet && setNewPetData(pet);
+  // }, [newPetData])
   //handle change of form data to be set for newPet state
   const handleChange = (e) => {
     setnewPet({ ...newPet, [e.target.name]: e.target.value });
   };
 
   //handel save button to add a new pet to db
-  const saveNewPet = async (e) => {
-    newPet.PetImageLoc = PetImageLoc;
-    console.log(newPet)
-    e.preventDefault();
-    try {
-      const pet = await axios.post("/api/pet", newPet, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      // console.log(pet);
-      setNewPetData(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const saveNewPet = async (e) => {
+  //   newPet.PetImageLoc = PetImageLoc;
+  //   console.log(newPet)
+  //   e.preventDefault();
+  //   try {
+  //     const pet = await axios.post("/api/pet", newPet, {
+  //       headers: { "x-auth-token": localStorage.getItem("auth-token") },
+  //     });
+  //     // console.log(pet);
+  //     setNewPetData(true);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const updatePet = async (e) => {
     newPet.PetImageLoc = PetImageLoc;
     console.log(newPet)
@@ -156,7 +156,6 @@ const ChangePet = (props) => {
                   type="date"
                   defaultValue={newPet && new Date(newPet.BirthDate).toISOString().substr(0,10)}
                 />
-                {console.log(newPet && new Date(newPet.BirthDate).toISOString())}
               </div>
               <div className="form-group">
                 <input
