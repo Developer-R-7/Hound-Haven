@@ -7,6 +7,8 @@ import axios from "axios";
 import PetDash from "./PetDash";
 import { Route, Link } from "react-router-dom";
 import { set } from "mongoose";
+import ConfirmDelete from "../Components/Modals/ConfirmDelete";
+import e from "cors";
 
 //return data from user, append any saved pets as buttons
 //when a saved pets button is clicked ..routes to that pets dash
@@ -15,6 +17,7 @@ import { set } from "mongoose";
 const Home = () => {
   const { userData } = useContext(UserContext);
   const { newPetData, setNewPetData } = useContext(PetContext);
+  const { petId, setPetId } = useContext(PetContext);
   const history = useHistory();
   const [pets, setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
@@ -47,11 +50,7 @@ const Home = () => {
 
   useEffect(() => {
     loadUserPets(user);
-  }, [user, newPetData]);
-
-  // useEffect(() => {
-  //   loadUserPets(user);
-  // }, [newPetData]);
+  }, [user, newPetData, petId]);
 
   useEffect(() => {
     petData &&
@@ -60,18 +59,6 @@ const Home = () => {
         state: { info: petData },
       });
   }, [petData]);
-
-  const deletePet = async (e, id) => {
-    e.preventDefault();
-    try {
-      const { data } = await axios.delete(`/api/pet/${id}`, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      loadUserPets(user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const routePet = async (e, id) => {
     e.preventDefault();
@@ -114,7 +101,6 @@ const Home = () => {
           <div className="col-xs-12 py-5">
             {pets ? (
               <div>
-                {console.log(pets)}
                 {pets.map((pet, i) => (
                   <div>
                     <button
@@ -135,13 +121,10 @@ const Home = () => {
                       {pet.PetName}
                     </button>
                     <button
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmDelete"
                       onClick={(e) => {
-                        if (
-                          window.confirm(
-                            "Are you sure you wish to delete this pet?"
-                          )
-                        )
-                          deletePet(e, pet._id);
+                        setPetId(pet._id);
                       }}
                       key={i}
                       type="button"
@@ -168,7 +151,7 @@ const Home = () => {
           </button>
         </div>
       </div>
-
+      <ConfirmDelete />
       <AddPet />
     </>
   );
