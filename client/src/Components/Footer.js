@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import UserContext from "../Context/UserContext";
 
-const Footer = (props) => {
+const Footer = () => {
 	const { userData, setUserData } = useContext(UserContext);
 	const style = {
 		backgroundColor: "#ffc2c2",
