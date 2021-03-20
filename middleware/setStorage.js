@@ -1,28 +1,57 @@
-const path  = require("path");
-const fs = require("fs");
-const multer  = require('multer');
+const crypto = require("crypto");
+const path = require("path");
+const mongoose = require("mongoose");
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
 
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, './client/public/images');
-    },
-    filename: (req, file, cb) => {
-      console.log(file);
-      var filetype = '';
-      if(file.mimetype === 'image/gif') {
-        filetype = 'gif';
-      }
-      if(file.mimetype === 'image/png') {
-        filetype = 'png';
-      }
-      if(file.mimetype === 'image/jpeg') {
-        filetype = 'jpg';
-      }
-      cb(null, 'image-' + Date.now() + '.' + filetype);
-    }
+
+// DB
+const mongoURI = 	process.env.MONGODB_URI || "mongodb://localhost/myPet";
+
+// connection
+const conn = mongoose.createConnection(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: true
 });
-const upload = multer({storage: storage});
+
+// init gfs
+let gfs;
+conn.once("open", () => {
+  // init stream
+  gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "uploads"  //name of collaction hat will be created
+  });
+});
+
+
+
+// Storage  create the storage
+const storage = new GridFsStorage({
+  url: mongoURI,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString("hex") + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketName: "uploads"
+        };
+        resolve(fileInfo);
+      });
+    });
+  }
+});
+
+const upload = multer({
+  storage
+});
+
 
 exports.storage = storage;
 exports.upload = upload;
