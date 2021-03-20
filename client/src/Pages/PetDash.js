@@ -6,6 +6,7 @@ import VetVisits from "../Components/VetVisits";
 import Medications from "../Components/Medications";
 import Reminders from "../Components/Reminders";
 import Moment from "react-moment";
+import ChangePet from "../Components/Modals/ChangePet";
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
@@ -49,21 +50,19 @@ const PetDash = () => {
                   <h4 className="card-title">{data.Breed}</h4>
 
                 <div className="edit-new-pet">
-                  <button
+                  <button style={buttonStyle}
                     data-bs-toggle="modal"
                     data-bs-target="#editAPetModal"
                     type="button"
                     className="edit-pet-btn btn btn-xl"
                   >
-                  <button style={buttonStyle} className="btn">
                     Edit
                   </button>
                 </div>
               </div>
             </div>
-          )
+            </div>)}
         
-          </div>}
           <ChangePet data= {data}/>
           <div className="col-sm-9">
             <div className="row">
