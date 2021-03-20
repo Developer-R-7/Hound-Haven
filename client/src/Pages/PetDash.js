@@ -7,17 +7,30 @@ import Medications from "../Components/Medications";
 import Reminders from "../Components/Reminders";
 import Moment from "react-moment";
 import ChangePet from "../Components/Modals/ChangePet";
+import axios from 'axios';
 
 const PetDash = () => {
   const { userData } = useContext(UserContext);
   const [data, setData] = useState();
+  const [img, setImg] = useState();
   const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.state.info);
-    setData(location.state.info); // petdata
+    setData(location.state.info); // added this to refersh after update
+
   }, [location]);
+
+
+  useEffect(() => {
+    console.log(data)
+    data && getImg(data.PetImageLoc)
+  }, [data]);
+
+
+  useEffect(() => {
+     console.log('img changed')
+  }, [img]);
 
   useEffect(() => {
     if (!userData.user) history.push("/");
@@ -27,6 +40,18 @@ const PetDash = () => {
     backgroundColor: "rgb(255, 100, 100)",
   };
 
+  const getImg = async (imgLoc) => {
+    try {
+      const { imgdata } = await axios.get(`/api/getImage/${imgLoc}`,
+        { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
+      );
+      setImg(imgdata);
+      console.log("here",imgdata);
+    } catch (error) {
+      console.log(error);
+    }
+  } 
+
   return (
     <div className="container-fluid" style={{ backgroundColor: "#9F939A" }}>
       <div className="container">
@@ -35,7 +60,9 @@ const PetDash = () => {
             <div className="col-sm-3">
               <div className="card m-2">
                 <img
-                  src={data.PetImageLoc}
+
+
+                  src={`http://localhost:3000/api/getImage/${data.PetImageLoc}`}
                   className="card-img-top"
                   alt="petImage"
                 ></img>
