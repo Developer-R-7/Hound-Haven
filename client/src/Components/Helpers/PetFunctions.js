@@ -17,14 +17,10 @@ async function getPetData(petid) {
       console.log(error);
     }
  
-
   }  
 
 	const loadUserPets = async (user) => {
-
 		let url = `/api/getpetbyuser/${user}`;
-		let token = localStorage.getItem("auth-token");
-
 		try {
 			const { data } = await axios.get(url, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
@@ -51,9 +47,4 @@ async function getPetData(petid) {
 	}
 
 
-	function removeSpecialChars(str) {
-		return str.replace(/(?!\w|\s)./g, '')
-		  .replace(/\s+/g, '_')
-		  .replace(/^(\s*)([\W\w]*)(\b\s*$)/g, '$2');
-	  }
-export{ getPetData, loadUserPets, resizeFile, removeSpecialChars }
+export{ getPetData, loadUserPets, resizeFile}

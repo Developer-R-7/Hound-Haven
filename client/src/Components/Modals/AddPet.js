@@ -5,19 +5,18 @@ import UserContext from "../../Context/UserContext";
 //import Resize from "react-image-file-resizer";
 
 import { toast } from "react-toastify";
-import {resizeFile} from '../Helpers/PetFunctions';
+//import {resizeFile} from '../Helpers/PetFunctions';
 
 const AddPet = () => {
 	const { userData } = useContext(UserContext);
 	const [user] = useState(userData.user?.id);
 	const [file, setFile] = useState(null);
-
 	const uploadedImage = useRef(null);
 	const imageUploader = useRef(null);
 	//state for new pet data to be added to db
 	const [newPet, setnewPet] = useState(null);
 	const [PetImageLoc, setPetImgLoc] = useState(null);
-	const { newPetData, setNewPetData } = useContext(PetContext);
+	const {setNewPetData } = useContext(PetContext);
 
 	//handle change of form data to be set for newPet state
 	const handleChange = (e) => {
@@ -105,6 +104,7 @@ const AddPet = () => {
 											border: "none",
 											borderRadius: "100%",
 										}}
+										alt="uploaded picture of pet " 
 									/>
 								</div>
 								<input

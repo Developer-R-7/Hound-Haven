@@ -8,7 +8,6 @@ const {getImages,saveImage} = require("../controllers/imageController");
 
 
 
-//router.get("/getImages", auth, getImages);
 router.post('/saveImage',auth,multer.single('file'),saveImage);
 	
 
