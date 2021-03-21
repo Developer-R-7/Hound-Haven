@@ -21,7 +21,7 @@ const Medications = (props) => {
   };
   const handleShow = () => setShow(true);
 
-  useEffect(() => {}, [handleClose]);
+  useEffect(() => {}, [meds]);
 
   
 
@@ -86,7 +86,7 @@ const Medications = (props) => {
 
   const postMed = async (url, vals, petId) => {
     try {
-      let resp = await axios.put(url, vals, {
+       await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       // newData = await getPetData(petId);

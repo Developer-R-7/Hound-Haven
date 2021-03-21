@@ -23,7 +23,7 @@ const AddMeds = (props) => {
     }
 
     console.log(form);
-  }, [medId]);
+  }, [medId, props.data.MedicationName, props.data.DueDate, props.data.Dose]);
 
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
