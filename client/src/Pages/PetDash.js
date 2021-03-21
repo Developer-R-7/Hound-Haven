@@ -23,6 +23,7 @@ const PetDash = () => {
 
   useEffect(() => {
     setData(location.state.info); // added this to refersh after update
+    data? console.log(data): console.log("no Data");
     data? petId = data._id: petId ="";
   }, [location, newPetData]);
 

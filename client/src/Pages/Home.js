@@ -56,18 +56,11 @@ const Home = () => {
   }, [petData]);
 
   const routePet = async (e, id) => {
+    // we already had the data no need to go back to the DB
     e.preventDefault();
-    try {
-      const { data } = await axios.get(
-        `/api/pet/${id}`,
-
-        { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
-      );
-      data && setPetData(data);
-      console.log(id);
-    } catch (error) {
-      console.log(error);
-    }
+    let thisPet = pets.filter(((pet) => {return pet._id === id}));
+    setPetData(thisPet[0]);
+    console.log("here", petData);
   };
 
   const newCalendar = async () => {
