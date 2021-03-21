@@ -10,21 +10,30 @@ require('dotenv').config();
 
 module.exports = {
     saveImage: async (req,res,next) => {
-		console.log(req.file);
 		let publicUrl;
+		try{
+		console.log(req.file);
 		if(!req.file) {
 		  res.status(500);
 		  return next(err);
 		}
-        const newFileName = uuidv1() + "." + req.file.originalname;
+
+
+
+		const originalFileName = req.file.originalname.replace(/(?!\w|\s)./g, '').replace(/\s+/g, '_');
+
+        const newFileName = uuidv1() + "." + originalFileName
 		const blob = bucket.file(newFileName)
 		const blobstream = blob.createWriteStream();
 		blobstream.on("error", err => console.log(err) )
 		blobstream.on("finish", () => {
 		publicUrl = `https://storage.googleapis.com/${process.env.GCS_BUCKET}/${blob.name}`
+		console.log(publicUrl);
+		return next(res.json({"imageurl": publicUrl}));
 		})
         blobstream.end(req.file.buffer);
-		return res.json({ fileUrl: publicUrl});
+		//eturn next(res.json({ fileUrl: publicUrl}));
+		} catch (err) { return res.json({Error: err.message})}
 	  },
 	getImages: async (req, res) => {
 		const uploadDirectory = path.join( "client", "public", "images");
