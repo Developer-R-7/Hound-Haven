@@ -1,0 +1,8 @@
+{
+    "prettier.useTabs": true,
+	"editor.wordWrap": "on",
+	"editor.formatOnSave": true,
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	}
+}

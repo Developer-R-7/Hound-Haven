@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
 
 const Medications = (props) => {
-  let newData = props;
+
   const petId = props.petId;
   const [meds, setMeds] = useState(props.meds);
   const [show, setShow] = useState(false);
@@ -21,7 +21,7 @@ const Medications = (props) => {
   };
   const handleShow = () => setShow(true);
 
-  useEffect(() => {}, [handleClose]);
+  useEffect(() => {}, [meds]);
 
   
 
@@ -86,13 +86,14 @@ const Medications = (props) => {
 
   const postMed = async (url, vals, petId) => {
     try {
-      let resp = await axios.put(url, vals, {
+       await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       // newData = await getPetData(petId);
       handleClose();
     } catch (err) {
       console.log(err);
+      toast.error({message: err.message});
     }
   };
 

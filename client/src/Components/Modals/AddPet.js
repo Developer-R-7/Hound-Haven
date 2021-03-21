@@ -1,14 +1,22 @@
 import React, { useState, useContext, useRef } from "react";
 import axios from "axios";
 import PetContext from "../../Context/PetContext";
+import UserContext from "../../Context/UserContext";
+//import Resize from "react-image-file-resizer";
+
+import { toast } from "react-toastify";
+//import {resizeFile} from '../Helpers/PetFunctions';
 
 const AddPet = () => {
+	const { userData } = useContext(UserContext);
+	const [user] = useState(userData.user?.id);
+	const [file, setFile] = useState(null);
 	const uploadedImage = useRef(null);
 	const imageUploader = useRef(null);
 	//state for new pet data to be added to db
 	const [newPet, setnewPet] = useState(null);
 	const [PetImageLoc, setPetImgLoc] = useState(null);
-	const { newPetData, setNewPetData } = useContext(PetContext);
+	const {setNewPetData } = useContext(PetContext);
 
 	//handle change of form data to be set for newPet state
 	const handleChange = (e) => {
@@ -25,7 +33,7 @@ const AddPet = () => {
 			const pet = await axios.post("/api/pet", newPet, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
-			// console.log(pet);
+		    console.log(pet);
 			setNewPetData(true);
 		} catch (error) {
 			console.log(error);
@@ -35,28 +43,26 @@ const AddPet = () => {
 	const handleImage = async (e) => {
 		e.preventDefault();
 		try {
-			const [file] = e.target.files;
-			if (file) {
-				const reader = new FileReader();
-				const { current } = uploadedImage;
-				current.file = file;
-				reader.onload = (e) => {
-					current.src = e.target.result;
-				};
-				reader.readAsDataURL(file);
-				const formData = new FormData();
-				formData.append("file", file);
-				await axios
+			let file = e.target.files[0]
+			file && setFile(file);
+
+				var formData = new FormData()
+			
+				formData.append('file', file)
+			
+				console.log(formData);
+
+				const data = await axios
 					.post("/api/saveImage", formData, {
 						headers: { "x-auth-token": localStorage.getItem("auth-token") },
-					})
-					.then((data) => {
-						console.log(data.data);
-						setPetImgLoc(data.data);
-					});
-			}
+					})	
+				console.log(data.data.imageurl);	
+				setPetImgLoc(data.data.imageurl)
+			
 		} catch (error) {
-			console.log(error);
+		
+			toast.error("There was a problem compressing the file, please try again" + error);
+			
 		}
 	};
 
@@ -98,6 +104,7 @@ const AddPet = () => {
 											border: "none",
 											borderRadius: "100%",
 										}}
+										alt="uploaded picture of pet " 
 									/>
 								</div>
 								<input

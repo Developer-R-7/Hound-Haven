@@ -3,10 +3,12 @@ import axios from "axios";
 import PetContext from "../../Context/PetContext";
 import { useHistory } from "react-router-dom";
 import Moment from "react-moment";
+import { toast } from "react-toastify";
 
 const ChangePet = (props) => {
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
+  const [file, setFile] = useState(null);
   
   //state for new pet data to be added to db
   console.log(props.data)
@@ -48,28 +50,29 @@ const ChangePet = (props) => {
   };
 
   const handleImage = async (e) => {
-    try {
-                const [file] = e.target.files;
-                if (file) {
-                  const reader = new FileReader();
-                  const { current } = uploadedImage;
-                  current.file = file;
-                  reader.onload = e => {
-                  current.src = e.target.result;
-                  }
-                  reader.readAsDataURL(file);                 
-                  const formData = new FormData();
-                  formData.append('file', file);
-                  await axios.post('/api/saveImage', formData,
-                  {headers: { "x-auth-token": localStorage.getItem("auth-token")}
-                  }).then(data => {
-                    console.log(data.data);
-                    setPetImgLoc(data.data);
-                  })
-                }  
-    } catch (error) {
-       console.log(error)
-    }
+      e.preventDefault();
+      try {
+        let file = e.target.files[0]
+        file && setFile(file);
+  
+          var formData = new FormData()
+        
+          formData.append('file', file)
+        
+          console.log(formData);
+  
+          const data = await axios
+            .post("/api/saveImage", formData, {
+              headers: { "x-auth-token": localStorage.getItem("auth-token") },
+            })	
+          console.log(data.data.imageurl);	
+          setPetImgLoc(data.data.imageurl)
+        
+      } catch (error) {
+      
+        toast.error("There was a problem compressing the file, please try again" + error);
+        
+      }
   } 
 
   return (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Moment from "moment";
 
 const AddVisit = (props) => {
-  const petId = props.petId;
+
   const [visitId] = useState(props.data._id);
   // console.log(props.data)
 
@@ -25,7 +25,7 @@ const AddVisit = (props) => {
       setVisitDate(props.data.VisitDate);
       setVisitNotes(props.data.VisitNotes);
     }
-  }, [visitId]);
+  }, [visitId,props.data.VisitDate, props.data.VisitNotes]);
 
   const submit = async (e) => {
     e.preventDefault();

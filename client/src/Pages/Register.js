@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import UserContext from "../Context/UserContext.js";
 import { useHistory } from "react-router-dom";
 import RegisterForm from "../Components/RegisterForm.js";
 import About from "../Components/About.js";
 
 const Register = () => {
-	const { userData, setUserData } = useContext(UserContext);
+	const { userData} = useContext(UserContext);
 	const history = useHistory();
 	useEffect(() => {
 		if (userData.user) history.push("/");

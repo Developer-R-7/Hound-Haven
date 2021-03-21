@@ -1,11 +1,12 @@
 //Function to get the petdata 
-import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+
 import axios from "axios";
-import { Route, Link } from "react-router-dom";
+import Resize from "react-image-file-resizer";
+
+
 
 async function getPetData(petid) {
-   let data;
+
     try {
       const { data } = await axios.get(
         `/api/pet/${petid}`,
@@ -16,24 +17,34 @@ async function getPetData(petid) {
       console.log(error);
     }
  
-
   }  
 
 	const loadUserPets = async (user) => {
-    let data;
-		console.log(user);
 		let url = `/api/getpetbyuser/${user}`;
-		let token = localStorage.getItem("auth-token");
-		console.log(url);
-		console.log(token);
 		try {
 			const { data } = await axios.get(url, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
+			return (data); 
 		} catch (error) {
 			console.log(error);
 		}
-    return (data); 
+
 	};
 
-export{ getPetData, loadUserPets }
+	const resizeFile = async(file) => {
+		let newImage;
+		try {
+			newImage = Resize.imageFileResizer(file, 400, 400, 'JPEG', 70, 0,
+			uri => {
+				newImage = uri;
+				return newImage;
+			},
+			'base64'
+			);
+		return newImage;
+		} catch (error) {console.log(error)} 		
+	}
+
+
+export{ getPetData, loadUserPets, resizeFile}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Moment from "moment";
 
 const AddReminder = (props) => {
-  const petId = props.petId;
+
   const [reminderId] = useState(props.data._id);
 
   const [form, setForm] = useState({
@@ -21,7 +21,7 @@ const AddReminder = (props) => {
       setReminderNotes(props.data.Note);
       setReminder(props.data.Title);
     }
-  }, [reminderId]);
+  }, [reminderId,props.data.Date,props.data.Note,props.data.Title]);
 
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
