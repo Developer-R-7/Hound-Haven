@@ -51,7 +51,7 @@ const storage = new GridFsStorage({
 const upload = multer({
   storage
 });
-
+z
 
 exports.storage = storage;
 exports.upload = upload;

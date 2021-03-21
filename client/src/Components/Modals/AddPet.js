@@ -1,8 +1,14 @@
 import React, { useState, useContext, useRef } from "react";
 import axios from "axios";
 import PetContext from "../../Context/PetContext";
+import UserContext from "../../Context/UserContext";
+
+import { toast } from "react-toastify";
+import {resizeFile} from '../Helpers/PetFunctions';
 
 const AddPet = () => {
+	const { userData } = useContext(UserContext);
+	const [user] = useState(userData.user?.id);
 	const uploadedImage = useRef(null);
 	const imageUploader = useRef(null);
 	//state for new pet data to be added to db
@@ -25,7 +31,7 @@ const AddPet = () => {
 			const pet = await axios.post("/api/pet", newPet, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
-			// console.log(pet);
+		    console.log(pet);
 			setNewPetData(true);
 		} catch (error) {
 			console.log(error);
@@ -35,28 +41,24 @@ const AddPet = () => {
 	const handleImage = async (e) => {
 		e.preventDefault();
 		try {
-			const [file] = e.target.files;
+			const file = e.target.files[0];
 			if (file) {
-				const reader = new FileReader();
-				const { current } = uploadedImage;
-				current.file = file;
-				reader.onload = (e) => {
-					current.src = e.target.result;
-				};
-				reader.readAsDataURL(file);
-				const formData = new FormData();
-				formData.append("file", file);
-				await axios
+				//compress the file to 1mb
+				console.log(file.name)
+				const image = await resizeFile(file);
+				var formData = new FormData()
+				image && formData.append(image)
+
+				const data = await axios
 					.post("/api/saveImage", formData, {
 						headers: { "x-auth-token": localStorage.getItem("auth-token") },
-					})
-					.then((data) => {
-						console.log(data.data);
-						setPetImgLoc(data.data);
-					});
+					})	
+				console.log(data);	
 			}
 		} catch (error) {
-			console.log(error);
+			
+			toast.error("There was a problem compressing the file, please try again");
+			
 		}
 	};
 
