@@ -4,9 +4,6 @@ import AddPet from "../Components/Modals/AddPet";
 import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
 import axios from "axios";
-import PetDash from "./PetDash";
-import { Route, Link } from "react-router-dom";
-import { set } from "mongoose";
 import ConfirmDelete from "../Components/Modals/ConfirmDelete";
 import e from "cors";
 
@@ -30,15 +27,13 @@ const Home = () => {
     console.log(user);
     let url = `/api/getpetbyuser/${user}`;
     let token = localStorage.getItem("auth-token");
-    console.log(url);
-    console.log(token);
     try {
       const { data } = await axios.get(url, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       data && setUserPets(data);
       setNewPetData(false);
-      console.log(data);
+      console.log(pets.length);
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +94,7 @@ const Home = () => {
         </div>
         <div className="row">
           <div className="col-xs-12 py-5">
-            {pets ? (
+            {pets && (
               <div>
                 {pets.map((pet, i) => (
                   <div>
@@ -117,7 +112,7 @@ const Home = () => {
                         }}
                         src={pet.PetImageLoc}
                       />
-                      {" " + " "}
+                     &nbsp;&nbsp;&nbsp;&nbsp;
                       {pet.PetName}
                     </button>
                     <button
@@ -135,7 +130,8 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-            ) : (
+            ) } 
+            { pets.length === 0  && (
               <h2>Click the "+" to add your pets!</h2>
             )}
           </div>

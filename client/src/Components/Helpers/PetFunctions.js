@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import Resize from "react-image-file-resizer";
+import{useEffect} from "react";
 
 
 
@@ -43,8 +44,12 @@ async function getPetData(petid) {
 			'base64'
 			);
 		return newImage;
-		} catch (error) {console.log(error)} 		
+		} catch (error) {console.log(error)} ;
+		
+	
 	}
 
+	const useEffectOnlyOnce = (func) => useEffect(func, [])
 
-export{ getPetData, loadUserPets, resizeFile}
+
+export{ getPetData, loadUserPets, resizeFile, useEffectOnlyOnce}
