@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
 
 const Medications = (props) => {
-  let newData = props;
+
   const petId = props.petId;
   const [meds, setMeds] = useState(props.meds);
   const [show, setShow] = useState(false);
@@ -93,6 +93,7 @@ const Medications = (props) => {
       handleClose();
     } catch (err) {
       console.log(err);
+      toast.error({message: err.message});
     }
   };
 

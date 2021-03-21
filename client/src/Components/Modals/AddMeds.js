@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Moment from "moment";
 
 const AddMeds = (props) => {
-  const petId = props.petId;
   const [medId] = useState(props.data._id);
 
   // console.log(props.data);
@@ -49,7 +48,6 @@ const AddMeds = (props) => {
             className="form-control"
             placeholder="Enter Medication Name"
             defaultValue={medName}
-            // value={form.MedicationName}
           />
         </div>
         {/* /////// IF WE DECIDE TO CALCULATE DOSES NEED THIS 

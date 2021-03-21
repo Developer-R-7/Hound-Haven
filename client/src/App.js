@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
@@ -38,11 +38,6 @@ function App() {
     }
   };
 
-  const logout = () => {
-    setUserData({ token: undefined, user: undefined });
-    localStorage.setItem("auth-token", "");
-  };
-
   useEffect(() => {
     checkLoggedIn();
   }, []);
@@ -61,7 +56,6 @@ function App() {
               <Route exact path="/petDash" component={PetDash} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-
               <Route path="/confirm" component={Confirm} />
               <Route path="/confirm_token/:token" component={Confirmed} />
               <Route path="/" component={Home} />
