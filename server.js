@@ -6,8 +6,8 @@ const PORT = process.env.PORT || 5000;
 require("./models/mongoConnection");
 const socketIo = require("socket.io");
 const cors = require("cors");
-const morgan = require('morgan');
-app.use(morgan());
+// const morgan = require('morgan');
+// app.use(morgan());
 
 
 // testing Socket.io

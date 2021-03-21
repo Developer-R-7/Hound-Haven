@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./Components/Footer";
 import PetContext from "./Context/PetContext";
 import UserContext from "./Context/UserContext";
+import Card from "./Components/Card";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -66,6 +67,8 @@ function App() {
               <Route path="/confirm_token/:token" component={Confirmed} />
               <Route path="/" component={Home} />
             </Switch>
+            <Card></Card>
+          
             <Footer />
           </PetContext.Provider>
         </UserContext.Provider>
