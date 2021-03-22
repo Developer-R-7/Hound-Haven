@@ -5,7 +5,9 @@ import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
 import axios from "axios";
 import ConfirmDelete from "../Components/Modals/ConfirmDelete";
+import moment from 'moment';
 import e from "cors";
+import UpcomingAppointments from "../Components/Modals/UpcomingAppoiments";
 
 //return data from user, append any saved pets as buttons
 //when a saved pets button is clicked ..routes to that pets dash
@@ -19,8 +21,9 @@ const Home = () => {
   const [pets, setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
-  const [petAlert, setPetAlert] = useState({});
+
   const [data, setData] = useState();
+  
 
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
@@ -33,7 +36,7 @@ const Home = () => {
       });
       data && setUserPets(data);
       setNewPetData(false);
-      console.log(pets.length);
+
     } catch (error) {
       console.log(error);
     }
@@ -45,6 +48,7 @@ const Home = () => {
 
   useEffect(() => {
     loadUserPets(user);
+
   }, [user, newPetData, petId]);
 
   useEffect(() => {
@@ -63,16 +67,33 @@ const Home = () => {
     console.log("here", petData);
   };
 
-  const newCalendar = async () => {
-    const today = new Date();
-    let tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
-    pets.forEach((pet) => {
-      console.log(pet);
-    });
-  };
+  // const newCalendar = async (pets) => {
+  //   console.log("checking the calendr",pets)
+  //   let today = new Date();
+  //   today.setDate(today.getDate() - 1);
+  //   let tomorrow = new Date();
+  //   tomorrow.setDate(today.getDate() + 2);
+  //   pets.forEach((pet) => {
+  //     //setPetAppointments
+  //     let petName = pet.PetName;
+  //     let meds = pet.Medications.filter(((appt) => {
+  //       return ( moment.utc(appt.DueDate).isBetween(today, tomorrow, undefined, '[]'));
+  //       }));
+  //     let visits = pet.VetVisits.filter(((appt) => {
+  //         return ( moment.utc(appt.VisitDate).isBetween(today, tomorrow, undefined, '[]'));
+  //         }));
+  //     let remind = pet.Reminders.filter(((appt) => {
+  //       return ( moment.utc(appt.Date).isBetween(today, tomorrow, undefined, '[]'));
+  //     }));
+  //     console.log(meds,visits,remind);
+  //     if (meds.length > 0 ){setMedAppt({...medAppt, "PetName": petName})}
+  //     if (visits.length > 0 ){setMedAppt({...vetAppt, "PetName": petName})}
+  //     if (remind.length > 0 ){setMedAppt({...remAppt, "PetName": petName})}
+  //     console.log(meds,visits,remind);
+  //   });
+  // };
 
-  newCalendar();
+ 
 
   //map user data and send pets as buttons in list items
   return (
@@ -142,6 +163,7 @@ const Home = () => {
       </div>
       <ConfirmDelete />
       <AddPet />
+      <UpcomingAppointments pets={pets} />
     </>
   );
 };
