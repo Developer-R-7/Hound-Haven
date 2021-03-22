@@ -11,6 +11,7 @@
     "seed": "node seeds/seeds1.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
+    "preinstall": "node gcpSetup.js",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],
