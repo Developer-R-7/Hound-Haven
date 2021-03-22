@@ -4,15 +4,24 @@ import UserContext from "../Context/UserContext";
 import Notify from "./Modals/Notify";
 import PetContext from "../Context/PetContext";
 import logo from "./paw_logo.PNG";
+import { Modal } from "react-bootstrap";
+import Card from "./Card";
 
 const NavBar = () => {
   const { userData, setUserData } = useContext(UserContext);
   const [links, setLinks] = useState(null);
   const { appt, setAppt } = useContext(PetContext);
+  const [show, setShow] = useState(false);
 
   const logout = () => {
     setUserData({ token: undefined, user: undefined });
     localStorage.setItem("auth-token", "");
+  };
+  const showModal = () => {
+    setShow(true);
+  };
+  const handleClose = () => {
+    setShow(false);
   };
 
   const linkStyle = {
@@ -88,14 +97,24 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             {links}
           </div>
+          <button>About</button>
           <img
             src={logo}
             alt="petLogo"
             style={{ height: "65px", width: "65px" }}
+            onClick={showModal}
           ></img>
         </div>
       </nav>
       <Notify />
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>About My Pet</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Card />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
