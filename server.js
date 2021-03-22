@@ -1,5 +1,4 @@
 const express = require("express");
-
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
@@ -8,8 +7,10 @@ const socketIo = require("socket.io");
 const cors = require("cors");
 const morgan = require('morgan');
 app.use(morgan());
+require('dotenv').config()
 
 
+// console.log("yo",process.env.GDRIVE);
 // testing Socket.io
 const http = require("http").Server(app);
 const io = require("socket.io")(http);

@@ -23,6 +23,7 @@ const PetDash = () => {
 
   useEffect(() => {
     setData(location.state.info); // added this to refersh after update
+    data? console.log(data): console.log("no Data");
     data? petId = data._id: petId ="";
   }, [location, newPetData]);
 
@@ -30,8 +31,6 @@ setNewPetData(false);
 
   useEffect(() => {
     console.log(data)
-    data && getImg(data.PetImageLoc)
-
   }, [data]);
 
 useEffect( async() => {
@@ -52,18 +51,6 @@ useEffect( async() => {
     backgroundColor: "rgb(255, 100, 100)",
   };
 
-  const getImg = async (imgLoc) => {
-    try {
-      const { imgdata } = await axios.get(`/api/getImage/${imgLoc}`,
-        { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
-      );
-      setImg(imgdata);
-      console.log("here",imgdata);
-    } catch (error) {
-      console.log(error);
-    }
-  } 
-
   return (
     <div className="container-fluid" style={{ backgroundColor: "#9F939A" }}>
       <div className="container">
@@ -74,7 +61,7 @@ useEffect( async() => {
                 <img
 
 
-                  src={`http://localhost:3000/api/getImage/${data.PetImageLoc}`}
+                  src={data.PetImageLoc}
                   className="card-img-top"
                   alt="petImage"
                 ></img>

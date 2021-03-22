@@ -4,9 +4,10 @@ import AddPet from "../Components/Modals/AddPet";
 import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
 import axios from "axios";
-import PetDash from "./PetDash";
-import { Route, Link } from "react-router-dom";
-import { set } from "mongoose";
+import ConfirmDelete from "../Components/Modals/ConfirmDelete";
+import moment from 'moment';
+import e from "cors";
+import UpcomingAppointments from "../Components/Modals/UpcomingAppoiments";
 
 //return data from user, append any saved pets as buttons
 //when a saved pets button is clicked ..routes to that pets dash
@@ -15,27 +16,27 @@ import { set } from "mongoose";
 const Home = () => {
   const { userData } = useContext(UserContext);
   const { newPetData, setNewPetData } = useContext(PetContext);
+  const { petId, setPetId } = useContext(PetContext);
   const history = useHistory();
   const [pets, setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
-  const [petAlert, setPetAlert] = useState({});
+
   const [data, setData] = useState();
+  
 
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
     console.log(user);
     let url = `/api/getpetbyuser/${user}`;
     let token = localStorage.getItem("auth-token");
-    console.log(url);
-    console.log(token);
     try {
       const { data } = await axios.get(url, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       data && setUserPets(data);
       setNewPetData(false);
-      console.log(data);
+
     } catch (error) {
       console.log(error);
     }
@@ -47,11 +48,8 @@ const Home = () => {
 
   useEffect(() => {
     loadUserPets(user);
-  }, [user, newPetData]);
 
-  // useEffect(() => {
-  //   loadUserPets(user);
-  // }, [newPetData]);
+  }, [user, newPetData, petId]);
 
   useEffect(() => {
     petData &&
@@ -61,43 +59,41 @@ const Home = () => {
       });
   }, [petData]);
 
-  const deletePet = async (e, id) => {
-    e.preventDefault();
-    try {
-      const { data } = await axios.delete(`/api/pet/${id}`, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      loadUserPets(user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const routePet = async (e, id) => {
+    // we already had the data no need to go back to the DB
     e.preventDefault();
-    try {
-      const { data } = await axios.get(
-        `/api/pet/${id}`,
-
-        { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
-      );
-      data && setPetData(data);
-      console.log(id);
-    } catch (error) {
-      console.log(error);
-    }
+    let thisPet = pets.filter(((pet) => {return pet._id === id}));
+    setPetData(thisPet[0]);
+    console.log("here", petData);
   };
 
-  const newCalendar = async () => {
-    const today = new Date();
-    let tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
-    pets.forEach((pet) => {
-      console.log(pet);
-    });
-  };
+  // const newCalendar = async (pets) => {
+  //   console.log("checking the calendr",pets)
+  //   let today = new Date();
+  //   today.setDate(today.getDate() - 1);
+  //   let tomorrow = new Date();
+  //   tomorrow.setDate(today.getDate() + 2);
+  //   pets.forEach((pet) => {
+  //     //setPetAppointments
+  //     let petName = pet.PetName;
+  //     let meds = pet.Medications.filter(((appt) => {
+  //       return ( moment.utc(appt.DueDate).isBetween(today, tomorrow, undefined, '[]'));
+  //       }));
+  //     let visits = pet.VetVisits.filter(((appt) => {
+  //         return ( moment.utc(appt.VisitDate).isBetween(today, tomorrow, undefined, '[]'));
+  //         }));
+  //     let remind = pet.Reminders.filter(((appt) => {
+  //       return ( moment.utc(appt.Date).isBetween(today, tomorrow, undefined, '[]'));
+  //     }));
+  //     console.log(meds,visits,remind);
+  //     if (meds.length > 0 ){setMedAppt({...medAppt, "PetName": petName})}
+  //     if (visits.length > 0 ){setMedAppt({...vetAppt, "PetName": petName})}
+  //     if (remind.length > 0 ){setMedAppt({...remAppt, "PetName": petName})}
+  //     console.log(meds,visits,remind);
+  //   });
+  // };
 
-  newCalendar();
+ 
 
   //map user data and send pets as buttons in list items
   return (
@@ -112,9 +108,8 @@ const Home = () => {
         </div>
         <div className="row">
           <div className="col-xs-12 py-5">
-            {pets ? (
+            {pets && (
               <div>
-                {console.log(pets)}
                 {pets.map((pet, i) => (
                   <div>
                     <button
@@ -129,19 +124,16 @@ const Home = () => {
                           width: "30px",
                           borderRadius: "100%",
                         }}
-                        src={`http://localhost:3000/api/getImage/${pet.PetImageLoc}`}
+                        src={pet.PetImageLoc}
                       />
-                      {" " + " "}
+                     &nbsp;&nbsp;&nbsp;&nbsp;
                       {pet.PetName}
                     </button>
                     <button
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmDelete"
                       onClick={(e) => {
-                        if (
-                          window.confirm(
-                            "Are you sure you wish to delete this pet?"
-                          )
-                        )
-                          deletePet(e, pet._id);
+                        setPetId(pet._id);
                       }}
                       key={i}
                       type="button"
@@ -152,7 +144,8 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-            ) : (
+            ) } 
+            { pets.length === 0  && (
               <h2>Click the "+" to add your pets!</h2>
             )}
           </div>
@@ -168,8 +161,9 @@ const Home = () => {
           </button>
         </div>
       </div>
-
+      <ConfirmDelete />
       <AddPet />
+      <UpcomingAppointments pets={pets} />
     </>
   );
 };
