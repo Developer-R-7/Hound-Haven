@@ -37,9 +37,6 @@ const NavBar = () => {
               Register
             </Link>
           </li>
-          {/* <li>
-            <img src={logo} alt="petLogo"></img>
-          </li> */}
         </ul>
       );
     } else {
@@ -91,6 +88,11 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             {links}
           </div>
+          <img
+            src={logo}
+            alt="petLogo"
+            style={{ height: "65px", width: "65px" }}
+          ></img>
         </div>
       </nav>
       <Notify />
