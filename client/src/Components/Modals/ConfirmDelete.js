@@ -26,7 +26,6 @@ const ConfirmDelete = (props) => {
       });
       data && setUserPets(data);
       setNewPetData(false);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

@@ -20,6 +20,7 @@ function App() {
   });
   const [newPetData, setNewPetData] = useState("pet babies");
   const [petId, setPetId] = useState("");
+  const [appt, setAppt] = useState(0);
 
   const checkLoggedIn = async () => {
     let token = localStorage.getItem("auth-token");
@@ -49,7 +50,7 @@ function App() {
 
         <UserContext.Provider value={{ userData, setUserData }}>
           <PetContext.Provider
-            value={{ newPetData, setNewPetData, petId, setPetId }}
+            value={{ newPetData, setNewPetData, petId, setPetId, appt, setAppt }}
           >
             <NavBar />
             <Switch>
