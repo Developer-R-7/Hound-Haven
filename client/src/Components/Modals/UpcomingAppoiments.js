@@ -1,14 +1,16 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import moment from 'moment';
 import {useEffectOnlyOnce } from '../Helpers/PetFunctions'
-import e from "cors";
+import PetContext from "../../Context/PetContext";
+
 
 const UpcomingAppointments = (props) => {
-  console.log (props);
+
   const pets = props.pets;
   const [medAppt, setMedAppt] = useState([]);
   const [vetAppt, setVetAppt] = useState([]);
   const [remAppt, setRemAppt] = useState([]);
+  const { appt, setAppt } = useContext(PetContext);
 
   useEffect(() => {
     newCalendar();
@@ -63,11 +65,11 @@ const newCalendar = async () => {
         });
       }
   })
-  setMedAppt( Object.assign(marr));
+  setMedAppt(marr);
   setVetAppt(varr);
   setRemAppt(rarr);
-  console.log(medAppt,vetAppt)
-  
+  setAppt(marr.length + varr.length + rarr.length)
+
 }
 
   useEffectOnlyOnce (newCalendar) 
