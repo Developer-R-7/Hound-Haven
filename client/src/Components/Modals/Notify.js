@@ -1,61 +1,26 @@
 import React, {useState,useEffect,useContext} from 'react'
-import moment from 'moment';
-import PetContext from "../../Context/PetContext";
+import Moment from 'react-moment'
+
+
+
 
 const Notify = (props) => {
-	console.log(props)
-	const { appt, setAppt } = useContext(PetContext);
-	const { pets } = useContext(PetContext);
+    const [notifyItems, setNotifyItems] = useState(props?.vals)
+  
+	let petmeds = {};
+	let vetvisits = {};
+	let reminders = {};
 
-			
-
-	  useEffect(() => {	
-			// pets.length >0 && pets.forEach((pet) => {
-			// 		marr =[];
-			// 		varr =[];
-			// 		rarr = [];
-			// 		//setPetAppointments
-			// 		let PetName = pet.PetName;
-			// 		let meds = pet.Medications.filter(((appt) => {
-			// 		return ( moment.utc(appt.DueDate).isBetween(today, tomorrow, undefined, '[]'));
-			// 		}));
-			// 		let visits = pet.VetVisits.filter(((appt) => {
-			// 			return ( moment.utc(appt.VisitDate).isBetween(today, tomorrow, undefined, '[]'));
-			// 			}));
-			// 		let remind = pet.Reminders.filter(((appt) => {
-			// 		return ( moment.utc(appt.Date).isBetween(today, tomorrow, undefined, '[]'));
-			// 		}));
-			// 		if (meds.length > 0 ) {
-			// 		meds.forEach(el => {
-			// 			let arr=[];
-			// 			arr[PetName] = {'Date': moment.utc(el.DueDate).format('YYYY-MM-DD'),
-			// 		'MedicationName': el.MedicationName,
-			// 		'Dose': el.Dose}
-			// 		marr.push(arr)
-			// 		});
-			// 		}
-			// 		if (visits.length > 0 ) {
-			// 		visits.forEach(el => {
-			// 			let arr=[];
-			// 			arr[PetName] = {'Date': moment.utc(el.VisitDate).format('YYYY-MM-DD'),
-			// 		'Notes': el.VisitNotes}
-			// 		varr.push(arr)
-			// 		});
-			// 		}
-			// 		if (remind.length > 0 ) {
-			// 		remind.forEach(el => {
-			// 			let arr=[];
-			// 			arr[PetName] = {'Date': moment.utc(el.Date).format('YYYY-MM-DD'),
-			// 		'Title': el.Title,
-			// 		'Note': el.Note}
-			// 		rarr.push(arr)
-			// 		});
-			// 		}
-			// 	})
-			// 	setAppt(marr.length + varr.length + rarr.length)
+		useEffect(() => {
+			if (notifyItems[0]) petmeds = notifyItems[0].meds;
+			if (notifyItems[1]) vetvisits = notifyItems[1].visit;
+			if (notifyItems[2]) reminders = notifyItems[2].remind;
+			console.log(petmeds)
+			// return () => {
 		
-	}, [pets])
-
+			// }
+		}, [notifyItems])
+	
 
 
 	return (
@@ -112,9 +77,20 @@ const Notify = (props) => {
 									role="tabpanel"
 									aria-labelledby="home-tab"
 								>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Similique, fugiat.
-								</div>
+			 				      {/* <ul>
+										{petmeds && petmeds.map((med,i) => (
+										<li	
+											key={i}
+											className="pet-list card-body">
+											{med.Pet}
+											<Moment utc format="MM/DD/YYYY">
+												{med.Date}
+											</Moment>	
+											{med.Medication}
+											{med.Dose}
+										</li>
+										))}
+									</ul> */}
 								<div
 									className="tab-pane fade"
 									id="profile"
@@ -135,6 +111,7 @@ const Notify = (props) => {
 								</div>
 							</div>
 						</div>
+					</div>
 					
 	);
 };

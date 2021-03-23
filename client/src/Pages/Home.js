@@ -18,11 +18,10 @@ const Home = () => {
   const history = useHistory();
   //const [pets, setUserPets] = useState([]);
   const { pets, setPets } = useContext(PetContext);
-  console.log(pets)
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
   
-
+  console.log(pets);
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
     console.log(user);

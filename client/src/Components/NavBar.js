@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import Notify from "./Modals/Notify";
 import PetContext from "../Context/PetContext";
-import {getPetAppointment} from './Helpers/PetFunctions'
+import HandleAppoint from './Helpers/HandleAppoint'
 import { Button, Modal } from "react-bootstrap";
+import moment from "moment";
 
 const NavBar = () => {
 	const { userData, setUserData } = useContext(UserContext);
@@ -13,6 +14,8 @@ const NavBar = () => {
 	const { pets} = useContext(PetContext);
 	const [show, setShow] = useState(false);
 	const [vals, setVals] = useState([]);
+	const [filteredPet, setFilteredPet] = useState(pets)
+
 
 	const logout = () => {
 		setUserData({ token: undefined, user: undefined });
@@ -28,6 +31,8 @@ const NavBar = () => {
 	const handleClose = () => {
         setShow(false);
     }
+
+
 
 	useEffect( async () => {
 		if (!userData.user) {
@@ -66,12 +71,10 @@ const NavBar = () => {
 						</Link>
 					</li>
 				</ul>
-			);
-		 
-	let tmp = await getPetAppointment(pets)
-	tmp && setVals(tmp)
-	       console.log(vals);
-		 vals && setAppt(vals[0]);
+			);		 
+		setAppt(HandleAppoint(pets,"nav"))
+        console.log("nav",appt)
+		appt && setVals(HandleAppoint(pets,"notify"))
 		}
 	}, [userData, appt, pets]);
 
@@ -100,7 +103,7 @@ const NavBar = () => {
 						{links}
 						<Modal name="test" show={show} onHide={handleClose}>
 									<Modal.Body>
-										<Notify appoint={vals} />
+										<Notify  vals={vals}/>
 									</Modal.Body>
 						</Modal>
 					</div>
