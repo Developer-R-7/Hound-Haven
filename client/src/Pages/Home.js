@@ -5,7 +5,9 @@ import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
 import axios from "axios";
 import ConfirmDelete from "../Components/Modals/ConfirmDelete";
-
+import moment from "moment";
+import e from "cors";
+import UpcomingAppointments from "../Components/Modals/UpcomingAppoiments";
 
 //return data from user, append any saved pets as buttons
 //when a saved pets button is clicked ..routes to that pets dash
@@ -20,11 +22,14 @@ const Home = () => {
   const { pets, setPets } = useContext(PetContext);
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
+  const displayName = userData.user?.displayName;
+  const [data, setData] = useState();
   
   console.log(pets);
   //not sure if this is the way to go about getting users pets?
+
   const loadUserPets = async (user) => {
-    console.log(user);
+    // console.log(user);
     let url = `/api/getpetbyuser/${user}`;
     try {
       const { data } = await axios.get(url, {
@@ -45,6 +50,7 @@ const Home = () => {
     user && loadUserPets(user);
   }, [user,newPetData, petId]);
 
+
   useEffect(() => {
     petData &&
       history.push({
@@ -56,9 +62,11 @@ const Home = () => {
   const routePet = async (e, id) => {
     // we already had the data no need to go back to the DB
     e.preventDefault();
-    let thisPet = pets.filter(((pet) => {return pet._id === id}));
+    let thisPet = pets.filter((pet) => {
+      return pet._id === id;
+    });
     setPetData(thisPet[0]);
-    console.log("here", petData);
+    // console.log("here", petData);
   };
 
  
@@ -70,7 +78,7 @@ const Home = () => {
         <div className="row">
           <div className="col-xs-12 py-5">
             <div className="header-styles">
-              <h2 className="myPet-header">My Pet</h2>
+              <h2 className="myPet-header">{displayName}'s Pets</h2>
             </div>
           </div>
         </div>
@@ -94,7 +102,7 @@ const Home = () => {
                         }}
                         src={pet.PetImageLoc}
                       />
-                     &nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;
                       {pet.PetName}
                     </button>
                     <button

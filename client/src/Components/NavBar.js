@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import Notify from "./Modals/Notify";
 import PetContext from "../Context/PetContext";
+import logo from "./paw_logo.PNG";
+import { Modal } from "react-bootstrap";
+import Card from "./Card";
 import HandleAppoint from './Helpers/HandleAppoint'
 import { Button, Modal } from "react-bootstrap";
 import moment from "moment";
@@ -16,11 +19,16 @@ const NavBar = () => {
 	const [vals, setVals] = useState([]);
 	const [filteredPet, setFilteredPet] = useState(pets)
 
-
-	const logout = () => {
-		setUserData({ token: undefined, user: undefined });
-		localStorage.setItem("auth-token", "");
-	};
+  const logout = () => {
+    setUserData({ token: undefined, user: undefined });
+    localStorage.setItem("auth-token", "");
+  };
+  const showModal = () => {
+    setShow(true);
+  };
+  const handleClose = () => {
+    setShow(false);
+  };
 
 	const linkStyle = {
 		textDecoration: "none",

@@ -23,15 +23,7 @@ const Medications = (props) => {
 
   useEffect(() => {}, [meds]);
 
-  
 
-  // useEffect(() => {
-  //   modalData && setShow(true);
-  // }, [modalData]);
-
-  // useEffect(() => {
-  //   setMeds(newData.meds);
-  // }, [newData]);
 
   //sort descending so the newest one on the top
   meds.sort(function (a, b) {
@@ -46,8 +38,6 @@ const Medications = (props) => {
 
   const handleAddUpdateMed = async (e, form, cb) => {
     e.preventDefault();
-    //show the modal dialog
-    //get the dialog from the form
     //do the calclations and add the medications
     let url;
 
@@ -78,7 +68,6 @@ const Medications = (props) => {
     let vals = {};
     const medId = form.addMedForm.medId.value;
     const url = `/api/delPetMed/${petId}/${medId}`;
-    // console.log(form.addMedForm.medId.value);
     console.log(url, vals, medId);
 
     return cb(url, vals);
@@ -89,7 +78,6 @@ const Medications = (props) => {
        await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
-      // newData = await getPetData(petId);
       handleClose();
     } catch (err) {
       console.log(err);
@@ -160,7 +148,7 @@ const Medications = (props) => {
                 variant="primary"
                 onClick={(e) => handleDelMed(e, document.forms, postMed)}
               >
-                Delete Visit
+                Delete
               </Button>
             ) : null}
             <Button
