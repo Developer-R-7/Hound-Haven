@@ -87,10 +87,6 @@ const Reminders = (props) => {
     setModalData(data);
   };
 
-  const buttonStyle = {
-    backgroundColor: "rgb(255, 100, 100)",
-  };
-
   return (
     <div className="card m-2 shadow rounded">
       <div className="card-body text-center ">

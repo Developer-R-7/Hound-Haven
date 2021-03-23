@@ -75,6 +75,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div className="card shadow rounded col-md-4 home-card">
         <div className="row">
           <div className="col-xs-12 py-5">
             {pets && (
@@ -129,6 +130,7 @@ const Home = () => {
             +
           </button>
         </div>
+      </div>
       </div>
       <ConfirmDelete />
       <AddPet />
