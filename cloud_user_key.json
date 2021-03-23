@@ -10,9 +10,3 @@
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mypetcloudstorage%40theta-anchor-308219.iam.gserviceaccount.com"
 }
-
-
-library: 'PEM routines'
-function: 'get_name',
-reason: 'no start line',
-code: 'ERR_OSSL_PEM_NO_START_LINE

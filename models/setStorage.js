@@ -12,15 +12,7 @@ const {Storage} = require('@google-cloud/storage');
 // Storage  create the storage
 const storage = new Storage({
   projectId: process.env.GCS_PROJECT,
-  credentials:{
-    client_email: process.env.GCS_CLIENT_EMAIL,
-    private_key: process.env.GCS_PRIVATE_KEY
-  },
-  onError : function(err, next) {
-    console.log('error', err);
-    return next(err);
-  }
-
+  credentials: JSON.parse(process.env.GCP_CRED)
 })
 
 // set up the multer memoery storage limit the filesize to 1M
