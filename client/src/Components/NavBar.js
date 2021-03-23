@@ -19,8 +19,8 @@ const NavBar = () => {
 		color: "black",
 		margin: "25px",
 	};
-   
-   console.log("nav", appt)
+
+	console.log("nav", appt);
 
 	useEffect(() => {
 		if (!userData.user) {
@@ -41,12 +41,13 @@ const NavBar = () => {
 		} else {
 			setLinks(
 				<ul className="navbar-nav">
-						{ appt > 0 && <li className="nav-item">
-					<Link data-bs-toggle="modal" data-bs-target="#notifyModal">
-							<i className="bi bi-bell">{{appt}}</i>
-
-						</Link>
-					</li>}
+					{appt > 0 && (
+						<li className="nav-item">
+							<Link data-bs-toggle="modal" data-bs-target="#notifyModal">
+								<i className="bi bi-bell"></i>
+							</Link>
+						</li>
+					)}
 					<li className="nav-item">
 						<Link to="/" style={linkStyle} onClick={logout}>
 							Logout
@@ -60,7 +61,7 @@ const NavBar = () => {
 				</ul>
 			);
 		}
-	}, [userData]);
+	}, [userData, appt]);
 
 	return (
 		<>
