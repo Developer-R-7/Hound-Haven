@@ -1,20 +1,33 @@
-import React from "react";
+import React, {useState,useEffect,useContext} from 'react'
+import Moment from 'react-moment'
 
-const Notify = () => {
+
+
+
+const Notify = (props) => {
+    const [notifyItems, setNotifyItems] = useState(props?.vals)
+  
+	let petmeds = {};
+	let vetvisits = {};
+	let reminders = {};
+
+		useEffect(() => {
+			if (notifyItems[0]) {
+				petmeds = notifyItems[0].med;
+				console.log(petmeds)}
+			if (notifyItems[1]) vetvisits = notifyItems[1];
+			if (notifyItems[2]) reminders = notifyItems[2];
+        console.log(typeof(petmeds))
+			//for(let i = 0; i < petmeds.length; i++) console.log(petmeds[i])
+			// return () => {
+		
+			// }
+		}, [notifyItems])
+	
+
+
 	return (
-		<div className="modal" id="notifyModal" tabIndex="-1">
-			<div className="modal-dialog">
-				<div className="modal-content">
-					<div className="modal-header">
-						{/* <h5 class="modal-title">Modal title</h5> */}
-						<button
-							type="button"
-							className="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
-					</div>
-					<div className="modal-body">
+
 						<div>
 							<ul className="nav nav-tabs" id="myTab" role="tablist">
 								<li className="nav-item" role="presentation">
@@ -67,9 +80,20 @@ const Notify = () => {
 									role="tabpanel"
 									aria-labelledby="home-tab"
 								>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Similique, fugiat.
-								</div>
+			 				      <ul>
+										{petmeds && (petmeds => (petmeds.map(med => (
+										<li	
+										
+											className="pet-list card-body">
+											{med.Pet}
+											<Moment utc format="MM/DD/YYYY">
+												{med.Date}
+											</Moment>	
+											{med.Medication}
+											{med.Dose}
+										</li>
+										))))}
+									</ul>
 								<div
 									className="tab-pane fade"
 									id="profile"
@@ -91,14 +115,7 @@ const Notify = () => {
 							</div>
 						</div>
 					</div>
-					<div className="modal-footer">
-						{/* <button type="button" class="btn btn-primary">
-							Save changes
-						</button> */}
-					</div>
-				</div>
-			</div>
-		</div>
+					
 	);
 };
 

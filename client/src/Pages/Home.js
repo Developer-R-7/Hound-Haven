@@ -5,7 +5,7 @@ import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
 import axios from "axios";
 import ConfirmDelete from "../Components/Modals/ConfirmDelete";
-import UpcomingAppointments from "../Components/Modals/UpcomingAppoiments";
+
 
 //return data from user, append any saved pets as buttons
 //when a saved pets button is clicked ..routes to that pets dash
@@ -16,23 +16,22 @@ const Home = () => {
   const { newPetData, setNewPetData } = useContext(PetContext);
   const { petId, setPetId } = useContext(PetContext);
   const history = useHistory();
-  const [pets, setUserPets] = useState([]);
+  //const [pets, setUserPets] = useState([]);
+  const { pets, setPets } = useContext(PetContext);
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
   
-
+  console.log(pets);
   //not sure if this is the way to go about getting users pets?
   const loadUserPets = async (user) => {
     console.log(user);
     let url = `/api/getpetbyuser/${user}`;
-    let token = localStorage.getItem("auth-token");
     try {
       const { data } = await axios.get(url, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
-      data && setUserPets(data);
+      data && setPets(data);
       setNewPetData(false);
-
     } catch (error) {
       console.log(error);
     }
@@ -78,9 +77,8 @@ const Home = () => {
         <div className="card shadow rounded col-md-4 home-card">
         <div className="row">
           <div className="col-xs-12 py-5">
-            {pets && (
               <div>
-                {pets.map((pet, i) => (
+              {pets.length > 0  && pets.map((pet, i) => (
                   <div>
                     <button
                       onClick={(e) => routePet(e, pet._id)}
@@ -114,10 +112,10 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-            ) } 
-            { pets.length === 0  && (
+            
+            { pets.length === 0  && 
               <h2>Click the "+" to add your pets!</h2>
-            )}
+            }
           </div>
         </div>
         <div className="add-new-pet">
@@ -134,7 +132,6 @@ const Home = () => {
       </div>
       <ConfirmDelete />
       <AddPet />
-      <UpcomingAppointments pets={pets} />
     </>
   );
 };
