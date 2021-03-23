@@ -11,6 +11,7 @@
     "seed": "node seeds/seeds1.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
+    "preinstall": "node gcpSetup.js",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],
@@ -18,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@fontsource/single-day": "^4.2.2",
+    "@google-cloud/storage": "^5.8.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "concurrently": "^6.0.0",
@@ -25,6 +27,8 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "google-auth-library": "^7.0.2",
+    "googleapis": "^39.2.0",
     "http": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
@@ -35,11 +39,13 @@
     "nodemailer": "^6.5.0",
     "path": "^0.12.7",
     "react-bootstrap": "^1.5.2",
+    "react-image-file-resizer": "^0.4.2",
     "react-modal": "^3.12.1",
     "react-moment": "^1.1.1",
     "react-simple-hook-modal": "^1.1.0",
     "react-toastify": "^7.0.3",
     "socket.io": "^4.0.0",
-    "util": "^0.12.3"
+    "util": "^0.12.3",
+    "uuid": "^8.3.2"
   }
 }

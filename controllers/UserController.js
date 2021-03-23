@@ -62,7 +62,7 @@ module.exports = {
 				from: "confirmmypet@gmail.com",
 				to: newUser.email,
 				subject: "Thanks for signing up",
-				text: `Click to confirm http://localhost:3000/confirm_token/${confirmationToken.token}`,
+				text: `Click to confirm https://mypet-kw.herokuapp.com/confirm_token/${confirmationToken.token}`,
 			};
 
 			transporter.sendMail(mailOptions, (error, info) => {
@@ -70,7 +70,7 @@ module.exports = {
 					console.log(error);
 				} else {
 					console.log(
-						`Email was sent: http://localhost:3000/confirm_token/${confirmationToken.token}`
+						`Email was sent: https://mypet-kw.herokuapp.com/confirm_token/${confirmationToken.token}`
 					);
 				}
 			});

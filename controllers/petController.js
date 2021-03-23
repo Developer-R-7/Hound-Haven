@@ -104,7 +104,6 @@ module.exports = {
   },
   updatePetVisit: async (req, res) => {
     //findOneAndUpdate(filter, update, options)
-    console.log(req.body);
     Pet.findOneAndUpdate(
       {
         _id: req.params.id,
@@ -124,7 +123,6 @@ module.exports = {
   },
   findPetVisit: async (req, res) => {
     //findOneAndUpdate(filter, update, options)
-    console.log(req.body);
     let petId = req.params.id;
     let visitId = req.params.visitid;
     Pet.findOne({
@@ -135,8 +133,6 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   delPetVisit: async (req, res) => {
-    //findOneAndUpdate(filter, update, options)
-    console.log(req.body);
     Pet.findOneAndUpdate(
       {
         _id: req.params.id,
@@ -153,7 +149,6 @@ module.exports = {
   },
   delPetMed: async (req, res) => {
     //findOneAndUpdate(filter, update, options)
-    console.log(req.body);
     Pet.findOneAndUpdate(
       {
         _id: req.params.id,
@@ -186,7 +181,6 @@ module.exports = {
       });
   },
   updatePetReminder: async (req, res) => {
-    console.log(req.body);
     Pet.findOneAndUpdate(
       {
         _id: req.params.id,

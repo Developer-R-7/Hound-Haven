@@ -2,10 +2,12 @@ import React, { Fragment, useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import Notify from "./Modals/Notify";
+import PetContext from "../Context/PetContext";
 
 const NavBar = () => {
 	const { userData, setUserData } = useContext(UserContext);
 	const [links, setLinks] = useState(null);
+	const { appt, setAppt } = useContext(PetContext);
 
 	const logout = () => {
 		setUserData({ token: undefined, user: undefined });
@@ -17,6 +19,8 @@ const NavBar = () => {
 		color: "black",
 		margin: "25px",
 	};
+
+	console.log("nav", appt);
 
 	useEffect(() => {
 		if (!userData.user) {
@@ -37,11 +41,13 @@ const NavBar = () => {
 		} else {
 			setLinks(
 				<ul className="navbar-nav">
-					<li className="nav-item">
-						<Link data-bs-toggle="modal" data-bs-target="#notifyModal">
-							<i className="bi bi-bell"></i>
-						</Link>
-					</li>
+					{appt > 0 && (
+						<li className="nav-item">
+							<Link data-bs-toggle="modal" data-bs-target="#notifyModal">
+								<i className="bi bi-bell"></i>
+							</Link>
+						</li>
+					)}
 					<li className="nav-item">
 						<Link to="/" style={linkStyle} onClick={logout}>
 							Logout
@@ -55,7 +61,7 @@ const NavBar = () => {
 				</ul>
 			);
 		}
-	}, [userData]);
+	}, [userData, appt]);
 
 	return (
 		<>
