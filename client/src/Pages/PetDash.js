@@ -23,6 +23,7 @@ const PetDash = () => {
 
   useEffect(() => {
     setData(location.state.info); // added this to refersh after update
+    data? console.log(data): console.log("no Data");
     data? petId = data._id: petId ="";
   }, [location, newPetData]);
 
@@ -30,8 +31,6 @@ setNewPetData(false);
 
   useEffect(() => {
     console.log(data)
-    data && getImg(data.PetImageLoc)
-
   }, [data]);
 
 useEffect( async() => {
@@ -48,33 +47,21 @@ useEffect( async() => {
     if (!userData.user) history.push("/");
   }, [userData.user, history]);
 
-  const buttonStyle = {
-    backgroundColor: "rgb(255, 100, 100)",
-  };
-
-  const getImg = async (imgLoc) => {
-    try {
-      const { imgdata } = await axios.get(`/api/getImage/${imgLoc}`,
-        { headers: { "x-auth-token": localStorage.getItem("auth-token") } }
-      );
-      setImg(imgdata);
-      console.log("here",imgdata);
-    } catch (error) {
-      console.log(error);
-    }
-  } 
+  // const buttonStyle = {
+  //   backgroundColor: "rgb(255, 100, 100)",
+  // };
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "#9F939A" }}>
+    <div className="container-fluid">
       <div className="container">
         <div className="row">
           {data && (
             <div className="col-sm-3">
-              <div className="card m-2">
+              <div className="card m-2 shadow rounded">
                 <img
 
 
-                  src={`http://localhost:3000/api/getImage/${data.PetImageLoc}`}
+                  src={data.PetImageLoc}
                   className="card-img-top"
                   alt="petImage"
                 ></img>
@@ -89,7 +76,8 @@ useEffect( async() => {
                   <h4 className="card-title">{data.Breed}</h4>
 
                 <div className="edit-new-pet">
-                  <button style={buttonStyle}
+                  <button 
+                  // style={buttonStyle}
                     data-bs-toggle="modal"
                     data-bs-target="#editAPetModal"
                     type="button"
@@ -117,7 +105,6 @@ useEffect( async() => {
         </div>
     </div>
   </div>
-
   );
 };
 

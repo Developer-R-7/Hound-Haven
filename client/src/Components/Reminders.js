@@ -87,12 +87,8 @@ const Reminders = (props) => {
     setModalData(data);
   };
 
-  const buttonStyle = {
-    backgroundColor: "rgb(255, 100, 100)",
-  };
-
   return (
-    <div className="card m-2">
+    <div className="card m-2 shadow rounded">
       <div className="card-body text-center ">
         <h3 className="card-title">Reminders</h3>
         <div className="pet-table">
@@ -114,8 +110,7 @@ const Reminders = (props) => {
         </div>
         <button
           onClick={(e) => add(e, "{_id: 0}")}
-          style={buttonStyle}
-          className=" btn btn-circle btn-xl"
+          className="edit-reminders-btn btn btn-circle btn-xl"
         >
           +
         </button>

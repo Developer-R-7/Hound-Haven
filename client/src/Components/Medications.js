@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
 
 const Medications = (props) => {
-  let newData = props;
+
   const petId = props.petId;
   const [meds, setMeds] = useState(props.meds);
   const [show, setShow] = useState(false);
@@ -21,17 +21,9 @@ const Medications = (props) => {
   };
   const handleShow = () => setShow(true);
 
-  useEffect(() => {}, [handleClose]);
+  useEffect(() => {}, [meds]);
 
-  
 
-  // useEffect(() => {
-  //   modalData && setShow(true);
-  // }, [modalData]);
-
-  // useEffect(() => {
-  //   setMeds(newData.meds);
-  // }, [newData]);
 
   //sort descending so the newest one on the top
   meds.sort(function (a, b) {
@@ -46,8 +38,6 @@ const Medications = (props) => {
 
   const handleAddUpdateMed = async (e, form, cb) => {
     e.preventDefault();
-    //show the modal dialog
-    //get the dialog from the form
     //do the calclations and add the medications
     let url;
 
@@ -78,7 +68,6 @@ const Medications = (props) => {
     let vals = {};
     const medId = form.addMedForm.medId.value;
     const url = `/api/delPetMed/${petId}/${medId}`;
-    // console.log(form.addMedForm.medId.value);
     console.log(url, vals, medId);
 
     return cb(url, vals);
@@ -86,13 +75,13 @@ const Medications = (props) => {
 
   const postMed = async (url, vals, petId) => {
     try {
-      let resp = await axios.put(url, vals, {
+       await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
-      // newData = await getPetData(petId);
       handleClose();
     } catch (err) {
       console.log(err);
+      toast.error({message: err.message});
     }
   };
 
@@ -116,12 +105,8 @@ const Medications = (props) => {
     console.log("button to add med", data);
   };
 
-  const buttonStyle = {
-    backgroundColor: "rgb(255, 100, 100)",
-  };
-
   return (
-    <div className="card m-2">
+    <div className="card m-2 shadow rounded">
       <div className="card-body text-center ">
         <h3 className="card-title">Medications</h3>
         <div className="pet-table">
@@ -145,8 +130,7 @@ const Medications = (props) => {
         <button
           name="addMedBtn"
           onClick={(e) => add(e, "{_id: 0}")}
-          style={buttonStyle}
-          className=" btn btn-circle btn-xl"
+          className="edit-medications-btn btn btn-circle btn-xl"
         >
           +
         </button>
@@ -164,7 +148,7 @@ const Medications = (props) => {
                 variant="primary"
                 onClick={(e) => handleDelMed(e, document.forms, postMed)}
               >
-                Delete Visit
+                Delete
               </Button>
             ) : null}
             <Button
