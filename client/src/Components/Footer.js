@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import DeleteAccount from "./Modals/DeleteAccount";
+import UserContext from "../Context/UserContext";
 
 const Footer = () => {
+	const { userData } = useContext(UserContext);
 	const style = {
 		backgroundColor: "#BACBA9",
 		borderTop: "1px solid #E7E7E7",
@@ -26,9 +28,15 @@ const Footer = () => {
 			<div style={invisible}>
 				<div style={style}>
 					<span>From pet parents to you</span>
-					<button data-bs-toggle="modal" data-bs-target="#Delete" className="delete-user-btn">
-						delete account
-					</button>
+					{userData.user ? (
+						<button
+							data-bs-toggle="modal"
+							data-bs-target="#Delete"
+							className="delete-user-btn"
+						>
+							delete account
+						</button>
+					) : null}
 				</div>
 			</div>
 			<DeleteAccount />
