@@ -12,10 +12,13 @@ const Notify = (props) => {
 	let reminders = {};
 
 		useEffect(() => {
-			if (notifyItems[0]) petmeds = notifyItems[0].meds;
-			if (notifyItems[1]) vetvisits = notifyItems[1].visit;
-			if (notifyItems[2]) reminders = notifyItems[2].remind;
-			console.log(petmeds)
+			if (notifyItems[0]) {
+				petmeds = notifyItems[0].med;
+				console.log(petmeds)}
+			if (notifyItems[1]) vetvisits = notifyItems[1];
+			if (notifyItems[2]) reminders = notifyItems[2];
+        console.log(typeof(petmeds))
+			//for(let i = 0; i < petmeds.length; i++) console.log(petmeds[i])
 			// return () => {
 		
 			// }
@@ -77,10 +80,10 @@ const Notify = (props) => {
 									role="tabpanel"
 									aria-labelledby="home-tab"
 								>
-			 				      {/* <ul>
-										{petmeds && petmeds.map((med,i) => (
+			 				      <ul>
+										{petmeds && (petmeds => (petmeds.map(med => (
 										<li	
-											key={i}
+										
 											className="pet-list card-body">
 											{med.Pet}
 											<Moment utc format="MM/DD/YYYY">
@@ -89,8 +92,8 @@ const Notify = (props) => {
 											{med.Medication}
 											{med.Dose}
 										</li>
-										))}
-									</ul> */}
+										))))}
+									</ul>
 								<div
 									className="tab-pane fade"
 									id="profile"
