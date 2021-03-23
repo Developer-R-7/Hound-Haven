@@ -11,7 +11,6 @@
     "seed": "node seeds/seeds1.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "preinstall": "node gcpSetup.js",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],
@@ -39,7 +38,6 @@
     "nodemailer": "^6.5.0",
     "path": "^0.12.7",
     "react-bootstrap": "^1.5.2",
-    "react-image-file-resizer": "^0.4.2",
     "react-modal": "^3.12.1",
     "react-moment": "^1.1.1",
     "react-simple-hook-modal": "^1.1.0",

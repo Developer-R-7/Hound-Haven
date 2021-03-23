@@ -1,7 +1,7 @@
 //Function to get the petdata 
 
 import axios from "axios";
-import Resize from "react-image-file-resizer";
+// import Resize from "react-image-file-resizer";
 import{useEffect} from "react";
 
 
@@ -33,23 +33,23 @@ async function getPetData(petid) {
 
 	};
 
-	const resizeFile = async(file) => {
-		let newImage;
-		try {
-			newImage = Resize.imageFileResizer(file, 400, 400, 'JPEG', 70, 0,
-			uri => {
-				newImage = uri;
-				return newImage;
-			},
-			'base64'
-			);
-		return newImage;
-		} catch (error) {console.log(error)} ;
+	// const resizeFile = async(file) => {
+	// 	let newImage;
+	// 	try {
+	// 		newImage = Resize.imageFileResizer(file, 400, 400, 'JPEG', 70, 0,
+	// 		uri => {
+	// 			newImage = uri;
+	// 			return newImage;
+	// 		},
+	// 		'base64'
+	// 		);
+	// 	return newImage;
+	// 	} catch (error) {console.log(error)} ;
 		
 	
-	}
+	// }
 
 	const useEffectOnlyOnce = (func) => useEffect(func, [])
 
 
-export{ getPetData, loadUserPets, resizeFile, useEffectOnlyOnce}
+export{ getPetData, loadUserPets, useEffectOnlyOnce}
