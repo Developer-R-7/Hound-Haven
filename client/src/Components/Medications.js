@@ -105,12 +105,8 @@ const Medications = (props) => {
     console.log("button to add med", data);
   };
 
-  const buttonStyle = {
-    backgroundColor: "rgb(255, 100, 100)",
-  };
-
   return (
-    <div className="card m-2">
+    <div className="card m-2 shadow rounded">
       <div className="card-body text-center ">
         <h3 className="card-title">Medications</h3>
         <div className="pet-table">
@@ -134,8 +130,7 @@ const Medications = (props) => {
         <button
           name="addMedBtn"
           onClick={(e) => add(e, "{_id: 0}")}
-          style={buttonStyle}
-          className=" btn btn-circle btn-xl"
+          className="edit-medications-btn btn btn-circle btn-xl"
         >
           +
         </button>

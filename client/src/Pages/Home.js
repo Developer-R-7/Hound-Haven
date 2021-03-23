@@ -25,6 +25,7 @@ const Home = () => {
   
 
   const [data, setData] = useState();
+  
 
 
 
@@ -49,8 +50,8 @@ const Home = () => {
   }, [userData.user, history]);
 
   useEffect(() => {
-    loadUserPets(user);
-  }, [user, newPetData, petId]);
+    user && loadUserPets(user);
+  }, [user,newPetData, petId]);
 
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const Home = () => {
         pathname: "/petDash",
         state: { info: petData },
       });
-  }, [petData]);
+  }, [petData,history]);
 
   const routePet = async (e, id) => {
     // we already had the data no need to go back to the DB
@@ -71,31 +72,7 @@ const Home = () => {
     // console.log("here", petData);
   };
 
-  // const newCalendar = async (pets) => {
-  //   console.log("checking the calendr",pets)
-  //   let today = new Date();
-  //   today.setDate(today.getDate() - 1);
-  //   let tomorrow = new Date();
-  //   tomorrow.setDate(today.getDate() + 2);
-  //   pets.forEach((pet) => {
-  //     //setPetAppointments
-  //     let petName = pet.PetName;
-  //     let meds = pet.Medications.filter(((appt) => {
-  //       return ( moment.utc(appt.DueDate).isBetween(today, tomorrow, undefined, '[]'));
-  //       }));
-  //     let visits = pet.VetVisits.filter(((appt) => {
-  //         return ( moment.utc(appt.VisitDate).isBetween(today, tomorrow, undefined, '[]'));
-  //         }));
-  //     let remind = pet.Reminders.filter(((appt) => {
-  //       return ( moment.utc(appt.Date).isBetween(today, tomorrow, undefined, '[]'));
-  //     }));
-  //     console.log(meds,visits,remind);
-  //     if (meds.length > 0 ){setMedAppt({...medAppt, "PetName": petName})}
-  //     if (visits.length > 0 ){setMedAppt({...vetAppt, "PetName": petName})}
-  //     if (remind.length > 0 ){setMedAppt({...remAppt, "PetName": petName})}
-  //     console.log(meds,visits,remind);
-  //   });
-  // };
+ 
 
   //map user data and send pets as buttons in list items
   return (
@@ -108,6 +85,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div className="card shadow rounded col-md-4 home-card">
         <div className="row">
           <div className="col-xs-12 py-5">
             {pets && (
@@ -160,6 +138,7 @@ const Home = () => {
             +
           </button>
         </div>
+      </div>
       </div>
       <ConfirmDelete />
       <AddPet />

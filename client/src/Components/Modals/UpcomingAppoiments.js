@@ -69,7 +69,7 @@ const newCalendar = async () => {
   setVetAppt(varr);
   setRemAppt(rarr);
   setAppt(marr.length + varr.length + rarr.length)
-
+console.log(medAppt,vetAppt,remAppt); 
 }
 
   useEffectOnlyOnce (newCalendar) 
