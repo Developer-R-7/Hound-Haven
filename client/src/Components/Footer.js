@@ -3,7 +3,7 @@ import DeleteAccount from "./Modals/DeleteAccount";
 
 const Footer = () => {
 	const style = {
-		backgroundColor: "#ffc2c2",
+		backgroundColor: "#BACBA9",
 		borderTop: "1px solid #E7E7E7",
 		textAlign: "center",
 		padding: "20px",
@@ -26,7 +26,7 @@ const Footer = () => {
 			<div style={invisible}>
 				<div style={style}>
 					<span>From pet parents to you</span>
-					<button data-bs-toggle="modal" data-bs-target="#Delete">
+					<button data-bs-toggle="modal" data-bs-target="#Delete" className="delete-user-btn">
 						delete account
 					</button>
 				</div>

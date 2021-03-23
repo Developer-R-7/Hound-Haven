@@ -105,7 +105,6 @@ useEffect( async() => {
         </div>
     </div>
   </div>
-
   );
 };
 
