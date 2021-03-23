@@ -5,8 +5,6 @@ import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
 import axios from "axios";
 import ConfirmDelete from "../Components/Modals/ConfirmDelete";
-import moment from 'moment';
-import e from "cors";
 import UpcomingAppointments from "../Components/Modals/UpcomingAppoiments";
 
 //return data from user, append any saved pets as buttons
@@ -21,8 +19,6 @@ const Home = () => {
   const [pets, setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
   const [petData, setPetData] = useState();
-
-  const [data, setData] = useState();
   
 
   //not sure if this is the way to go about getting users pets?
@@ -47,9 +43,8 @@ const Home = () => {
   }, [userData.user, history]);
 
   useEffect(() => {
-    loadUserPets(user);
-
-  }, [user, newPetData, petId]);
+    user && loadUserPets(user);
+  }, [user,newPetData, petId]);
 
   useEffect(() => {
     petData &&
@@ -57,7 +52,7 @@ const Home = () => {
         pathname: "/petDash",
         state: { info: petData },
       });
-  }, [petData]);
+  }, [petData,history]);
 
   const routePet = async (e, id) => {
     // we already had the data no need to go back to the DB
@@ -66,32 +61,6 @@ const Home = () => {
     setPetData(thisPet[0]);
     console.log("here", petData);
   };
-
-  // const newCalendar = async (pets) => {
-  //   console.log("checking the calendr",pets)
-  //   let today = new Date();
-  //   today.setDate(today.getDate() - 1);
-  //   let tomorrow = new Date();
-  //   tomorrow.setDate(today.getDate() + 2);
-  //   pets.forEach((pet) => {
-  //     //setPetAppointments
-  //     let petName = pet.PetName;
-  //     let meds = pet.Medications.filter(((appt) => {
-  //       return ( moment.utc(appt.DueDate).isBetween(today, tomorrow, undefined, '[]'));
-  //       }));
-  //     let visits = pet.VetVisits.filter(((appt) => {
-  //         return ( moment.utc(appt.VisitDate).isBetween(today, tomorrow, undefined, '[]'));
-  //         }));
-  //     let remind = pet.Reminders.filter(((appt) => {
-  //       return ( moment.utc(appt.Date).isBetween(today, tomorrow, undefined, '[]'));
-  //     }));
-  //     console.log(meds,visits,remind);
-  //     if (meds.length > 0 ){setMedAppt({...medAppt, "PetName": petName})}
-  //     if (visits.length > 0 ){setMedAppt({...vetAppt, "PetName": petName})}
-  //     if (remind.length > 0 ){setMedAppt({...remAppt, "PetName": petName})}
-  //     console.log(meds,visits,remind);
-  //   });
-  // };
 
  
 

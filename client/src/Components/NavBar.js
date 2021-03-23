@@ -41,12 +41,12 @@ const NavBar = () => {
 		} else {
 			setLinks(
 				<ul className="navbar-nav">
-						{ appt > 0 && <li className="nav-item">
+					 <li className="nav-item">
 					<Link data-bs-toggle="modal" data-bs-target="#notifyModal">
-							<i className="bi bi-bell">{{appt}}</i>
+							<i className="bi bi-bell"></i>
 
 						</Link>
-					</li>}
+					</li>
 					<li className="nav-item">
 						<Link to="/" style={linkStyle} onClick={logout}>
 							Logout
