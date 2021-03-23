@@ -1,20 +1,65 @@
-import React from "react";
+import React, {useState,useEffect,useContext} from 'react'
+import moment from 'moment';
+import PetContext from "../../Context/PetContext";
 
-const Notify = () => {
+const Notify = (props) => {
+	console.log(props)
+	const { appt, setAppt } = useContext(PetContext);
+	const { pets } = useContext(PetContext);
+
+			
+
+	  useEffect(() => {	
+			// pets.length >0 && pets.forEach((pet) => {
+			// 		marr =[];
+			// 		varr =[];
+			// 		rarr = [];
+			// 		//setPetAppointments
+			// 		let PetName = pet.PetName;
+			// 		let meds = pet.Medications.filter(((appt) => {
+			// 		return ( moment.utc(appt.DueDate).isBetween(today, tomorrow, undefined, '[]'));
+			// 		}));
+			// 		let visits = pet.VetVisits.filter(((appt) => {
+			// 			return ( moment.utc(appt.VisitDate).isBetween(today, tomorrow, undefined, '[]'));
+			// 			}));
+			// 		let remind = pet.Reminders.filter(((appt) => {
+			// 		return ( moment.utc(appt.Date).isBetween(today, tomorrow, undefined, '[]'));
+			// 		}));
+			// 		if (meds.length > 0 ) {
+			// 		meds.forEach(el => {
+			// 			let arr=[];
+			// 			arr[PetName] = {'Date': moment.utc(el.DueDate).format('YYYY-MM-DD'),
+			// 		'MedicationName': el.MedicationName,
+			// 		'Dose': el.Dose}
+			// 		marr.push(arr)
+			// 		});
+			// 		}
+			// 		if (visits.length > 0 ) {
+			// 		visits.forEach(el => {
+			// 			let arr=[];
+			// 			arr[PetName] = {'Date': moment.utc(el.VisitDate).format('YYYY-MM-DD'),
+			// 		'Notes': el.VisitNotes}
+			// 		varr.push(arr)
+			// 		});
+			// 		}
+			// 		if (remind.length > 0 ) {
+			// 		remind.forEach(el => {
+			// 			let arr=[];
+			// 			arr[PetName] = {'Date': moment.utc(el.Date).format('YYYY-MM-DD'),
+			// 		'Title': el.Title,
+			// 		'Note': el.Note}
+			// 		rarr.push(arr)
+			// 		});
+			// 		}
+			// 	})
+			// 	setAppt(marr.length + varr.length + rarr.length)
+		
+	}, [pets])
+
+
+
 	return (
-		<div className="modal" id="notifyModal" tabIndex="-1">
-			<div className="modal-dialog">
-				<div className="modal-content">
-					<div className="modal-header">
-						{/* <h5 class="modal-title">Modal title</h5> */}
-						<button
-							type="button"
-							className="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
-					</div>
-					<div className="modal-body">
+
 						<div>
 							<ul className="nav nav-tabs" id="myTab" role="tablist">
 								<li className="nav-item" role="presentation">
@@ -90,15 +135,7 @@ const Notify = () => {
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="modal-footer">
-						{/* <button type="button" class="btn btn-primary">
-							Save changes
-						</button> */}
-					</div>
-				</div>
-			</div>
-		</div>
+					
 	);
 };
 
