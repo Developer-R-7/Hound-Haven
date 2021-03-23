@@ -47,17 +47,17 @@ useEffect( async() => {
     if (!userData.user) history.push("/");
   }, [userData.user, history]);
 
-  const buttonStyle = {
-    backgroundColor: "rgb(255, 100, 100)",
-  };
+  // const buttonStyle = {
+  //   backgroundColor: "rgb(255, 100, 100)",
+  // };
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "#9F939A" }}>
+    <div className="container-fluid">
       <div className="container">
         <div className="row">
           {data && (
             <div className="col-sm-3">
-              <div className="card m-2">
+              <div className="card m-2 shadow rounded">
                 <img
 
 
@@ -76,7 +76,8 @@ useEffect( async() => {
                   <h4 className="card-title">{data.Breed}</h4>
 
                 <div className="edit-new-pet">
-                  <button style={buttonStyle}
+                  <button 
+                  // style={buttonStyle}
                     data-bs-toggle="modal"
                     data-bs-target="#editAPetModal"
                     type="button"

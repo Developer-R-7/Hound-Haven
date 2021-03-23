@@ -28,7 +28,8 @@ code {
 	height: 102px;
 	left: 550px;
 	top: 500px;
-	background: #ff6464;
+	background-image: linear-gradient(#ff6464, #FF8040);
+	color: #FFFFFF;
 }
 
 .pet-list {
@@ -76,4 +77,16 @@ code {
 
 .height {
 	height: 250px;
+}
+
+.edit-pet-btn{
+	/* background-image: linear-gradient(#ff6464, #FF8040); */
+	background-color: #ff6464;
+	color: #FFFFFF;
+	box-shadow: 2px 3px 3px #ff9999;
+}
+.edit-reminders-btn, .edit-visis-btn, .edit-medications-btn{
+	background-image: linear-gradient(#ff6464, #FF8040);
+	color: #FFFFFF;
+	outline: none;
 }
