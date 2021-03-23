@@ -20,7 +20,7 @@ module.exports = {
 
 
 
-		const originalFileName = req.file.originalname.replace(/(?!\w|\s)./g, '').replace(/\s+/g, '_');
+		const originalFileName = req.file.originalname.replace(/(?!\w|\s)/g, '').replace(/\s+/g, '_');
 
         const newFileName = uuidv1() + "." + originalFileName
 		const blob = bucket.file(newFileName)
@@ -28,7 +28,6 @@ module.exports = {
 		blobstream.on("error", err => console.log(err) )
 		blobstream.on("finish", () => {
 		publicUrl = `https://storage.googleapis.com/${process.env.GCS_BUCKET}/${blob.name}`
-		console.log(publicUrl);
 		return next(res.json({"imageurl": publicUrl}));
 		})
         blobstream.end(req.file.buffer);
