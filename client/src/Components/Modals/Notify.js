@@ -2,7 +2,7 @@ import React from "react";
 
 const Notify = () => {
 	return (
-		<div className="modal" id="notifyModal" tabindex="-1">
+		<div className="modal" id="notifyModal" tabIndex="-1">
 			<div className="modal-dialog">
 				<div className="modal-content">
 					<div className="modal-header">
@@ -28,7 +28,7 @@ const Notify = () => {
 										aria-controls="home"
 										aria-selected="true"
 									>
-										Pet 1
+										Medications
 									</button>
 								</li>
 								<li className="nav-item" role="presentation">
@@ -42,7 +42,7 @@ const Notify = () => {
 										aria-controls="profile"
 										aria-selected="false"
 									>
-										Pet 2
+										Visits
 									</button>
 								</li>
 								<li className="nav-item" role="presentation">
@@ -56,7 +56,7 @@ const Notify = () => {
 										aria-controls="contact"
 										aria-selected="false"
 									>
-										Pet 3
+										Reminders
 									</button>
 								</li>
 							</ul>
