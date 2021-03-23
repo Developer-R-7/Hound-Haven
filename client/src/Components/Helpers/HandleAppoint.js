@@ -64,7 +64,7 @@ const HandleAppoint = (pets,called) => {
 
 
     if(called === "nav") return (med.length + visit.length + remind.length);
-    if(called === "notify") return ((med,  visit, remind));
+    if(called === "notify") return ([med,  visit, remind]);
 }
 
 export default HandleAppoint
