@@ -87,15 +87,11 @@ import {  getPetData } from './Helpers/PetFunctions'
         setShow(true)
         setModalData(data)
     }
-
-    const buttonStyle = {
-        backgroundColor: "rgb(255, 100, 100)",
-    };
     
 
      
     return (
-        <div className="card m-2">
+        <div className="card m-2 shadow rounded">
         <div className="card-body text-center ">
          <h3 className="card-title">Visits</h3>
                  <div className="pet-table">
@@ -119,8 +115,7 @@ import {  getPetData } from './Helpers/PetFunctions'
              <button
             name="addVisitBtn" 
             onClick={(e) => add(e,'{_id: 0}')}
-                 style={buttonStyle}
-                 className=" btn btn-circle btn-xl">
+                 className="edit-visis-btn btn btn-circle btn-xl">
                      +
              </button>   
                  <Modal show={show} onHide={handleClose}>

@@ -1,8 +1,11 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+
 
 body {
 	margin: 0;
-	font-family: "Acme", sans-serif;
+	font-family: 'Source Sans Pro', sans-serif;
+	/* font-family: "Acme", sans-serif; */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -28,11 +31,15 @@ code {
 	height: 102px;
 	left: 550px;
 	top: 500px;
-	background: #ff6464;
+	background-image: linear-gradient(#FF8585, #FF4747);
+	color: #FFFFFF;
+}
+.add-new-pet{
+	text-align: center;
 }
 
 .pet-list {
-	background: #ff9999;
+	background: #FF8585;
 	display: table;
 	list-style-type: none;
 	width: 350px;
@@ -40,6 +47,7 @@ code {
 	align-items: center;
 	margin: 0 auto;
 	margin-top: 10px;
+	color: #FFFFFF;
 }
 
 /* saved pet pet button styles */
@@ -60,8 +68,9 @@ code {
 	height: 40px;
 	/* left: 420px;
   top: 150px; */
-	background: #c4c4c4;
+	background: #717568;
 	text-align: center;
+	color: #FFFFFF;
 }
 
 .pets-container {
@@ -76,4 +85,24 @@ code {
 
 .height {
 	height: 250px;
+}
+
+.edit-pet-btn{
+	background-image: linear-gradient(#FF8585, #FF4747);
+	color: #FFFFFF;
+	/* box-shadow: 2px 3px 3px #ff9999; */
+}
+.edit-reminders-btn, .edit-visis-btn, .edit-medications-btn{
+	background-image: linear-gradient(#FF8585, #FF4747);
+	color: #FFFFFF;
+	outline: none;
+}
+
+.delete-user-btn{
+	float: right;
+	color: #717568;
+	background-color: #E1F4CB;
+}
+.home-card{
+	justify-content: center;
 }

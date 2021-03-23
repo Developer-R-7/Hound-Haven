@@ -82,7 +82,7 @@ const NavBar = () => {
 		<>
 			<nav
 				className="navbar navbar-expand-lg navbar-light"
-				style={{ backgroundColor: "#FFE2E2", height: "60px" }}
+				style={{ backgroundColor: "#BACBA9", height: "60px" }}
 			>
 				<div className="container-fluid">
 					<a className="navbar-brand" href="#">
