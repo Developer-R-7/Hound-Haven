@@ -6,12 +6,18 @@ import PetContext from "../Context/PetContext";
 import logo from "./paw_logo.PNG";
 import { Modal } from "react-bootstrap";
 import Card from "./Card";
+import HandleAppoint from './Helpers/HandleAppoint'
+import { Button, Modal } from "react-bootstrap";
+import moment from "moment";
 
 const NavBar = () => {
-  const { userData, setUserData } = useContext(UserContext);
-  const [links, setLinks] = useState(null);
-  const { appt, setAppt } = useContext(PetContext);
-  const [show, setShow] = useState(false);
+	const { userData, setUserData } = useContext(UserContext);
+	const [links, setLinks] = useState(null);
+	const { appt, setAppt } = useContext(PetContext);
+	const { pets} = useContext(PetContext);
+	const [show, setShow] = useState(false);
+	const [vals, setVals] = useState([]);
+	const [filteredPet, setFilteredPet] = useState(pets)
 
   const logout = () => {
     setUserData({ token: undefined, user: undefined });
@@ -30,9 +36,13 @@ const NavBar = () => {
 		margin: "25px",
 	};
 
-	console.log("nav", appt);
+	const handleClose = () => {
+        setShow(false);
+    }
 
-	useEffect(() => {
+
+
+	useEffect( async () => {
 		if (!userData.user) {
 			setLinks(
 				<ul className="navbar-nav">
@@ -53,9 +63,9 @@ const NavBar = () => {
 				<ul className="navbar-nav">
 					{appt > 0 && (
 						<li className="nav-item">
-							<Link data-bs-toggle="modal" data-bs-target="#notifyModal">
-								<i className="bi bi-bell"></i>
-							</Link>
+							<Link onClick={(e) => {e.preventDefault();setShow(true)}}>
+							<i className="bi bi-bell"></i></Link>	
+
 						</li>
 					)}
 					<li className="nav-item">
@@ -69,9 +79,12 @@ const NavBar = () => {
 						</Link>
 					</li>
 				</ul>
-			);
+			);		 
+		setAppt(HandleAppoint(pets,"nav"))
+        console.log("nav",appt)
+		appt && setVals(HandleAppoint(pets,"notify"))
 		}
-	}, [userData, appt]);
+	}, [userData, appt, pets]);
 
 	return (
 		<>
@@ -96,10 +109,15 @@ const NavBar = () => {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarNavDropdown">
 						{links}
+						<Modal name="test" show={show} onHide={handleClose}>
+									<Modal.Body>
+										<Notify  vals={vals}/>
+									</Modal.Body>
+						</Modal>
 					</div>
 				</div>
 			</nav>
-			<Notify />
+	
 		</>
 	);
 };
