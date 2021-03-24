@@ -62,7 +62,7 @@ module.exports = {
 				from: "confirmmypet@gmail.com",
 				to: newUser.email,
 				subject: "Thanks for signing up",
-				text: `Click to confirm ${process.env.HEROKU, confirmationToken.token}`,
+				text: `Click to confirm ${process.env.HEROKU}${confirmationToken.token}`,
 			
 			};
 
