@@ -92,14 +92,25 @@ const Home = () => {
 												type="button"
 												className="pet-list-btns saved-pet-btn btn"
 											>
-												<img
-													style={{
-														height: "30px",
-														width: "30px",
-														borderRadius: "100%",
-													}}
-													src={pet.PetImageLoc}
-												/>
+												{pet.PetImageLoc ? (
+													<img
+														style={{
+															height: "30px",
+															width: "30px",
+															borderRadius: "100%",
+														}}
+														src={pet.PetImageLoc}
+													/>
+												) : (
+													<img
+														style={{
+															height: "30px",
+															width: "30px",
+															borderRadius: "100%",
+														}}
+														src="./images/paw_logo.PNG"
+													/>
+												)}
 												&nbsp;&nbsp;&nbsp;&nbsp;
 												{pet.PetName}
 											</button>
