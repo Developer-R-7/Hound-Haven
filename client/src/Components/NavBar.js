@@ -64,6 +64,7 @@ const NavBar = () => {
 								}}
 							>
 								<i className="bi bi-bell"></i>
+								<span class="badge">{appt}</span>
 							</Link>
 						</li>
 					)}
