@@ -2,14 +2,28 @@ import React, { Fragment, useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import Notify from "./Modals/Notify";
+import PetContext from "../Context/PetContext";
+import logo from "./paw_logo.PNG";
+import { Modal } from "react-bootstrap";
+import Card from "./Card";
+import HandleAppoint from "./Helpers/HandleAppoint";
+import moment from "moment";
 
 const NavBar = () => {
 	const { userData, setUserData } = useContext(UserContext);
 	const [links, setLinks] = useState(null);
+	const { appt, setAppt } = useContext(PetContext);
+	const { pets } = useContext(PetContext);
+	const [show, setShow] = useState(false);
+	const [vals, setVals] = useState([]);
+	const [filteredPet, setFilteredPet] = useState(pets);
 
 	const logout = () => {
 		setUserData({ token: undefined, user: undefined });
 		localStorage.setItem("auth-token", "");
+	};
+	const showModal = () => {
+		setShow(true);
 	};
 
 	const linkStyle = {
@@ -18,7 +32,11 @@ const NavBar = () => {
 		margin: "25px",
 	};
 
-	useEffect(() => {
+	const handleClose = () => {
+		setShow(false);
+	};
+
+	useEffect(async () => {
 		if (!userData.user) {
 			setLinks(
 				<ul className="navbar-nav">
@@ -37,11 +55,18 @@ const NavBar = () => {
 		} else {
 			setLinks(
 				<ul className="navbar-nav">
-					<li className="nav-item">
-						<Link data-bs-toggle="modal" data-bs-target="#notifyModal">
-							<i className="bi bi-bell"></i>
-						</Link>
-					</li>
+					{appt > 0 && (
+						<li className="nav-item">
+							<Link
+								onClick={(e) => {
+									e.preventDefault();
+									setShow(true);
+								}}
+							>
+								<i className="bi bi-bell"></i>
+							</Link>
+						</li>
+					)}
 					<li className="nav-item">
 						<Link to="/" style={linkStyle} onClick={logout}>
 							Logout
@@ -54,14 +79,17 @@ const NavBar = () => {
 					</li>
 				</ul>
 			);
+			setAppt(HandleAppoint(pets, "nav"));
+			console.log("nav", appt);
+			appt && setVals(HandleAppoint(pets, "notify"));
 		}
-	}, [userData]);
+	}, [userData, appt, pets]);
 
 	return (
 		<>
 			<nav
 				className="navbar navbar-expand-lg navbar-light"
-				style={{ backgroundColor: "#FFE2E2", height: "60px" }}
+				style={{ backgroundColor: "#BACBA9", height: "60px" }}
 			>
 				<div className="container-fluid">
 					<a className="navbar-brand" href="#">
@@ -80,10 +108,14 @@ const NavBar = () => {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarNavDropdown">
 						{links}
+						<Modal name="test" show={show} onHide={handleClose}>
+							<Modal.Body>
+								<Notify vals={vals} />
+							</Modal.Body>
+						</Modal>
 					</div>
 				</div>
 			</nav>
-			<Notify />
 		</>
 	);
 };

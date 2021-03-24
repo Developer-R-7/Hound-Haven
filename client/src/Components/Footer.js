@@ -1,11 +1,11 @@
-import React, { useContext} from "react";
-import axios from "axios";
+import React, { useContext } from "react";
+import DeleteAccount from "./Modals/DeleteAccount";
 import UserContext from "../Context/UserContext";
 
 const Footer = () => {
-	const { userData, setUserData } = useContext(UserContext);
+	const { userData } = useContext(UserContext);
 	const style = {
-		backgroundColor: "#ffc2c2",
+		backgroundColor: "#BACBA9",
 		borderTop: "1px solid #E7E7E7",
 		textAlign: "center",
 		padding: "20px",
@@ -23,27 +23,23 @@ const Footer = () => {
 		width: "100%",
 	};
 
-	const handleDelete = async (e) => {
-		e.preventDefault();
-		try {
-			await axios.delete(`/users/delete/${userData.user.id}`, {
-				headers: { "x-auth-token": localStorage.getItem("auth-token") },
-			});
-			setUserData({ token: undefined, user: undefined });
-			localStorage.setItem("auth-token", "");
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
 	return (
 		<div>
 			<div style={invisible}>
 				<div style={style}>
 					<span>From pet parents to you</span>
-					<button onClick={handleDelete}>delete account</button>
+					{userData.user ? (
+						<button
+							data-bs-toggle="modal"
+							data-bs-target="#Delete"
+							className="delete-user-btn"
+						>
+							delete account
+						</button>
+					) : null}
 				</div>
 			</div>
+			<DeleteAccount />
 		</div>
 	);
 };
