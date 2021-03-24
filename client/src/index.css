@@ -2,116 +2,160 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap");
 
 body {
-	margin: 0;
-	font-family: "Source Sans Pro", sans-serif;
-	/* font-family: "Acme", sans-serif; */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  /* font-family: "Acme", sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 /* add new pet button styles */
 .btn-circle.btn-xl {
-	width: 60px;
-	height: 60px;
-	border-radius: 100%;
-	font-size: 20px;
-	text-align: center;
-	font-weight: bolder;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bolder;
 }
 
 .add-pet-btn {
-	/* position: absolute; */
-	width: 103px;
-	height: 102px;
-	left: 550px;
-	top: 500px;
-	background-image: linear-gradient(#ff8585, #ff4747);
-	color: #ffffff;
+  /* position: absolute; */
+  width: 103px;
+  height: 102px;
+  left: 550px;
+  top: 500px;
+  background-image: linear-gradient(#ff8585, #ff4747);
+  color: #ffffff;
 }
 .add-new-pet {
-	text-align: center;
+  text-align: center;
 }
 
 .pet-list {
-	background: #ff8585;
-	/* display: table;
+  background: #ff8585;
+  /* display: table;
   list-style-type: none;
   width: 350px;
   padding: 5px;
   align-items: center;
   margin: 0 auto;
   margin-top: 10px; */
-	color: #ffffff;
+  color: #ffffff;
 }
 
 /* saved pet pet button styles */
 .saved-pet-btn {
-	/* position: relative; */
-	width: 275px;
-	height: 40px;
-	/* left: 450px;
+  /* position: relative; */
+  width: 275px;
+  height: 40px;
+  /* left: 450px;
   top: 215px; */
-	background: #ff9999;
+  background: #ff9999;
 }
 
 /* "My Pet" header styles */
 
 .myPet-header {
-	/* position: absolute; */
-	width: 322px;
-	height: 40px;
-	/* left: 420px;
+  /* position: absolute; */
+  width: 322px;
+  height: 40px;
+  /* left: 420px;
   top: 150px; */
-	background: #939fad;
-	text-align: center;
-	color: #ffffff;
+  background: #939fad;
+  text-align: center;
+  color: #ffffff;
 }
 
 .pets-container {
-	/* position: relative; */
-	margin-bottom: 50px;
+  /* position: relative; */
+  margin-bottom: 50px;
 }
 
 .navbar {
-	background-color: #ffc2c2 !important;
+  background-color: #ffc2c2 !important;
 }
 
-.navbar-toggler-icon {
-	z-index: 1;
+.navbar-nav > li > a {
+  margin-right: 10px !important;
 }
 
-/* .height {
-  height: 250px;
+.fa-bell {
+  position: relative !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: #747d8c;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+}
+
+.badge {
+  position: absolute;
+  top: 0%;
+  right: 55%;
+  width: 15px;
+  height: 15px;
+  background: red;
+  color: #ffffff;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+/* @media (max-width: 768px) {
+  .badge {
+    top: 50px;
+    right: 316px;
+  }
+}
+@media (max-width: 500px) {
+  .badge {
+    top: 50px;
+    right: 100px;                       
+  }
+}
+
+@media (max-width: 800px) {
+  .badge {
+    top: 50px;
+    right: 335px;
+  }
 } */
 
 .edit-pet-btn {
-	background-image: linear-gradient(#ff8585, #ff4747);
-	color: #ffffff;
-	/* box-shadow: 2px 3px 3px #ff9999; */
+  background-image: linear-gradient(#ff8585, #ff4747);
+  color: #ffffff;
+  /* box-shadow: 2px 3px 3px #ff9999; */
 }
 .edit-reminders-btn,
 .edit-visis-btn,
 .edit-medications-btn {
-	background-image: linear-gradient(#ff8585, #ff4747);
-	color: #ffffff;
-	outline: none;
+  background-image: linear-gradient(#ff8585, #ff4747);
+  color: #ffffff;
+  outline: none;
 }
 
 .delete-user-btn {
-	float: right;
-	/* color: #FFFFFF; */
-	background-color: #69798c;
+  float: right;
+  /* color: #FFFFFF; */
+  background-color: #69798c;
 }
 .home-card {
-	justify-content: center;
+  justify-content: center;
 }
 
 /* setting height of scroll on petDash page */
 .overflow-scroll {
-	max-height: 150px;
+  max-height: 150px;
 }
