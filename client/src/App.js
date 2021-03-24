@@ -4,15 +4,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-import Confirm from "./Pages/Confirm";
-import Confirmed from "./Pages/Confirmed";
 import PetDash from "./Pages/PetDash";
 import NavBar from "./Components/NavBar";
 import { ToastContainer } from "react-toastify";
 import Footer from "./Components/Footer";
 import PetContext from "./Context/PetContext";
 import UserContext from "./Context/UserContext";
-import Card from "./Components/Card";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -68,8 +65,6 @@ function App() {
               <Route exact path="/petDash" component={PetDash} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-              <Route path="/confirm" component={Confirm} />
-              <Route path="/confirm_token/:token" component={Confirmed} />
               <Route path="/" component={Home} />
             </Switch>
 

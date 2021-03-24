@@ -2,10 +2,7 @@ import React from "react";
 import logo from "./paw_logo.PNG";
 
 const About = () => {
-    // const size = {
-    //     height: "450px",
-    //     width: "450px",
-    // };
+    
     return (
         <div className="col-md-5  m-4">
             <div className="card text-center w-75">
@@ -14,7 +11,6 @@ const About = () => {
                     <img
                         src={logo}
                         alt="petLogo"
-                      
                         className="p-3 img-fluid rounded-circle w-10"
                     ></img>
 
