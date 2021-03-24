@@ -6,191 +6,189 @@ import Moment from "react-moment";
 import { toast } from "react-toastify";
 
 const ChangePet = (props) => {
-  const uploadedImage = useRef(null);
-  const imageUploader = useRef(null);
-  const [file, setFile] = useState(null);
-  
-  //state for new pet data to be added to db
-  console.log(props.data)
-  const [newPet, setnewPet] = useState(null);
-  const [PetImageLoc, setPetImgLoc] = useState(null);
-  const { newPetData, setNewPetData } = useContext(PetContext);
-  const pet= props.data;
-  const history = useHistory();
+	const uploadedImage = useRef(null);
+	const imageUploader = useRef(null);
+	const [setFile] = useState(null);
 
-  useEffect(() => {
-    pet && setnewPet(pet);
-  }, [pet])
+	//state for new pet data to be added to db
+	console.log(props.data);
+	const [newPet, setnewPet] = useState(null);
+	const [PetImageLoc, setPetImgLoc] = useState(null);
+	const { newPetData, setNewPetData } = useContext(PetContext);
+	const pet = props.data;
+	const history = useHistory();
 
-  useEffect(()=>{
-    newPetData &&
-    history.push({
-      pathname: "/petDash",
-      state: { info: newPetData },
-    });
-  }, [newPetData])
+	useEffect(() => {
+		pet && setnewPet(pet);
+	}, [pet]);
 
-  //handle change of form data to be set for newPet state
-  const handleChange = (e) => {
-    setnewPet({ ...newPet, [e.target.name]: e.target.value });
-  };
+	useEffect(() => {
+		newPetData &&
+			history.push({
+				pathname: "/petDash",
+				state: { info: newPetData },
+			});
+	}, [newPetData]);
 
-  const updatePet = async (e) => {
-    newPet.PetImageLoc = PetImageLoc;
-    e.preventDefault();
-    try {
-      const pet = await axios.patch("/api/updatepet/"+newPet._id, newPet, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      })
-      setNewPetData(true);
+	//handle change of form data to be set for newPet state
+	const handleChange = (e) => {
+		setnewPet({ ...newPet, [e.target.name]: e.target.value });
+	};
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+	const updatePet = async (e) => {
+		newPet.PetImageLoc = PetImageLoc;
+		e.preventDefault();
+		try {
+			await axios.patch("/api/updatepet/" + newPet._id, newPet, {
+				headers: { "x-auth-token": localStorage.getItem("auth-token") },
+			});
+			setNewPetData(true);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-  const handleImage = async (e) => {
-      e.preventDefault();
-      try {
-        let file = e.target.files[0]
-        file && setFile(file);
-  
-          var formData = new FormData()
-        
-          formData.append('file', file)
-        
-          console.log(formData);
-  
-          const data = await axios
-            .post("/api/saveImage", formData, {
-              headers: { "x-auth-token": localStorage.getItem("auth-token") },
-            })	
-          console.log(data.data.imageurl);	
-          setPetImgLoc(data.data.imageurl)
-        
-      } catch (error) {
-      
-        toast.error("There was a problem compressing the file, please try again" + error);
-        
-      }
-  } 
+	const handleImage = async (e) => {
+		e.preventDefault();
+		try {
+			let file = e.target.files[0];
+			file && setFile(file);
 
-  return (
-    <div className="modal" id="editAPetModal" tabIndex="-1">
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header">
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div
-            style={{ display: "inline-flex", justifyContent: "center" }}
-            className="modal-body"
-          >
-            <form>
+			var formData = new FormData();
 
-              <div className="form-group">
-                <label>Photo/avatar</label>
-                <br />
+			formData.append("file", file);
 
-                <div
-                  style={{
-                    height: "60px",
-                    width: "60px",
-                    border: "1px dashed black",
-                    borderRadius: "100%",
+			const data = await axios.post("/api/saveImage", formData, {
+				headers: { "x-auth-token": localStorage.getItem("auth-token") },
+			});
 
-                  }}
-                  onClick={() => imageUploader.current.click()}
-                >
-                  <img
-                    ref={uploadedImage}
-                    style={{
-                      height: "60px",
-                      width: "60px",
-                      border: "none",
-                      borderRadius: "100%",
-                    }}/>
-                </div>
-                <input
-                  onChange={(e) => handleImage(e)}
-                  ref={imageUploader}
-                  type="file"
-                  accept="image/*"
-                  multiple={false}
-                  name="PetImageLoc"
-                  style={{
-                    display: "none"
-                  }}/>
-      </div>
-              <p></p>
-              <div className="form-group">
-                <input
-                  onChange={handleChange}
-                  placeholder="Pet name"
-                  name="PetName"
-                  type="text"
-                  defaultValue={newPet && newPet.PetName}
-                  
-                />
-              </div>
-              <div className="form-group">
-                <label>Birth Date</label>
-                <br />
-                <input
-                  onChange={handleChange}
-                  placeholder="Birth Date"
-                  name="BirthDate"
-                  type="date"
-                  defaultValue={newPet && <Moment format="MM/DD/YYYY">{newPet.BirthDate}</Moment>}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  onChange={handleChange}
-                  placeholder="Gender"
-                  name="Gender"
-                  type="text"
-                  defaultValue={newPet && newPet.Gender}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  onChange={handleChange}
-                  placeholder="Type"
-                  name="TypeOfPet"
-                  type="text"
-                  defaultValue={newPet && newPet.TypeOfPet}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  onChange={handleChange}
-                  placeholder="Breed"
-                  name="Breed"
-                  type="text"
-                  defaultValue={newPet && newPet.Breed}
-                />
-              </div>
-            </form>
-          </div>
-          <div
-            onClick={updatePet}
-            className="modal-footer"
-            data-bs-dismiss="modal"
-          >
-            <button type="submit" className="btn btn-primary">
-              Save Pet
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+			setPetImgLoc(data.data.imageurl);
+		} catch (error) {
+			toast.error(
+				"There was a problem compressing the file, please try again" + error
+			);
+		}
+	};
+
+	return (
+		<div className="modal" id="editAPetModal" tabIndex="-1">
+			<div className="modal-dialog modal-lg">
+				<div className="modal-content">
+					<div className="modal-header">
+						<button
+							type="button"
+							className="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div
+						style={{ display: "inline-flex", justifyContent: "center" }}
+						className="modal-body"
+					>
+						<form>
+							<div className="form-group">
+								<label>Photo/avatar</label>
+								<br />
+
+								<div
+									style={{
+										height: "60px",
+										width: "60px",
+										border: "1px dashed black",
+										borderRadius: "100%",
+									}}
+									onClick={() => imageUploader.current.click()}
+								>
+									<img
+										ref={uploadedImage}
+										style={{
+											height: "60px",
+											width: "60px",
+											border: "none",
+											borderRadius: "100%",
+										}}
+									/>
+								</div>
+								<input
+									onChange={(e) => handleImage(e)}
+									ref={imageUploader}
+									type="file"
+									accept="image/*"
+									multiple={false}
+									name="PetImageLoc"
+									style={{
+										display: "none",
+									}}
+								/>
+							</div>
+							<p></p>
+							<div className="form-group">
+								<input
+									onChange={handleChange}
+									placeholder="Pet name"
+									name="PetName"
+									type="text"
+									defaultValue={newPet && newPet.PetName}
+								/>
+							</div>
+							<div className="form-group">
+								<label>Birth Date</label>
+								<br />
+								<input
+									onChange={handleChange}
+									placeholder="Birth Date"
+									name="BirthDate"
+									type="date"
+									defaultValue={
+										newPet && (
+											<Moment format="MM/DD/YYYY">{newPet.BirthDate}</Moment>
+										)
+									}
+								/>
+							</div>
+							<div className="form-group">
+								<input
+									onChange={handleChange}
+									placeholder="Gender"
+									name="Gender"
+									type="text"
+									defaultValue={newPet && newPet.Gender}
+								/>
+							</div>
+							<div className="form-group">
+								<input
+									onChange={handleChange}
+									placeholder="Type"
+									name="TypeOfPet"
+									type="text"
+									defaultValue={newPet && newPet.TypeOfPet}
+								/>
+							</div>
+							<div className="form-group">
+								<input
+									onChange={handleChange}
+									placeholder="Breed"
+									name="Breed"
+									type="text"
+									defaultValue={newPet && newPet.Breed}
+								/>
+							</div>
+						</form>
+					</div>
+					<div
+						onClick={updatePet}
+						className="modal-footer"
+						data-bs-dismiss="modal"
+					>
+						<button type="submit" className="btn btn-primary">
+							Save Pet
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default ChangePet;

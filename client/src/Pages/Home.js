@@ -5,8 +5,7 @@ import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
 import axios from "axios";
 import ConfirmDelete from "../Components/Modals/ConfirmDelete";
-import moment from "moment";
-import e from "cors";
+
 // import UpcomingAppointments from "../Components/Modals/UpcomingAppoiments";
 
 //return data from user, append any saved pets as buttons
@@ -23,13 +22,8 @@ const Home = () => {
 	const [user] = useState(userData.user?.id);
 	const [petData, setPetData] = useState();
 	const displayName = userData.user?.displayName;
-	const [data, setData] = useState();
-
-	console.log(pets);
-	//not sure if this is the way to go about getting users pets?
 
 	const loadUserPets = async (user) => {
-		// console.log(user);
 		let url = `/api/getpetbyuser/${user}`;
 		try {
 			const { data } = await axios.get(url, {
@@ -100,6 +94,7 @@ const Home = () => {
 															borderRadius: "100%",
 														}}
 														src={pet.PetImageLoc}
+														alt="pet Image"
 													/>
 												) : (
 													<img
@@ -109,6 +104,7 @@ const Home = () => {
 															borderRadius: "100%",
 														}}
 														src="./images/paw-print-small.png"
+														alt="pet Image"
 													/>
 												)}
 												&nbsp;&nbsp;&nbsp;&nbsp;

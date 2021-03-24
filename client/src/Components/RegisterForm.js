@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const RegisterForm = () => {
-	const { userData, setUserData } = useContext(UserContext);
+	const { userData } = useContext(UserContext);
 	const history = useHistory();
 	const [form, setForm] = useState({});
 	const onChange = (e) => {
@@ -15,13 +15,11 @@ const RegisterForm = () => {
 	const submit = async (e) => {
 		e.preventDefault();
 		try {
-			console.log(form);
-			const newUser = await axios.post("/users/register", form);
+			await axios.post("/users/register", form);
 			history.push("/login");
 		} catch (err) {
 			toast.error(err.response);
 		}
-		//}
 	};
 
 	useEffect(() => {
