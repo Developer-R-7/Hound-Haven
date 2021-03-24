@@ -14,75 +14,98 @@ code {
     monospace;
 }
 
-/* add new pet button styles */
-.btn-circle.btn-xl {
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-  font-size: 20px;
-  text-align: center;
-  font-weight: bolder;
-}
-
-.add-pet-btn {
-  /* position: absolute; */
-  width: 103px;
-  height: 102px;
-  left: 550px;
-  top: 500px;
-  background-image: linear-gradient(#ff8585, #ff4747);
-  color: #ffffff;
-}
-.add-new-pet {
-  text-align: center;
-}
-
-.pet-list {
-  background: #ff8585;
-  /* display: table;
-  list-style-type: none;
-  width: 350px;
-  padding: 5px;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: 10px; */
-  color: #ffffff;
-}
-
-/* saved pet pet button styles */
-.saved-pet-btn {
-  /* position: relative; */
-  width: 275px;
-  height: 40px;
-  /* left: 450px;
-  top: 215px; */
-  background: #ff9999;
-}
-
-/* "My Pet" header styles */
-
-.myPet-header {
-  /* position: absolute; */
-  width: 322px;
-  height: 40px;
-  /* left: 420px;
-  top: 150px; */
-  background: #939fad;
-  text-align: center;
-  color: #ffffff;
-}
-
-.pets-container {
-  /* position: relative; */
-  margin-bottom: 50px;
-}
-
 .navbar {
   background-color: #ffc2c2 !important;
 }
 
 .navbar-nav > li > a {
   margin-right: 10px !important;
+}
+
+/* add new pet button styles */
+.btn-circle.btn-xl {
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  color: #fff;
+  border-radius: 50px;
+  box-shadow: 2px 2px 3px #999;
+  margin-top: 5rem;
+  background-image: linear-gradient(to bottom right, #ff8a5f, #fc5160);
+}
+
+.delete-pet-btn {
+  outline: none;
+}
+.delete-pet-btn:hover {
+  transition: 0.9s;
+  transform: rotate(180deg);
+}
+
+.btn-circle.btn-xl:hover {
+  transition: 0.9s;
+  transform: scale(1.06);
+}
+
+.saved-pet-btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.saved-pet-btn span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.saved-pet-btn:hover span {
+  padding-right: 25px;
+}
+
+.saved-pet-btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.add-new-pet {
+  text-align: center;
+}
+
+.pet-list {
+  background: #ff8585;
+  color: #ffffff;
+}
+
+/* saved pet pet button styles */
+.saved-pet-btn {
+  background: #ff9999;
+  transition: all 0.5s;
+  cursor: pointer;
+  width: 17rem;
+  margin: auto;
+  box-shadow: 2px 2px 3px #999;
+}
+
+/* "My Pet" user dash/home styles */
+
+.myPet-header {
+  background: #939fad;
+  text-align: center;
+  color: #ffffff;
+}
+
+.user-saved-pets {
+  text-align: center !important;
+}
+
+.pets-container {
+  margin-bottom: 50px;
 }
 
 .fa-bell {
@@ -113,42 +136,8 @@ code {
   border-radius: 50%;
 }
 
-/* @media (max-width: 768px) {
-  .badge {
-    top: 50px;
-    right: 316px;
-  }
-}
-@media (max-width: 500px) {
-  .badge {
-    top: 50px;
-    right: 100px;                       
-  }
-}
-
-@media (max-width: 800px) {
-  .badge {
-    top: 50px;
-    right: 335px;
-  }
-} */
-
-.edit-pet-btn {
-  background-image: linear-gradient(#ff8585, #ff4747);
-  color: #ffffff;
-  /* box-shadow: 2px 3px 3px #ff9999; */
-}
-.edit-reminders-btn,
-.edit-visis-btn,
-.edit-medications-btn {
-  background-image: linear-gradient(#ff8585, #ff4747);
-  color: #ffffff;
-  outline: none;
-}
-
 .delete-user-btn {
   float: right;
-  /* color: #FFFFFF; */
   background-color: #69798c;
 }
 .home-card {
@@ -158,4 +147,88 @@ code {
 /* setting height of scroll on petDash page */
 .overflow-scroll {
   max-height: 150px;
+}
+
+/* MODAL STYLES */
+.modal-confirm {
+  color: #636363;
+}
+.modal-confirm .modal-content {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+.modal-confirm .modal-header {
+  border-bottom: none;
+  position: relative;
+}
+.modal-confirm h4 {
+  text-align: center;
+  font-size: 26px;
+  margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+  position: absolute;
+  top: -5px;
+  right: -2px;
+}
+.modal-confirm .modal-body {
+  color: #999;
+}
+.modal-confirm .modal-footer {
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 10px 15px 25px;
+}
+.modal-confirm .modal-footer a {
+  color: #999;
+}
+.modal-confirm .icon-box {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  z-index: 9;
+  text-align: center;
+  border: 3px solid #f15e5e;
+}
+.modal-confirm .icon-box i {
+  color: #f15e5e;
+  font-size: 46px;
+  display: inline-block;
+  margin-top: 13px;
+}
+.modal-confirm .btn,
+.modal-confirm .btn:active {
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.4s;
+  line-height: normal;
+  min-width: 120px;
+  border: none;
+  min-height: 40px;
+  border-radius: 3px;
+}
+.modal-confirm .btn-secondary {
+  background: #c1c1c1;
+}
+.modal-confirm .btn-secondary:hover,
+.modal-confirm .btn-secondary:focus {
+  background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+  background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover,
+.modal-confirm .btn-danger:focus {
+  background: #ee3535;
+}
+.trigger-btn {
+  display: inline-block;
+  margin: 100px auto;
 }
