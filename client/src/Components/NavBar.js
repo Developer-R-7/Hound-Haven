@@ -36,57 +36,6 @@ const NavBar = () => {
     setShow(false);
   };
 
-<<<<<<< HEAD
-	useEffect(async () => {
-		if (!userData.user) {
-			setLinks(
-				<ul className="navbar-nav">
-					<li className="nav-item">
-						<Link to="/login" style={linkStyle}>
-							Login
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/register" style={linkStyle}>
-							Register
-						</Link>
-					</li>
-				</ul>
-			);
-		} else {
-			setLinks(
-				<ul className="navbar-nav">
-					{appt > 0 && (
-						<li className="nav-item">
-							<Link
-								onClick={(e) => {
-									e.preventDefault();
-									setShow(true);
-								}}
-							>
-								<i className="bi bi-bell"></i>
-								<span class="badge">{appt}</span>
-							</Link>
-						</li>
-					)}
-					<li className="nav-item">
-						<Link to="/" style={linkStyle} onClick={logout}>
-							Logout
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/home" style={linkStyle}>
-							Home
-						</Link>
-					</li>
-				</ul>
-			);
-			setAppt(HandleAppoint(pets, "nav"));
-			console.log("nav", appt);
-			appt && setVals(HandleAppoint(pets, "notify"));
-		}
-	}, [userData, appt, pets]);
-=======
   useEffect(async () => {
     if (!userData.user) {
       setLinks(
@@ -141,7 +90,6 @@ const NavBar = () => {
 	  console.log('vars nav', vals)
     }
   }, [userData, appt, pets]);
->>>>>>> a10264d1e910da644aa9123e98c33f537cdfbb8f
 
   return (
     <>
