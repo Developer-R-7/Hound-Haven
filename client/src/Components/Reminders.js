@@ -97,7 +97,7 @@ const Reminders = (props) => {
               <li
                 onClick={(e) => update(e, rem)}
                 key={rem._id}
-                className="pet-list btn"
+                className="pet-list btn w-75"
               >
                 <div>
                   <Moment format="MM/DD/YYYY">{rem.Date}</Moment>
