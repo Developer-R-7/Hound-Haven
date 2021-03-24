@@ -1,10 +1,12 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Single+Day&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Boogaloo&display=swap");
 
 body {
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
-  /* font-family: "Acme", sans-serif; */
+  font-family: "Boogaloo", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,6 +24,25 @@ code {
   margin-right: 10px !important;
 }
 
+.myPet-header {
+  font-family: "Single Day", cursive;
+  /* -webkit-text-stroke: 0.05px #ffc2c2; */
+  font-size: 100px;
+  -webkit-text-fill-color: #636363;
+  font-weight: bolder;
+  /* text-shadow: 3px 3px #596275; */
+  margin-bottom: -17px;
+  margin-top: 15px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  .myPet-header {
+    font-size: 50px;
+  }
+}
+
 /* add new pet button styles */
 .btn-circle.btn-xl {
   width: 60px;
@@ -32,7 +53,7 @@ code {
   border-radius: 50px;
   box-shadow: 2px 2px 3px #999;
   margin-top: 5rem;
-  background-image: linear-gradient(to bottom right, #ff8a5f, #fc5160);
+  background-image: linear-gradient(to bottom right, #ff9797, #fc5160);
 }
 
 .delete-pet-btn {
@@ -87,17 +108,10 @@ code {
   background: #ff9999;
   transition: all 0.5s;
   cursor: pointer;
+  margin-right: 5%;
   width: 17rem;
-  margin: auto;
+
   box-shadow: 2px 2px 3px #999;
-}
-
-/* "My Pet" user dash/home styles */
-
-.myPet-header {
-  background: #939fad;
-  text-align: center;
-  color: #ffffff;
 }
 
 .user-saved-pets {
