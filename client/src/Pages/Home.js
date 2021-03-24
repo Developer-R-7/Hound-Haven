@@ -108,7 +108,7 @@ const Home = () => {
 															width: "30px",
 															borderRadius: "100%",
 														}}
-														src="./images/paw_logo.PNG"
+														src="./images/paw-print-small.png"
 													/>
 												)}
 												&nbsp;&nbsp;&nbsp;&nbsp;
