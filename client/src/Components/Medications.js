@@ -100,11 +100,11 @@ const Medications = (props) => {
 	};
 
 	return (
-		<div className="card m-2 shadow rounded">
-			<div className="card-body text-center ">
+		<div className="card m-2 shadow rounded" id="petDashCard">
+			<div className="card-body text-center">
 				<h3 className="card-title">Medications</h3>
 				<div className="pet-table">
-					<ul>
+					<ul className="overflow-scroll">
 						{meds.map((med) => (
 							<li
 								onClick={(e) => update(e, med)}

@@ -87,11 +87,11 @@ const Reminders = (props) => {
 	};
 
 	return (
-		<div className="card m-2 shadow rounded">
-			<div className="card-body text-center ">
+		<div className="card m-2 shadow rounded" id="petDashCard">
+			<div className="card-body text-center">
 				<h3 className="card-title">Reminders</h3>
 				<div className="pet-table">
-					<ul>
+					<ul className="overflow-scroll">
 						{reminders.map((rem) => (
 							<li
 								onClick={(e) => update(e, rem)}
