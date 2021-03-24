@@ -1,4 +1,3 @@
-
 import React from "react";
 import logo from "./paw_logo.PNG";
 
@@ -29,4 +28,5 @@ const About = () => {
         </div>
     );
 };
-export default About
+
+export default About;
