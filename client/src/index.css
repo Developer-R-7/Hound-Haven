@@ -67,7 +67,7 @@ code {
   height: 40px;
   /* left: 420px;
   top: 150px; */
-  background: #717568;
+  background: #939fad;
   text-align: center;
   color: #ffffff;
 }
@@ -78,7 +78,7 @@ code {
 }
 
 .navbar {
-  background-color: #bacba9 !important;
+  background-color: #FFC2C2 !important;
 }
 
 .navbar-toggler-icon {
@@ -104,8 +104,8 @@ code {
 
 .delete-user-btn {
   float: right;
-  color: #717568;
-  background-color: #e1f4cb;
+  /* color: #FFFFFF; */
+  background-color: #69798C;
 }
 .home-card {
   justify-content: center;
