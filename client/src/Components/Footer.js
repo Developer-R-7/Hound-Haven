@@ -5,7 +5,8 @@ import UserContext from "../Context/UserContext";
 const Footer = () => {
 	const { userData } = useContext(UserContext);
 	const style = {
-		backgroundColor: "#BACBA9",
+		backgroundColor: "#ffffff",
+		opacity: "0.5",
 		borderTop: "1px solid #E7E7E7",
 		textAlign: "center",
 		padding: "20px",
