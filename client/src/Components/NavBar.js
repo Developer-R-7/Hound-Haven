@@ -1,13 +1,10 @@
-import React, { Fragment, useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import Notify from "./Modals/Notify";
 import PetContext from "../Context/PetContext";
-import logo from "./paw_logo.PNG";
 import { Modal } from "react-bootstrap";
-import Card from "./Card";
 import HandleAppoint from "./Helpers/HandleAppoint";
-import moment from "moment";
 
 const NavBar = () => {
 	const { userData, setUserData } = useContext(UserContext);
@@ -16,14 +13,10 @@ const NavBar = () => {
 	const { pets } = useContext(PetContext);
 	const [show, setShow] = useState(false);
 	const [vals, setVals] = useState([]);
-	const [filteredPet, setFilteredPet] = useState(pets);
 
 	const logout = () => {
 		setUserData({ token: undefined, user: undefined });
 		localStorage.setItem("auth-token", "");
-	};
-	const showModal = () => {
-		setShow(true);
 	};
 
 	const linkStyle = {
@@ -75,7 +68,7 @@ const NavBar = () => {
 							style={linkStyle}
 							onClick={logout}
 						>
-							Logout
+							Log Out
 						</Link>
 					</li>
 					<li className="nav-item">
@@ -86,9 +79,8 @@ const NavBar = () => {
 				</ul>
 			);
 			setAppt(HandleAppoint(pets, "nav"));
-			console.log("nav", appt);
+
 			appt && setVals(HandleAppoint(pets, "notify"));
-			console.log("vars nav", vals);
 		}
 	}, [userData, appt, pets]);
 
@@ -96,9 +88,7 @@ const NavBar = () => {
 		<>
 			<nav className="navbar navbar-expand-lg">
 				<div className="container-fluid">
-					<a className="navbar-brand" href="#">
-						MyPet
-					</a>
+					<h3 className="navbar-brand">MyPet</h3>
 					<button
 						className="navbar-toggler"
 						type="button"
