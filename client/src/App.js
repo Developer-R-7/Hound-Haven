@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./Components/Footer";
 import PetContext from "./Context/PetContext";
 import UserContext from "./Context/UserContext";
+import Card from "./Components/Card";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -21,6 +22,7 @@ function App() {
   const [newPetData, setNewPetData] = useState("pet babies");
   const [petId, setPetId] = useState("");
   const [appt, setAppt] = useState(0);
+  const [pets, setPets] = useState({});
 
   const checkLoggedIn = async () => {
     let token = localStorage.getItem("auth-token");
@@ -50,7 +52,7 @@ function App() {
 
         <UserContext.Provider value={{ userData, setUserData }}>
           <PetContext.Provider
-            value={{ newPetData, setNewPetData, petId, setPetId, appt, setAppt }}
+            value={{ newPetData, setNewPetData, petId, setPetId, appt, setAppt, pets, setPets }}
           >
             <NavBar />
             <Switch>
@@ -61,6 +63,8 @@ function App() {
               <Route path="/confirm_token/:token" component={Confirmed} />
               <Route path="/" component={Home} />
             </Switch>
+            <Card></Card>
+          
             <Footer />
           </PetContext.Provider>
         </UserContext.Provider>
