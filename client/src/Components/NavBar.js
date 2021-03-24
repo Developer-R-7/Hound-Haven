@@ -138,6 +138,7 @@ const NavBar = () => {
       setAppt(HandleAppoint(pets, "nav"));
       console.log("nav", appt);
       appt && setVals(HandleAppoint(pets, "notify"));
+	  console.log('vars nav', vals)
     }
   }, [userData, appt, pets]);
 >>>>>>> a10264d1e910da644aa9123e98c33f537cdfbb8f

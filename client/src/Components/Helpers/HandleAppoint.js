@@ -5,11 +5,10 @@ const HandleAppoint = (pets,called) => {
     today.setDate(today.getDate() - 1);
     let tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 2);
-
+    console.log('handle pets', pets)
     let med=[];
     let visit=[]; 
     let remind=[];
-
     
     //function uses flatmap to extract the keys from the pets - if it contains a DueDate, VisitDate or Date put whereit needs to be
 	const getKeys = obj => Object.keys(obj).flatMap(k => Object(obj[k]) === obj[k] 
@@ -34,14 +33,14 @@ const HandleAppoint = (pets,called) => {
             
             let v1 = getKeys(pet)
                 if( v1.find(el => el === "VisitDate")){
-                    pet.Medications.forEach (viq => {
+                    pet.VetVisits.forEach (viq => {
                         if(moment(viq.VisitDate).isBetween(today, tomorrow, undefined, '[]')){
-                                visit.push = ({Pet: pet.PetName, 
+                                visit.push ({Pet: pet.PetName, 
                                 Date: viq.VisitDate, 
                                 Notes: viq.VisitNotes, 
                                 Weight: viq.Weight});
-                      
                         }
+                    
                     })
                 }
 
@@ -49,7 +48,7 @@ const HandleAppoint = (pets,called) => {
             if( r1.find(el => el === "Date")) { 
                 pet.Reminders.forEach (req => {  
                     if(moment(req.Date).isBetween(today, tomorrow, undefined, '[]')){ 
-                        remind.push = ({Pet: pet.PetName, 
+                        remind.push ({Pet: pet.PetName, 
                             Date: req.Date, 
                             Title: req.Title, 
                             Notes: req.Note});
