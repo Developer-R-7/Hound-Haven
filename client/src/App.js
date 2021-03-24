@@ -52,7 +52,16 @@ function App() {
 
         <UserContext.Provider value={{ userData, setUserData }}>
           <PetContext.Provider
-            value={{ newPetData, setNewPetData, petId, setPetId, appt, setAppt, pets, setPets }}
+            value={{
+              newPetData,
+              setNewPetData,
+              petId,
+              setPetId,
+              appt,
+              setAppt,
+              pets,
+              setPets,
+            }}
           >
             <NavBar />
             <Switch>
@@ -63,8 +72,7 @@ function App() {
               <Route path="/confirm_token/:token" component={Confirmed} />
               <Route path="/" component={Home} />
             </Switch>
-            <Card></Card>
-          
+
             <Footer />
           </PetContext.Provider>
         </UserContext.Provider>

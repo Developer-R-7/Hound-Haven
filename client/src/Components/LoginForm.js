@@ -18,7 +18,7 @@ const LoginForm = () => {
       const { data } = await axios.post("/users/login", form);
 
       if (!data.user.confirmed) {
-        history.push("/confirm");
+        toast.error("Your account has not been verified, please check your email.")
       } else {
         setUserData({
           token: data.token,
