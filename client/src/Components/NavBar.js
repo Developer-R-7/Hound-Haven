@@ -96,9 +96,7 @@ const NavBar = () => {
 		<>
 			<nav className="navbar navbar-expand-lg">
 				<div className="container-fluid">
-					<a className="navbar-brand" href="#">
-						MyPet
-					</a>
+					<h3 className="navbar-brand">MyPet</h3>
 					<button
 						className="navbar-toggler"
 						type="button"
