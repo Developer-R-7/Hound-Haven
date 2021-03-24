@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-
-
 mongoose.connect(
 	process.env.MONGODB_URI || "mongodb://localhost/myPet",
 	{
@@ -14,6 +12,6 @@ mongoose.connect(
 		if (err) throw err;
 		console.log("MongoDB connection established");
 	}
-)
+);
 
 module.exports = mongoose;
