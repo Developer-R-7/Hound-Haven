@@ -127,7 +127,7 @@ const NavBar = () => {
 
             <Modal name="about" show={about} onHide={closeAbout}>
               <Modal.Body>
-                <div className="card text-center">
+                <div className="card text-center  border-0">
                   <h5 className="card-title">The My Pet App</h5>
                   <div className="card-body">
                     <img
