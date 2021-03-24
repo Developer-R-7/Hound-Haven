@@ -12,9 +12,9 @@ const Notify = (props) => {
 	const [vet, setVet] = useState(notifyItems?notifyItems[1]:null);
 	const [rem, setRem] = useState(notifyItems?notifyItems[2]:null);
 
-	console.log(med);
+	console.log(vet);
 		useEffect(() => {
-			console.log(med);
+			console.log(vet);
 		}, [notifyItems])
 	
 
@@ -22,7 +22,7 @@ const Notify = (props) => {
 	return (
 
 
-		<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+	<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
 		<Tab eventKey="meds" title="Medications">
 			<ul>
 				
@@ -57,7 +57,7 @@ const Notify = (props) => {
 
 		</ul>
 		</Tab>
-		<Tab eventKey="rems" title="Reminders" disabled>
+		<Tab eventKey="rems" title="Reminders">
 		{ rem.map((appt2) =>( 	
 			<li >
 				{appt2.Pet} &nbsp; 
