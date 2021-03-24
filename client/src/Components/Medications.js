@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
 
 const Medications = (props) => {
-
   const petId = props.petId;
   const [meds, setMeds] = useState(props.meds);
   const [show, setShow] = useState(false);
@@ -22,8 +21,6 @@ const Medications = (props) => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {}, [meds]);
-
-
 
   //sort descending so the newest one on the top
   meds.sort(function (a, b) {
@@ -75,23 +72,21 @@ const Medications = (props) => {
 
   const postMed = async (url, vals, petId) => {
     try {
-       await axios.put(url, vals, {
+      await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       handleClose();
     } catch (err) {
       console.log(err);
-      toast.error({message: err.message});
+      toast.error({ message: err.message });
     }
   };
-
-  
 
   const update = async (e, data) => {
     e.preventDefault();
     setModalData(data);
     setExisting(true);
-    setShow(true)
+    setShow(true);
 
     console.log("button to update med", data);
   };
@@ -100,7 +95,7 @@ const Medications = (props) => {
     e.preventDefault();
     setModalData(data);
     setExisting(false);
-    setShow(true)
+    setShow(true);
 
     console.log("button to add med", data);
   };
@@ -115,7 +110,7 @@ const Medications = (props) => {
               <li
                 onClick={(e) => update(e, med)}
                 key={med._id}
-                className="pet-list card-body"
+                className="pet-list btn w-75"
               >
                 {med.MedicationName}
                 Next Dose:{" "}
