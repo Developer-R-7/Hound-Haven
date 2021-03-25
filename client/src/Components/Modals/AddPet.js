@@ -71,6 +71,7 @@ const AddPet = () => {
         await axios.post("/api/saveImage", formData, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       })
+      console.log(data.data)
       setImgLoc(data.data.fileUrl)
     }
 
