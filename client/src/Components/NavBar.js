@@ -68,7 +68,7 @@ const NavBar = () => {
 									setShow(true);
 								}}
 							>
-								<span className="fa fa-bell fa-sm">
+								<span className="animate__animated animate__swing animate__repeat-3 fa fa-bell fa-sm">
 									<i className="badge">{appt}</i>
 								</span>
 							</Link>
