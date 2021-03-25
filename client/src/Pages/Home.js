@@ -131,7 +131,7 @@ const Home = () => {
               data-bs-toggle="modal"
               data-bs-target="#addAPetModal"
               type="button"
-              className="add-pet-btn btn btn-circle btn-xl btn-floating"
+              className="add-pet-btn btn btn-circle btn-xl shadow"
             >
               <i class="fa fa-plus"></i>
             </button>
