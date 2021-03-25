@@ -26,7 +26,7 @@ module.exports = {
 			blobstream.on("error", (err) => console.log(err));
 			blobstream.on("finish", () => {
 				publicUrl = `https://storage.googleapis.com/${process.env.GCS_BUCKET}/${blob.name}`;
-				return next(res.json({ publicUrl: publicUrl }));
+				return next(res.json({ fileUrl: publicUrl }));
 			});
 			blobstream.end(req.file.buffer);
 			//eturn next(res.json({ fileUrl: publicUrl}));

@@ -46,15 +46,18 @@ const AddPet = () => {
     e.preventDefault();
     try {
       let data;
+      let file1 = e.target.files[0]
+      
       setFile(e.target.files[0]);
-      if (file) {
+    
+      if (file1) {
         const reader = new FileReader();
         const {current} = uploadedImage;
-        current.file = file;
+        current.file = file1;
         reader.onload = (e) => {
             current.src = e.target.result;
         }
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file1);
       }
 
       var formData = new FormData();
