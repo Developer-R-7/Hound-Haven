@@ -54,7 +54,7 @@ const RegisterForm = () => {
   }, [userData.user, history]);
 
   return (
-    <div className="col-md-6">
+    <div className="col-md-6 log-reg-form">
       <form onSubmit={submit}>
         <div className="form-group">
           <label>Email</label>
@@ -100,8 +100,14 @@ const RegisterForm = () => {
             placeholder="Preferred Name"
           />
         </div>
-        <button type="submit">Register</button>
-        <button style={{ margin: 20 }} onClick={() => history.push("/login")}>
+        <button className="register-btn rounded-pill" type="submit">
+          Register
+        </button>
+        <button
+          className="login-btn rounded-pill"
+          style={{ margin: 20 }}
+          onClick={() => history.push("/login")}
+        >
           Login
         </button>
       </form>

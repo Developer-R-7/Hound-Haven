@@ -3,7 +3,7 @@ import logo from "./paw_logo.PNG";
 
 const About = () => {
   return (
-    <div className="col-md-5  m-4">
+    <div className="col-md-5 about-card m-4">
       <div className="card text-center w-75 border-0">
         <h5 className="card-title">The My Pet App</h5>
         <div className="card-body">
