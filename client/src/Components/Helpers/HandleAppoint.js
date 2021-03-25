@@ -4,6 +4,7 @@ const HandleAppoint = (pets, called) => {
 	let today = new Date(new Date().setHours(0,0,0,0))
 	let tomorrow = new Date();
 	tomorrow.setDate(today.getDate() + 2);
+	today.setDate(today.getDate() - 1);
 	let med = [];
 	let visit = [];
 	let remind = [];
@@ -20,7 +21,7 @@ const HandleAppoint = (pets, called) => {
 			let m1 = getKeys(pet);
 			if (m1.find((el) => el === "DueDate")) {
 				pet.Medications.forEach((meq) => {
-					if (moment(meq.DueDate).isBetween(today, tomorrow, undefined, "[]")) {
+					if (moment(meq.DueDate).isBetween(today, tomorrow)) {
 						med.push({
 							Pet: pet.PetName,
 							Date: meq.DueDate,
@@ -35,8 +36,7 @@ const HandleAppoint = (pets, called) => {
 			if (v1.find((el) => el === "VisitDate")) {
 				pet.VetVisits.forEach((viq) => {
 					if (
-						moment(viq.VisitDate).isBetween(today, tomorrow, undefined, "[]")
-					) {
+						moment(viq.VisitDate).isBetween(today, tomorrow)) {
 						visit.push({
 							Pet: pet.PetName,
 							Date: viq.VisitDate,
@@ -50,7 +50,7 @@ const HandleAppoint = (pets, called) => {
 			let r1 = getKeys(pet);
 			if (r1.find((el) => el === "Date")) {
 				pet.Reminders.forEach((req) => {
-					if (moment(req.Date).isBetween(today, tomorrow, undefined, "[]")) {
+					if (moment(req.Date).isBetween(today, tomorrow)) {
 						remind.push({
 							Pet: pet.PetName,
 							Date: req.Date,

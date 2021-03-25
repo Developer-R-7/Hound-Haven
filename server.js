@@ -38,6 +38,7 @@ app.use("/register", require("./routes/confirmRoutes"));
 app.use("/users", require("./routes/userRoutes"));
 app.use("/api", require("./routes/petRoutes"));
 app.use("/api", require("./routes/imageRoutes"));
+app.use("/api", require("./routes/imgLocRoutes"));
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
