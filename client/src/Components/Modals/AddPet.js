@@ -10,13 +10,16 @@ import { toast } from "react-toastify";
 const AddPet = () => {
   // const { userData } = useContext(UserContext);
   // const [user] = useState(userData.user?.id);
-  const [setFile] = useState(null);
+  const {REACT_APP_LOCAL_STORAGE} = process.env;
+
+  const [file, setFile] = useState(null);
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
   //state for new pet data to be added to db
   const [newPet, setnewPet] = useState(null);
-  const [PetImageLoc, setPetImgLoc] = useState(null);
+  const [imgLoc, setImgLoc] = useState(null);
   const { setNewPetData } = useContext(PetContext);
+  let image;
 
   //handle change of form data to be set for newPet state
   const handleChange = (e) => {
@@ -26,7 +29,7 @@ const AddPet = () => {
   //handel save button to add a new pet to db
   const saveNewPet = async (e) => {
     e.preventDefault();
-    newPet.PetImageLoc = PetImageLoc;
+    newPet.PetImageLoc = imgLoc;
 
     try {
       await axios.post("/api/pet", newPet, {
@@ -42,21 +45,42 @@ const AddPet = () => {
   const handleImage = async (e) => {
     e.preventDefault();
     try {
+      let data;
       let file = e.target.files[0];
       file && setFile(file);
+      if (file) {
+        const reader = new FileReader();
+        const {current} = uploadedImage;
+        current.file = file;
+        reader.onload = (e) => {
+            current.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
 
       var formData = new FormData();
 
       formData.append("file", file);
+      /// if local env set use local storage
+      if(REACT_APP_LOCAL_STORAGE) {
+          data = await axios.post("/api/saveLocImage", formData, {
+          headers: { "x-auth-token": localStorage.getItem("auth-token") },
+        })
+        image = data.data.fileUrl;
+        console.log(image)
+        setImgLoc(image)
+        console.log(...imgLoc)
+      } else {
 
-      const data = await axios.post("/api/saveImage", formData, {
+        await axios.post("/api/saveImage", formData, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
+      }).then(data => {setImgLoc(data.data.fileUrl);
+      console.log(imgLoc)})
+    }
 
-      setPetImgLoc(data.data.imageurl);
     } catch (error) {
       toast.error(
-        "There was a problem compressing the file, please try again" + error
+        "There was a problem uploading the image, please try again" + error
       );
     }
   };
