@@ -20,19 +20,20 @@ const PetDash = () => {
   const { newPetData, setNewPetData } = useContext(PetContext);
   //let petId;
 
-  useEffect(() => {
-    setData(location.state.info); // added this to refersh after update
-  }, [location, newPetData,setData]);
+  // useEffect(() => {
+  //   console.log(location.state.info)
+  //   setData(location.state.info); // added this to refersh after update
+  // }, [location, newPetData,setData]);
 
   setNewPetData(false);
 
-  useEffect(() => {
-    data ? console.log(data) : console.log("no Data");
-    data ? (setPetId(data._id)) : setPetId("");
-  }, [data,setPetId]);
+  // useEffect(() => {
+  //   data ? console.log(data) : console.log("no Data");
+  //   data ? (setPetId(data._id)) : setPetId("");
+  // }, [data,setPetId]);
 
   useEffect( () => {
-    async function fetchMyAPI() {
+    const  fetchMyAPI = async () => {
       const data = await getPetData(petId);
       data && setData(data);
     }

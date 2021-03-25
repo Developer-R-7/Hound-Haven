@@ -62,15 +62,18 @@ const Home = () => {
   const routePet = async (e, id) => {
     // we already had the data no need to go back to the DB
     e.preventDefault();
-    console.log(id)
-    let thisPet = pets.filter((pet) => {
-      return pet._id === id;
-    });
-    setPetData(id);
-    history.push({
-            pathname: "/petDash",
-            state: { info: petData },
-          });
+    try {
+            setPetId(id); 
+            let thisPet = pets.filter((pet) => {
+              return pet._id === id;
+            });
+           setPetData(thisPet);
+          
+            history.push({
+                    pathname: "/petDash",
+                    state: { info: thisPet },
+                  });
+        } catch  {console.log('something wrong')}
   };
 
   //map user data and send pets as buttons in list items
