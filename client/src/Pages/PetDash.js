@@ -35,9 +35,9 @@ const PetDash = () => {
     data && setData(data);
   }, [newPetData]);
 
-  useEffect(() => {
-    console.log("img changed");
-  }, [img]);
+
+	useEffect(() => {}, [img]);
+
 
   useEffect(() => {
     if (!userData.user) history.push("/");
