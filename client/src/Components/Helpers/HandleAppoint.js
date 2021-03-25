@@ -1,8 +1,7 @@
 import moment from "moment";
 
 const HandleAppoint = (pets, called) => {
-	let today = new Date.UTC();
-	// today.setDate(today.getDate() - 1);
+	let today = new Date(new Date().setHours(0,0,0,0))
 	let tomorrow = new Date();
 	tomorrow.setDate(today.getDate() + 2);
 	let med = [];
