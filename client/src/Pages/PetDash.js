@@ -12,19 +12,20 @@ import PetContext from "../Context/PetContext";
 import { getPetData } from "../Components/Helpers/PetFunctions";
 
 const PetDash = () => {
+  const { petId, setPetId } = useContext(PetContext);
   const { userData } = useContext(UserContext);
   const [data, setData] = useState();
   const [img] = useState();
   const history = useHistory();
   const location = useLocation();
   const { newPetData, setNewPetData } = useContext(PetContext);
-  let petId;
+  //let petId;
 
   useEffect(() => {
     setData(location.state.info); // added this to refersh after update
     data ? console.log(data) : console.log("no Data");
-    data ? (petId = data._id) : (petId = "");
-  }, [location, newPetData]);
+    data ? (setPetId(data._id)) : setPetId("");
+  }, [location, newPetData,setPetId]);
 
   setNewPetData(false);
 
@@ -89,7 +90,7 @@ const PetDash = () => {
           <div className="pet-dash-cards col-sm-9 py-5">
             <div className="row">
               {data && (
-                <Reminders petId={data._id} Reminders={data.Reminders} />
+                <Reminders petI={data._id} Reminders={data.Reminders} />
               )}
               {data && (
                 <VetVisits petId={data._id} VetVisits={data.VetVisits} />
