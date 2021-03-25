@@ -104,34 +104,39 @@ const Medications = (props) => {
       <div className="card-body text-center">
         <h3 className="card-title">Medications</h3>
         <div className="pet-table">
-          <ul className="overflow-scroll">
+          <ul className="overflow-auto">
             {meds.map((med) => (
-              <li
-                onClick={(e) => update(e, med)}
-                key={med._id}
-                className="pet-list btn w-75"
-              >
-                {med.MedicationName}
-                Next Dose:{" "}
-                <Moment utc format="MM/DD/YYYY">
-                  {med.DueDate}
-                </Moment>
-                {med.Dose}
-              </li>
+              <div className="container py-1">
+                <li
+                  onClick={(e) => update(e, med)}
+                  key={med._id}
+                  className="pet-list btn w-75"
+                >
+                  <div>{med.MedicationName}</div>
+                  <div>
+                    Next Dose:&nbsp;
+                    <Moment utc format="MM/DD/YYYY">
+                      {med.DueDate}
+                    </Moment>
+                  </div>
+                  &nbsp;
+                  {med.Dose}
+                </li>
+              </div>
             ))}
           </ul>
         </div>
         <button
           name="addMedBtn"
           onClick={(e) => add(e, "{_id: 0}")}
-          className="edit-medications-btn btn btn-circle btn-xl"
+          className="edit-medications-btn btn btn-circle shadow"
         >
           <i class="fa fa-plus my-float"></i>
         </button>
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add / Edit Medication</Modal.Title>
+            <Modal.Title>Add or Edit Medication</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AddMeds petId={petId} data={modalData} existing={false} />
@@ -139,17 +144,17 @@ const Medications = (props) => {
           <Modal.Footer>
             {existing ? (
               <Button
-                variant="primary"
+                className="delete-saved-entry"
                 onClick={(e) => handleDelMed(e, document.forms, postMed)}
               >
-                Delete
+                Remove Medication
               </Button>
             ) : null}
             <Button
-              variant="primary"
+              className="save-updated-entry"
               onClick={(e) => handleAddUpdateMed(e, document.forms, postMed)}
             >
-              Submit Form
+              Submit Changes
             </Button>
           </Modal.Footer>
         </Modal>

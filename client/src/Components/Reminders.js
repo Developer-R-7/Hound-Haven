@@ -91,31 +91,33 @@ const Reminders = (props) => {
       <div className="card-body text-center">
         <h3 className="card-title">Reminders</h3>
         <div className="pet-table">
-          <ul className="overflow-scroll">
+          <ul className="overflow-auto">
             {reminders.map((rem) => (
-              <li
-                onClick={(e) => update(e, rem)}
-                key={rem._id}
-                className="pet-list btn w-75"
-              >
-                <div>
-                  <Moment format="MM/DD/YYYY">{rem.Date}</Moment>
-                </div>
-                <div>{rem.Title}</div>
-                &nbsp; {rem.Note}
-              </li>
+              <div className="container py-1">
+                <li
+                  onClick={(e) => update(e, rem)}
+                  key={rem._id}
+                  className="pet-list btn w-75"
+                >
+                  <div>
+                    <Moment format="MM/DD/YYYY">{rem.Date}</Moment>
+                  </div>
+                  <div>{rem.Title}</div>
+                  &nbsp;{rem.Note}
+                </li>
+              </div>
             ))}
           </ul>
         </div>
         <button
           onClick={(e) => add(e, "{_id: 0}")}
-          className="edit-reminders-btn btn btn-circle btn-xl"
+          className="edit-reminders-btn btn btn-circle shadow"
         >
           <i class="fa fa-plus my-float"></i>
         </button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Reminders</Modal.Title>
+            <Modal.Title>Add or Edit Reminders</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AddReminder petId={petId} data={modalData} existing={false} />
@@ -123,7 +125,7 @@ const Reminders = (props) => {
           <Modal.Footer>
             {existing ? (
               <Button
-                variant="danger"
+                className="delete-saved-entry"
                 onClick={(e) =>
                   handleDelReminder(e, document.forms, postReminder)
                 }
@@ -132,12 +134,12 @@ const Reminders = (props) => {
               </Button>
             ) : null}
             <Button
-              variant="primary"
+              className="save-updated-entry"
               onClick={(e) =>
                 handleAddUpdateReminder(e, document.forms, postReminder)
               }
             >
-              Submit Form
+              Submit Changes
             </Button>
           </Modal.Footer>
         </Modal>

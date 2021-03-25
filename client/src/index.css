@@ -5,10 +5,12 @@
 
 body {
   margin: 0;
+
   font-family: "Source Sans Pro", sans-serif;
   font-family: "Boogaloo", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-image: url("https://www.transparenttextures.com/patterns/inspiration-geometry.png"); */
 }
 
 code {
@@ -17,7 +19,7 @@ code {
 }
 
 .navbar {
-  background-color: #ffc2c2 !important;
+  background-color: #fea6a629;
 }
 
 .navbar-nav > li > a {
@@ -26,11 +28,9 @@ code {
 
 .myPet-header {
   font-family: "Single Day", cursive;
-  /* -webkit-text-stroke: 0.05px #ffc2c2; */
   font-size: 100px;
   -webkit-text-fill-color: #636363;
   font-weight: bolder;
-  /* text-shadow: 3px 3px #596275; */
   margin-bottom: -17px;
   margin-top: 15px;
   text-align: center;
@@ -43,6 +43,32 @@ code {
   }
 }
 
+.delete-saved-entry {
+  background-color: #f15e5e;
+  outline: none;
+  border: none;
+}
+
+.delete-saved-entry:hover {
+  background-color: #f15e5eb5;
+  outline: none;
+  border: none;
+}
+
+.save-updated-entry {
+  background-color: #00a8ff;
+  outline: none;
+  border: none;
+  color: #ffffff;
+}
+
+.save-updated-entry:hover {
+  background-color: #00aaff89;
+  outline: none;
+  border: none;
+  color: #ffffff;
+}
+
 /* add new pet button styles */
 .btn-circle.btn-xl {
   width: 60px;
@@ -51,9 +77,51 @@ code {
   right: 40px;
   color: #fff;
   border-radius: 50px;
-  box-shadow: 2px 2px 3px #999;
   margin-top: 5rem;
+  margin-bottom: 5rem;
   background-image: linear-gradient(to bottom right, #ff9797, #fc5160);
+}
+
+.save-pet-submit {
+  background-color: #f6e58d;
+}
+.save-pet-submit:hover {
+  transition: 0.9s;
+  transform: scale(1.06);
+  background-color: #fadf56;
+}
+
+.edit-pet-btn {
+  background-image: linear-gradient(to bottom right, #ff9797, #fc5160);
+  color: white;
+  border-radius: 30% !important;
+}
+
+.edit-pet-btn:hover {
+  transition: 1.5s;
+  transform: scale(1.06);
+  color: #ffffff;
+}
+
+.edit-reminders-btn,
+.edit-medications-btn,
+.edit-visis-btn {
+  margin-top: none !important;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  color: #fff;
+  border-radius: 50px;
+  background-image: linear-gradient(to bottom right, #ff9797, #fc5160);
+}
+
+.edit-reminders-btn:hover,
+.edit-medications-btn:hover,
+.edit-visis-btn:hover {
+  border-radius: 6px;
+  color: #ffffff;
+  transition: all 0.9s ease 0s;
 }
 
 .delete-pet-btn {
@@ -99,7 +167,15 @@ code {
 }
 
 .pet-list {
-  background: #ff8585;
+  background-color: #ffa4a4;
+  color: #ffffff;
+  margin-right: 35px;
+}
+
+.pet-list:hover {
+  background-color: #fc5160;
+  transition: 0.9s;
+  transform: scale(1.06);
   color: #ffffff;
 }
 
@@ -110,7 +186,6 @@ code {
   cursor: pointer;
   margin-right: 5%;
   width: 17rem;
-
   box-shadow: 2px 2px 3px #999;
 }
 
@@ -159,7 +234,7 @@ code {
 }
 
 /* setting height of scroll on petDash page */
-.overflow-scroll {
+.overflow-auto {
   max-height: 150px;
 }
 
@@ -238,6 +313,7 @@ code {
 .modal-confirm .btn-danger {
   background: #f15e5e;
 }
+
 .modal-confirm .btn-danger:hover,
 .modal-confirm .btn-danger:focus {
   background: #ee3535;
@@ -245,4 +321,43 @@ code {
 .trigger-btn {
   display: inline-block;
   margin: 100px auto;
+}
+
+/* FOOTER STYLES */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0 0 100px;
+  /* bottom = footer height */
+  /* padding: 25px; */
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.footer-text {
+  color: rgba(153, 153, 153, 0.865);
+}
+
+.delete-user-btn {
+  background: none;
+  outline: none;
+  border: none;
+  color: rgb(169, 169, 169);
+}
+
+.delete-user-btn:hover {
+  color: #ee3535;
+  transition: 0.5s;
+  transition: all 0.9s ease 0s;
 }
