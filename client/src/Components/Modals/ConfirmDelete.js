@@ -7,7 +7,7 @@ const ConfirmDelete = (props) => {
   const { userData } = useContext(UserContext);
   const { newPetData, setNewPetData } = useContext(PetContext);
   const { petId, setPetId } = useContext(PetContext);
-  const [pets, setUserPets] = useState([]);
+  const [setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
 
   useEffect(() => {
@@ -15,11 +15,8 @@ const ConfirmDelete = (props) => {
   }, [user, newPetData, petId]);
 
   const loadUserPets = async (user) => {
-    console.log(user);
     let url = `/api/getpetbyuser/${user}`;
-    let token = localStorage.getItem("auth-token");
-    console.log(url);
-    console.log(token);
+
     try {
       const { data } = await axios.get(url, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
@@ -33,9 +30,9 @@ const ConfirmDelete = (props) => {
 
   const deletePet = async (e) => {
     e.preventDefault();
-    console.log(e);
+
     try {
-      const { data } = await axios.delete(`/api/pet/${petId}`, {
+      await axios.delete(`/api/pet/${petId}`, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       setPetId("");
@@ -51,23 +48,12 @@ const ConfirmDelete = (props) => {
         <div className="modal-content">
           <div className="modal-header flex-column">
             <div className="icon-box">
-              <i className="material-icons">&#xE5CD;</i>
+              <i class="fa fa-times-circle"></i>
             </div>
-            <h4 className="modal-title w-100">Are you sure?</h4>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-hidden="true"
-            >
-              &times;
-            </button>
+            <h4 className="modal-title w-100">Are you sure?!</h4>
           </div>
           <div className="modal-body">
-            <p>
-              Do you really want to delete these records? This process cannot be
-              undone.
-            </p>
+            <p>Do you really want to delete this pet? This cannot be undone.</p>
           </div>
           <div className="modal-footer justify-content-center">
             <button
@@ -77,11 +63,7 @@ const ConfirmDelete = (props) => {
             >
               Cancel
             </button>
-            <div
-              onClick={deletePet}
-              className="modal-footer"
-              data-bs-dismiss="modal"
-            >
+            <div onClick={deletePet} data-bs-dismiss="modal">
               <button type="button" className="btn btn-danger">
                 Delete
               </button>

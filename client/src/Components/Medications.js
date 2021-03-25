@@ -18,7 +18,6 @@ const Medications = (props) => {
     setShow(false);
     getPetData(petId).then((data) => setMeds(data.Medications));
   };
-  const handleShow = () => setShow(true);
 
   useEffect(() => {}, [meds]);
 
@@ -101,11 +100,11 @@ const Medications = (props) => {
   };
 
   return (
-    <div className="card m-2 shadow rounded">
-      <div className="card-body text-center ">
+    <div className="card m-2 shadow rounded" id="petDashCard">
+      <div className="card-body text-center">
         <h3 className="card-title">Medications</h3>
         <div className="pet-table">
-          <ul>
+          <ul className="overflow-scroll">
             {meds.map((med) => (
               <li
                 onClick={(e) => update(e, med)}
@@ -127,7 +126,7 @@ const Medications = (props) => {
           onClick={(e) => add(e, "{_id: 0}")}
           className="edit-medications-btn btn btn-circle btn-xl"
         >
-          +
+          <i class="fa fa-plus my-float"></i>
         </button>
 
         <Modal show={show} onHide={handleClose}>

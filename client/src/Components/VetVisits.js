@@ -12,7 +12,6 @@ const VetVists = (props) => {
   const petId = props.petId;
   const [visits, setVisits] = useState(newData.VetVisits);
   const [existing, setExisting] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState(null);
 
@@ -58,7 +57,7 @@ const VetVists = (props) => {
 
   const postVisit = async (url, vals) => {
     try {
-      let resp = await axios.put(url, vals, {
+      await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       handleClose();
@@ -86,11 +85,11 @@ const VetVists = (props) => {
   };
 
   return (
-    <div className="card m-2 shadow rounded">
-      <div className="card-body text-center ">
+    <div className="card m-2 shadow rounded" id="petDashCard">
+      <div className="card-body text-center">
         <h3 className="card-title">Visits</h3>
         <div className="pet-table">
-          <ul>
+          <ul className="overflow-scroll">
             {visits.map((visit) => (
               <li
                 name="editVisitBtn"
@@ -113,7 +112,7 @@ const VetVists = (props) => {
           onClick={(e) => add(e, "{_id: 0}")}
           className="edit-visis-btn btn btn-circle btn-xl"
         >
-          +
+          <i class="fa fa-plus my-float"></i>
         </button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

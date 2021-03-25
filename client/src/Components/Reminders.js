@@ -32,7 +32,7 @@ const Reminders = (props) => {
 
   const handleAddUpdateReminder = async (e, form, cb) => {
     e.preventDefault();
-    console.log("from click", form.addReminderForm);
+
     let url;
     let reminderId = form.addReminderForm.reminderId.value;
     const vals = {
@@ -60,11 +60,10 @@ const Reminders = (props) => {
 
   const postReminder = async (url, vals) => {
     try {
-      let resp = await axios.put(url, vals, {
+      await axios.put(url, vals, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       handleClose();
-      console.log(resp);
     } catch (err) {
       console.log(err);
       toast.error(err.response);
@@ -88,11 +87,11 @@ const Reminders = (props) => {
   };
 
   return (
-    <div className="card m-2 shadow rounded">
-      <div className="card-body text-center ">
+    <div className="card m-2 shadow rounded" id="petDashCard">
+      <div className="card-body text-center">
         <h3 className="card-title">Reminders</h3>
         <div className="pet-table">
-          <ul>
+          <ul className="overflow-scroll">
             {reminders.map((rem) => (
               <li
                 onClick={(e) => update(e, rem)}
@@ -112,7 +111,7 @@ const Reminders = (props) => {
           onClick={(e) => add(e, "{_id: 0}")}
           className="edit-reminders-btn btn btn-circle btn-xl"
         >
-          +
+          <i class="fa fa-plus my-float"></i>
         </button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
