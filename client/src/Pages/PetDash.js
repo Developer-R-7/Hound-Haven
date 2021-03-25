@@ -30,14 +30,12 @@ const PetDash = () => {
 
 	useEffect(() => {}, [data]);
 
-	useEffect(async () => {
-		const data = await getPetData(petId);
-		data && setData(data);
-	}, [newPetData]);
+	// useEffect(async () => {
+	// 	const data = await getPetData(petId);
+	// 	data && setData(data);
+	// }, [newPetData]);
 
-	useEffect(() => {
-		console.log("img changed");
-	}, [img]);
+	useEffect(() => {}, [img]);
 
 	useEffect(() => {
 		if (!userData.user) history.push("/");
