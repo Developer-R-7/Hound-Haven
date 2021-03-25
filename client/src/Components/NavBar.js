@@ -7,6 +7,7 @@ import { Modal } from "react-bootstrap";
 import HandleAppoint from "./Helpers/HandleAppoint";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import logo from "./paw_logo.PNG";
 
 const NavBar = () => {
   const { userData, setUserData } = useContext(UserContext);
@@ -15,6 +16,7 @@ const NavBar = () => {
   const { pets } = useContext(PetContext);
   const [show, setShow] = useState(false);
   const [vals, setVals] = useState([]);
+  const [about, showAbout] = useState(false);
 
   const logout = () => {
     setUserData({ token: undefined, user: undefined });
@@ -28,6 +30,14 @@ const NavBar = () => {
 
   const handleClose = () => {
     setShow(false);
+  };
+
+  const closeAbout = () => {
+    showAbout(false);
+  };
+
+  const openAbout = () => {
+    showAbout(true);
   };
 
   useEffect(async () => {
@@ -78,6 +88,11 @@ const NavBar = () => {
               Home
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" style={linkStyle} onClick={openAbout}>
+              About
+            </Link>
+          </li>
         </ul>
       );
       setAppt(HandleAppoint(pets, "nav"));
@@ -107,6 +122,32 @@ const NavBar = () => {
             <Modal name="test" show={show} onHide={handleClose}>
               <Modal.Body>
                 <Notify vals={vals} />
+              </Modal.Body>
+            </Modal>
+
+            <Modal name="about" show={about} onHide={closeAbout}>
+              <Modal.Body>
+                <div className="card text-center  border-0">
+                  <h5 className="card-title">The My Pet App</h5>
+                  <div className="card-body">
+                    <img
+                      src={logo}
+                      alt="petLogo"
+                      className="p-3 img-fluid rounded-circle w-10"
+                    ></img>
+
+                    <p className="card-text">
+                      Love your pet and want to make sure they are well taken
+                      care of? It can be difficult to keep up with regular pet
+                      exams, yearly vaccinations, and medications. After all, we
+                      have a hard enough time keeping up with our own health let
+                      alone that of our furry, feathery, or scaly friends.
+                      That's where My Pet comes in! A user friendly app that
+                      keeps track of your pets and all their medical needs for a
+                      healthier life.
+                    </p>
+                  </div>
+                </div>
               </Modal.Body>
             </Modal>
           </div>
