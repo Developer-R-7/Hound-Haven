@@ -4,16 +4,27 @@ import { Tabs, Tab } from "react-bootstrap";
 
 const Notify = (props) => {
 	const [notifyItems] = useState(props?.vals);
+
 	const [med] = useState(notifyItems ? notifyItems[0] : null);
 	const [vet] = useState(notifyItems ? notifyItems[1] : null);
 	const [rem] = useState(notifyItems ? notifyItems[2] : null);
+	const [defActKey, setDefActKey] = useState('meds' );
 
-	console.log(vet);
-	useEffect(() => {}, [notifyItems]);
+	// lazy logic if all three meds will be open as it is the last set
+	const setActTab = ()  => {
+		rem.length > 0 && setDefActKey('rems');
+		med.length > 0 && setDefActKey('meds');
+		vet.length > 0 && setDefActKey('vets');
+	}
+
+
+	useEffect(() => {
+		setActTab()
+	}, [notifyItems, setActTab]);
 
 	return (
-		<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-			<Tab eventKey="meds" title="Medications">
+		<Tabs defaultActiveKey={defActKey} id="uncontrolled-tab-example">
+			{med.length > 0 && <Tab eventKey="meds" title="Medications">
 				<ul>
 					{med.map((appt) => (
 						<li>
@@ -26,32 +37,32 @@ const Notify = (props) => {
 						</li>
 					))}
 				</ul>
-			</Tab>
-			<Tab eventKey="vets" title="Vet Visits">
+			</Tab>}
+			{vet.length > 0 && <Tab eventKey="vets" title="Vet Visits">
 				<ul>
-					{vet.map((appt1) => (
+					{vet.map((appt) => (
 						<li>
-							{appt1.Pet} &nbsp;
+							{appt.Pet} &nbsp;
 							<Moment utc format="MM/DD/YYYY">
-								{appt1.Date}
+								{appt.Date}
 							</Moment>
-							&nbsp;{appt1.Notes}
+							&nbsp;{appt.Notes}
 						</li>
 					))}
 				</ul>
-			</Tab>
-			<Tab eventKey="rems" title="Reminders">
-				{rem.map((appt2) => (
+			</Tab> }
+			{rem.length > 0 && <Tab eventKey="rems" title="Reminders">
+				{rem.map((appt) => (
 					<li>
-						{appt2.Pet} &nbsp;
+						{appt.Pet} &nbsp;
 						<Moment utc format="MM/DD/YYYY">
-							{appt2.Date}
+							{appt.Date}
 						</Moment>
-						&nbsp; {appt2.Title}&nbsp;
-						{appt2.Notes}
+						&nbsp; {appt.Title}&nbsp;
+						{appt.Notes}
 					</li>
 				))}
-			</Tab>
+			</Tab> }
 		</Tabs>
 	);
 };
