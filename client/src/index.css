@@ -43,11 +43,17 @@ code {
   letter-spacing: 2px;
 }
 
+.click-plus-instructions {
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .myPet-header {
     font-size: 50px;
   }
 }
+
+/* BUTTON STYLES */
 
 .register-btn,
 .login-btn {
@@ -55,6 +61,11 @@ code {
   outline: none;
   border: none;
   color: #ffffff;
+}
+
+.register-btn:hover,
+.login-btn:hover {
+  background-color: #9f9f9f;
 }
 
 .log-reg-form,
@@ -258,6 +269,11 @@ code {
 }
 
 /* MODAL STYLES */
+
+.notifications-list {
+  padding: 5px;
+}
+
 .modal-confirm {
   color: #636363;
 }
@@ -351,7 +367,6 @@ html {
 
 body {
   margin: 0 0 100px;
-  /* bottom = footer height */
   padding: 0;
 }
 
