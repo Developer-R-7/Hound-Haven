@@ -10,6 +10,8 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./Components/Footer";
 import PetContext from "./Context/PetContext";
 import UserContext from "./Context/UserContext";
+import Confirmed from "./Pages/Confirmed";
+import Confirm from "./Pages/Confirm";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -65,7 +67,10 @@ function App() {
               <Route exact path="/petDash" component={PetDash} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
+              <Route path="/confirm" component={Confirm} />
+              <Route path="/confirm_token/:token" component={Confirmed} />
               <Route path="/" component={Home} />
+              
             </Switch>
 
             <Footer />

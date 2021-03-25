@@ -62,7 +62,7 @@ module.exports = {
 				from: "confirmmypet@gmail.com",
 				to: newUser.email,
 				subject: "Thanks for signing up",
-				text: `Click to confirm http://localhost:3000/confirm_token/${confirmationToken.token}`,
+				text: `Click to confirm ${process.env.HEROKU}${confirmationToken.token}`,
 			
 			};
 
@@ -71,7 +71,7 @@ module.exports = {
 					console.log(error);
 				} else {
 					console.log(
-						`Email was sent: http://localhost:3000/confirm_token/${confirmationToken.token}`
+						`Email was sent: ${process.env.HEROKU}${confirmationToken.token}`
 					);
 				}
 			});
