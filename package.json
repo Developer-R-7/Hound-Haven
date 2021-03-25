@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"node server.js\" \"dotenv -e ./.env npm run client\"",
+    "dev": "concurrently \"nodemon server.js\" \"dotenv -e ./.env npm run client\"",
     "client": "npm start --prefix client",
     "start": "node server.js",
     "seed": "node seeds/seeds1.js",

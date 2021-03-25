@@ -66,16 +66,13 @@ const AddPet = () => {
           data = await axios.post("/api/saveLocImage", formData, {
           headers: { "x-auth-token": localStorage.getItem("auth-token") },
         })
-        image = data.data.fileUrl;
-        console.log(image)
-        setImgLoc(image)
-        console.log(...imgLoc)
+        setImgLoc(data.data.fileUrl)
       } else {
 
         await axios.post("/api/saveImage", formData, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      }).then(data => {setImgLoc(data.data.fileUrl);
-      console.log(imgLoc)})
+      })
+      setImgLoc(data.data.fileUrl)
     }
 
     } catch (error) {

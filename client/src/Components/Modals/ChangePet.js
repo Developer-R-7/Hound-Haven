@@ -2,16 +2,17 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 import axios from "axios";
 import PetContext from "../../Context/PetContext";
 import { useHistory } from "react-router-dom";
-import Moment from "react-moment";
+import Moment from "moment";
 import { toast } from "react-toastify";
 
 const ChangePet = (props) => {
+  const {REACT_APP_LOCAL_STORAGE} = process.env;
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
-  const [setFile] = useState(null);
+  const [file, setFile] = useState(null);
 
   //state for new pet data to be added to db
-  console.log(props.data);
+
   const [newPet, setnewPet] = useState(null);
   const [PetImageLoc, setPetImgLoc] = useState(null);
   const { newPetData, setNewPetData } = useContext(PetContext);
@@ -51,23 +52,41 @@ const ChangePet = (props) => {
   const handleImage = async (e) => {
     e.preventDefault();
     try {
+      let data;
       let file = e.target.files[0];
       file && setFile(file);
+      if (file) {
+        const reader = new FileReader();
+        const {current} = uploadedImage;
+        current.file = file;
+        reader.onload = (e) => {
+            current.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
 
       var formData = new FormData();
 
       formData.append("file", file);
+       /// if local env set use local storage
+      if(REACT_APP_LOCAL_STORAGE) {
+              data = await axios.post("/api/saveLocImage", formData, {
+              headers: { "x-auth-token": localStorage.getItem("auth-token") },
+            })
+            setPetImgLoc(data.data.fileUrl)
+        } else {
 
-      const data = await axios.post("/api/saveImage", formData, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
+            await axios.post("/api/saveImage", formData, {
+            headers: { "x-auth-token": localStorage.getItem("auth-token") },
+            })
+            setPetImgLoc(data.data.fileUrl)
+        }
 
-      setPetImgLoc(data.data.imageurl);
-    } catch (error) {
-      toast.error(
-        "There was a problem compressing the file, please try again" + error
-      );
-    }
+        } catch (error) {
+        toast.error(
+        "There was a problem uploading the image, please try again" + error
+        );
+      }
   };
 
   return (
@@ -145,10 +164,10 @@ const ChangePet = (props) => {
                   name="BirthDate"
                   type="date"
                   defaultValue={
-                    newPet && (
-                      <Moment format="MM/DD/YYYY">{newPet.BirthDate}</Moment>
-                    )
-                  }
+          
+                    newPet && (Moment(newPet.BirthDate).format=("MM/DD/YYYY"))}
+        
+                  
                 />
               </div>
               <p></p>
