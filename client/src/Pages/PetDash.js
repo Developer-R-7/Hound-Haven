@@ -30,10 +30,10 @@ const PetDash = () => {
 
 	useEffect(() => {}, [data]);
 
-	// useEffect(async () => {
-	// 	const data = await getPetData(petId);
-	// 	data && setData(data);
-	// }, [newPetData]);
+	useEffect(async () => {
+		const data = await getPetData(petId);
+		data && setData(data);
+	}, [newPetData]);
 
 	useEffect(() => {}, [img]);
 
