@@ -12,95 +12,95 @@ import PetContext from "../Context/PetContext";
 import { getPetData } from "../Components/Helpers/PetFunctions";
 
 const PetDash = () => {
-	const { userData } = useContext(UserContext);
-	const [data, setData] = useState();
-	const [img] = useState();
-	const history = useHistory();
-	const location = useLocation();
-	const { newPetData, setNewPetData } = useContext(PetContext);
-	let petId;
+  const { userData } = useContext(UserContext);
+  const [data, setData] = useState();
+  const [img] = useState();
+  const history = useHistory();
+  const location = useLocation();
+  const { newPetData, setNewPetData } = useContext(PetContext);
+  let petId;
 
-	useEffect(() => {
-		setData(location.state.info); // added this to refersh after update
-		data ? console.log(data) : console.log("no Data");
-		data ? (petId = data._id) : (petId = "");
-	}, [location, newPetData]);
+  useEffect(() => {
+    setData(location.state.info); // added this to refersh after update
+    data ? console.log(data) : console.log("no Data");
+    data ? (petId = data._id) : (petId = "");
+  }, [location, newPetData]);
 
-	setNewPetData(false);
+  setNewPetData(false);
 
-	useEffect(() => {}, [data]);
+  useEffect(() => {}, [data]);
 
-	useEffect(async () => {
-		const data = await getPetData(petId);
-		data && setData(data);
-	}, [newPetData]);
+  useEffect(async () => {
+    const data = await getPetData(petId);
+    data && setData(data);
+  }, [newPetData]);
 
-	useEffect(() => {
-		console.log("img changed");
-	}, [img]);
+  useEffect(() => {
+    console.log("img changed");
+  }, [img]);
 
-	useEffect(() => {
-		if (!userData.user) history.push("/");
-	}, [userData.user, history]);
+  useEffect(() => {
+    if (!userData.user) history.push("/");
+  }, [userData.user, history]);
 
-	// const buttonStyle = {
-	//   backgroundColor: "rgb(255, 100, 100)",
-	// };
+  // const buttonStyle = {
+  //   backgroundColor: "rgb(255, 100, 100)",
+  // };
 
-	return (
-		<div className="container-fluid">
-			<div className="container">
-				<div className="row">
-					{data && (
-						<div className="col-sm-3">
-							<div className="card m-2 shadow rounded">
-								<img
-									src={data.PetImageLoc}
-									className="card-img-top"
-									alt="petImage"
-								></img>
+  return (
+    <div className="container-fluid">
+      <div className="container">
+        <div className="row">
+          {data && (
+            <div className="col-sm-3 py-5">
+              <div className="card m-2 shadow rounded">
+                <img
+                  src={data.PetImageLoc}
+                  className="card-img-top"
+                  alt="petImage"
+                ></img>
 
-								<div className="card-body text-center">
-									<h1 className="card-title">{data.PetName}</h1>
-									<h4 className="card-title">
-										Birth Date: &nbsp;
-										<Moment format="MM/DD/YYYY">{data.BirthDate}</Moment>
-									</h4>
-									<h4 className="card-title">{data.Gender}</h4>
-									<h4 className="card-title">{data.Breed}</h4>
+                <div className="card-body text-center">
+                  <h1 className="card-title">{data.PetName}</h1>
+                  <h4 className="card-title">
+                    Birth Date: &nbsp;
+                    <Moment format="MM/DD/YYYY">{data.BirthDate}</Moment>
+                  </h4>
+                  <h4 className="card-title">{data.Gender}</h4>
+                  <h4 className="card-title">{data.Breed}</h4>
 
-									<div className="edit-new-pet">
-										<button
-											// style={buttonStyle}
-											data-bs-toggle="modal"
-											data-bs-target="#editAPetModal"
-											type="button"
-											className="edit-pet-btn btn btn-xl"
-										>
-											Edit
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					)}
+                  <div className="edit-new-pet">
+                    <button
+                      // style={buttonStyle}
+                      data-bs-toggle="modal"
+                      data-bs-target="#editAPetModal"
+                      type="button"
+                      className="edit-pet-btn btn btn-xl"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
-					<ChangePet data={data} />
-					<div className="col-sm-9">
-						<div className="row">
-							{data && (
-								<Reminders petId={data._id} Reminders={data.Reminders} />
-							)}
-							{data && (
-								<VetVisits petId={data._id} VetVisits={data.VetVisits} />
-							)}
-							{data && <Medications petId={data._id} meds={data.Medications} />}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+          <ChangePet data={data} />
+          <div className="pet-dash-cards col-sm-9 py-5">
+            <div className="row">
+              {data && (
+                <Reminders petId={data._id} Reminders={data.Reminders} />
+              )}
+              {data && (
+                <VetVisits petId={data._id} VetVisits={data.VetVisits} />
+              )}
+              {data && <Medications petId={data._id} meds={data.Medications} />}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PetDash;
