@@ -89,34 +89,36 @@ const VetVists = (props) => {
       <div className="card-body text-center">
         <h3 className="card-title">Visits</h3>
         <div className="pet-table">
-          <ul className="overflow-scroll">
+          <ul className="overflow-auto">
             {visits.map((visit) => (
-              <li
-                name="editVisitBtn"
-                onClick={(e) => update(e, visit)}
-                key={visit._id}
-                className="pet-list btn w-75"
-              >
-                <div>
-                  <Moment utc format="MM/DD/YYYY">
-                    {visit.VisitDate}
-                  </Moment>
-                </div>
-                &nbsp; {visit.VisitNotes}
-              </li>
+              <div className="container py-1">
+                <li
+                  name="editVisitBtn"
+                  onClick={(e) => update(e, visit)}
+                  key={visit._id}
+                  className="pet-list btn w-75"
+                >
+                  <div>
+                    <Moment utc format="MM/DD/YYYY">
+                      {visit.VisitDate}
+                    </Moment>
+                  </div>
+                  &nbsp; {visit.VisitNotes}
+                </li>
+              </div>
             ))}
           </ul>
         </div>
         <button
           name="addVisitBtn"
           onClick={(e) => add(e, "{_id: 0}")}
-          className="edit-visis-btn btn btn-circle btn-xl"
+          className="edit-visis-btn btn btn-circle shadow"
         >
           <i class="fa fa-plus my-float"></i>
         </button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add / Edit a Vet Visit</Modal.Title>
+            <Modal.Title>Add or Edit a Vet Visit</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AddVisit petId={petId} data={modalData} existing={false} />
@@ -124,19 +126,19 @@ const VetVists = (props) => {
           <Modal.Footer>
             {existing ? (
               <Button
-                variant="primary"
+                className="delete-saved-entry"
                 onClick={(e) => handleDelVisit(e, document.forms, postVisit)}
               >
-                Delete Visit
+                Remove Visit
               </Button>
             ) : null}
             <Button
-              variant="primary"
+              className="save-updated-entry"
               onClick={(e) =>
                 handleAddUpdateVisit(e, document.forms, postVisit)
               }
             >
-              Submit Visit
+              Submit Changes
             </Button>
           </Modal.Footer>
         </Modal>
