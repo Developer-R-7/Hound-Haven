@@ -5,28 +5,31 @@ import React, { useContext, useEffect, useState } from "react";
 
 const ConfirmDelete = (props) => {
   const { userData } = useContext(UserContext);
-  const { newPetData, setNewPetData } = useContext(PetContext);
+  const { setNewPetData } = useContext(PetContext);
+  const { setPets } = useContext(PetContext);
   const { petId, setPetId } = useContext(PetContext);
-  const [setUserPets] = useState([]);
+  //const [setUserPets] = useState([]);
   const [user] = useState(userData.user?.id);
 
+
   useEffect(() => {
+    const loadUserPets = async (user) => {
+      let url = `/api/getpetbyuser/${user}`;
+      try {
+        const { data } = await axios.get(url, {
+          headers: { "x-auth-token": localStorage.getItem("auth-token") },
+        });
+        data && setPets(data);
+        setNewPetData(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     loadUserPets(user);
-  }, [user, newPetData, petId]);
+}, [setNewPetData,setPets,user]);
 
-  const loadUserPets = async (user) => {
-    let url = `/api/getpetbyuser/${user}`;
 
-    try {
-      const { data } = await axios.get(url, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      data && setUserPets(data);
-      setNewPetData(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
   const deletePet = async (e) => {
     e.preventDefault();
@@ -36,7 +39,7 @@ const ConfirmDelete = (props) => {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
       setPetId("");
-      loadUserPets(user);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +51,7 @@ const ConfirmDelete = (props) => {
         <div className="modal-content">
           <div className="modal-header flex-column">
             <div className="icon-box">
-              <i class="fa fa-times-circle"></i>
+              <i className="fa fa-times-circle"></i>
             </div>
             <h4 className="modal-title w-100">Are you sure?!</h4>
           </div>

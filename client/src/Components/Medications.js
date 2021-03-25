@@ -1,18 +1,21 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import Moment from "react-moment";
 import AddMeds from "./Modals/AddMeds";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
+import PetContext from "../Context/PetContext";
 
 const Medications = (props) => {
-  const petId = props.petId;
-  const [meds, setMeds] = useState(props.meds);
+ 
+  const { petId, setPetId } = useContext(PetContext);
+  const [meds, setMeds] = useState(props?.meds);
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [existing, setExisting] = useState(false);
+  setPetId(props?.petI)
 
   const handleClose = () => {
     setShow(false);

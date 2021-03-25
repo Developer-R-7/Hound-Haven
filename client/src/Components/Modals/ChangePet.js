@@ -29,7 +29,7 @@ const ChangePet = (props) => {
         pathname: "/petDash",
         state: { info: newPetData },
       });
-  }, [newPetData]);
+  }, [newPetData,history]);
 
   //handle change of form data to be set for newPet state
   const handleChange = (e) => {
@@ -53,8 +53,7 @@ const ChangePet = (props) => {
     e.preventDefault();
     try {
       let data;
-      let file = e.target.files[0];
-      file && setFile(file);
+      setFile(e.target.files[0]);
       if (file) {
         const reader = new FileReader();
         const {current} = uploadedImage;
@@ -109,7 +108,7 @@ const ChangePet = (props) => {
             <form>
               <div className="form-group">
                 <label>
-                  Add Photo <i class="fa fa-camera"></i>
+                  Add Photo <i className="fa fa-camera"></i>
                 </label>
                 <br />
 
@@ -130,6 +129,7 @@ const ChangePet = (props) => {
                       border: "none",
                       borderRadius: "100%",
                     }}
+                    alt=""
                   />
                 </div>
                 <input

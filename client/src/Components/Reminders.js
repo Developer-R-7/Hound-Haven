@@ -11,7 +11,6 @@ import PetContext from "../Context/PetContext";
 
 const Reminders = (props) => {
   let newData = props;
-  const petI = props.petI;
   const { petId, setPetId } = useContext(PetContext);
   setPetId(props?.petI)
   const [reminders, setReminders] = useState(newData.Reminders);

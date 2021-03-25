@@ -19,7 +19,6 @@ const AddPet = () => {
   const [newPet, setnewPet] = useState(null);
   const [imgLoc, setImgLoc] = useState(null);
   const { setNewPetData } = useContext(PetContext);
-  let image;
 
   //handle change of form data to be set for newPet state
   const handleChange = (e) => {
@@ -35,8 +34,9 @@ const AddPet = () => {
       await axios.post("/api/pet", newPet, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       });
-
       setNewPetData(true);
+      setnewPet({});
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -46,8 +46,7 @@ const AddPet = () => {
     e.preventDefault();
     try {
       let data;
-      let file = e.target.files[0];
-      file && setFile(file);
+      setFile(e.target.files[0]);
       if (file) {
         const reader = new FileReader();
         const {current} = uploadedImage;
@@ -102,7 +101,7 @@ const AddPet = () => {
             <form>
               <div className="form-group">
                 <label>
-                  Add Photo <i class="fa fa-camera"></i>
+                  Add Photo <i className="fa fa-camera"></i>
                 </label>
                 <br />
 
@@ -123,6 +122,7 @@ const AddPet = () => {
                       border: "none",
                       borderRadius: "50%",
                     }}
+                      alt=""
                   ></img>
                 </div>
                 <div className="container">

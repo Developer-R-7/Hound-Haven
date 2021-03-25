@@ -7,7 +7,6 @@ import Medications from "../Components/Medications";
 import Reminders from "../Components/Reminders";
 import Moment from "react-moment";
 import ChangePet from "../Components/Modals/ChangePet";
-
 import PetContext from "../Context/PetContext";
 import { getPetData } from "../Components/Helpers/PetFunctions";
 
@@ -23,18 +22,22 @@ const PetDash = () => {
 
   useEffect(() => {
     setData(location.state.info); // added this to refersh after update
-    data ? console.log(data) : console.log("no Data");
-    data ? (setPetId(data._id)) : setPetId("");
-  }, [location, newPetData,setPetId]);
+  }, [location, newPetData,setData]);
 
   setNewPetData(false);
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    data ? console.log(data) : console.log("no Data");
+    data ? (setPetId(data._id)) : setPetId("");
+  }, [data,setPetId]);
 
-  useEffect(async () => {
-    const data = await getPetData(petId);
-    data && setData(data);
-  }, [newPetData]);
+  useEffect( () => {
+    async function fetchMyAPI() {
+      const data = await getPetData(petId);
+      data && setData(data);
+    }
+    fetchMyAPI()
+  }, [newPetData,petId]);
 
 
 	useEffect(() => {}, [img]);
@@ -93,9 +96,9 @@ const PetDash = () => {
                 <Reminders petI={data._id} Reminders={data.Reminders} />
               )}
               {data && (
-                <VetVisits petId={data._id} VetVisits={data.VetVisits} />
+                <VetVisits petI={data._id} VetVisits={data.VetVisits} />
               )}
-              {data && <Medications petId={data._id} meds={data.Medications} />}
+              {data && <Medications petI={data._id} meds={data.Medications} />}
             </div>
           </div>
         </div>

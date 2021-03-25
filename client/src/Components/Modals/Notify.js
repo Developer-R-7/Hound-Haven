@@ -11,16 +11,16 @@ const Notify = (props) => {
 	const [defActKey, setDefActKey] = useState('meds' );
 
 	// lazy logic if all three meds will be open as it is the last set
-	const setActTab = ()  => {
-		rem.length > 0 && setDefActKey('rems');
-		med.length > 0 && setDefActKey('meds');
-		vet.length > 0 && setDefActKey('vets');
-	}
 
 
 	useEffect(() => {
+		const setActTab = ()  => {
+			rem.length > 0 && setDefActKey('rems');
+			med.length > 0 && setDefActKey('meds');
+			vet.length > 0 && setDefActKey('vets');
+		}	
 		setActTab()
-	}, [notifyItems, setActTab]);
+	}, [notifyItems,med,vet,rem]);
 
 	return (
 		<Tabs defaultActiveKey={defActKey} id="uncontrolled-tab-example">

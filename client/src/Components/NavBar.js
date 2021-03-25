@@ -40,7 +40,7 @@ const NavBar = () => {
     showAbout(true);
   };
 
-  useEffect(async () => {
+  useEffect( () => {
     if (!userData.user) {
       setLinks(
         <ul className="navbar-nav ms-auto">
@@ -66,7 +66,9 @@ const NavBar = () => {
                   e.preventDefault();
                   setShow(true);
                 }}
+                to=""
               >
+                
                 <span className="fa fa-bell fa-sm">
                   <i className="badge">{appt}</i>
                 </span>
@@ -74,12 +76,7 @@ const NavBar = () => {
             </li>
           )}
           <li className="nav-item ">
-            <Link
-              className="nav-link"
-              to="/"
-              style={linkStyle}
-              onClick={logout}
-            >
+            <Link className="nav-link" to="/" style={linkStyle} onClick={logout}>
               Log Out
             </Link>
           </li>
@@ -89,7 +86,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" style={linkStyle} onClick={openAbout}>
+            <Link className="nav-link" style={linkStyle} onClick={openAbout} to="/about">
               About
             </Link>
           </li>

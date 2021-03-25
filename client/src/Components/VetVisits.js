@@ -1,19 +1,21 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import Moment from "react-moment";
 import AddVisit from "./Modals/AddVisit";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
+import PetContext from "../Context/PetContext";
 
 const VetVists = (props) => {
   let newData = props;
-  const petId = props.petId;
+  const { petId, setPetId } = useContext(PetContext);
   const [visits, setVisits] = useState(newData.VetVisits);
   const [existing, setExisting] = useState(false);
   const [show, setShow] = useState(false);
   const [modalData, setModalData] = useState(null);
+  setPetId(props?.petI)
 
   const handleClose = () => {
     setShow(false);

@@ -26,6 +26,6 @@ const loadUserPets = async (user) => {
 	}
 };
 
-const useEffectOnlyOnce = (func) => useEffect(func, []);
+const useEffectOnlyOnce = (func) => useEffect(func, [func]);
 
 export { getPetData, loadUserPets, useEffectOnlyOnce };

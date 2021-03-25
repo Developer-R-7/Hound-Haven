@@ -25,7 +25,7 @@ const DeleteAccount = () => {
         <div className="modal-content">
           <div className="modal-header flex-column">
             <div className="icon-box">
-              <i class="fa fa-times-circle"></i>
+              <i className="fa fa-times-circle"></i>
             </div>
             <h4 className="modal-title w-100">Are you sure?!</h4>
           </div>
