@@ -33,32 +33,6 @@ const Home = () => {
   },[setNewPetData,user,setPets])
 
 
-  // useEffect(() => {
-  //   const loadUserPets = async (user) => {
-  //     let url = `/api/getpetbyuser/${user}`;
-  //     try {
-  //       const { data } = await axios.get(url, {
-  //         headers: { "x-auth-token": localStorage.getItem("auth-token") },
-  //       });
-  //       setPets(data);
-  //       setNewPetData(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   loadUserPets(user)
-  // }, [user, newPetData, setPets]);
-
-  // useEffect(() => {
-  //   petData &&
-  //     history.push({
-  //       pathname: "/petDash",
-  //       state: { info: petData },
-  //     });
-  // }, [petData, history]);
-
-
-
   const routePet = async (e, id) => {
     // we already had the data no need to go back to the DB
     e.preventDefault();
@@ -93,10 +67,8 @@ const Home = () => {
               <div>
                 {pets.length > 0 &&
                   pets.map((pet, i) => (
-
-                    <div className="row" key={i+"r1"}>
-                      <div className="user-saved-pets py-1" key={i+"test"}>
-
+                    <div key={i} className="row">
+                      <div className="user-saved-pets py-1">
                         <button
                           data-bs-toggle="modal"
                           data-bs-target="#confirmDelete"
@@ -106,9 +78,7 @@ const Home = () => {
                           type="button"
                           className=" delete-pet-btn btn"
                         >
-
-                          <i className="fa fa-minus-circle" key={i+"t1"}></i>
-
+                          <i className="fa fa-minus-circle"></i>
                         </button>
                         <button
                           onClick={(e) => routePet(e, pet._id)}

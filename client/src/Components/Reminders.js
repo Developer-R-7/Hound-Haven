@@ -10,15 +10,12 @@ import PetContext from "../Context/PetContext";
 
 
 const Reminders = (props) => {
-
-  let newData = props;
-  const { petId, setPetId } = useContext(PetContext);
-  setPetId(props?.petI)
-  const [reminders, setReminders] = useState(newData.Reminders);
-  const [existing, setExisting] = useState(false);
-  const [show, setShow] = useState(false);
-  const [modalData, setModalData] = useState(null);
-
+	let newData = props;
+	const { petId, setPetId } = useContext(PetContext);
+	const [reminders, setReminders] = useState(newData.Reminders);
+	const [existing, setExisting] = useState(false);
+	const [show, setShow] = useState(false);
+	const [modalData, setModalData] = useState(null);
 
 	const handleClose = () => {
 		setShow(false);
