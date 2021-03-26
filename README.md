@@ -6,7 +6,9 @@
 
 ## Usage
   
-![]()
+  ![Demo of Application](client/public/images/MyPet.gif)
+
+  Above is a walkthrough of our app which shows the log in screen, adding a new pet, adding a reminder, deleting an account and notifications.
 
 ## User Story
 ```
