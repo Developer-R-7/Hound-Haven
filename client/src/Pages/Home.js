@@ -93,19 +93,22 @@ const Home = () => {
               <div>
                 {pets.length > 0 &&
                   pets.map((pet, i) => (
+
                     <div className="row" key={i+"r1"}>
                       <div className="user-saved-pets py-1" key={i+"test"}>
+
                         <button
                           data-bs-toggle="modal"
                           data-bs-target="#confirmDelete"
                           onClick={(e) => {
                             setPetId(pet._id);
                           }}
-                          key={i}
                           type="button"
                           className=" delete-pet-btn btn"
                         >
+
                           <i className="fa fa-minus-circle" key={i+"t1"}></i>
+
                         </button>
                         <button
                           onClick={(e) => routePet(e, pet._id)}
@@ -143,7 +146,11 @@ const Home = () => {
                   ))}
               </div>
 
-              {pets.length === 0 && <h2>Click the "+" to add your pets!</h2>}
+              {pets.length === 0 && (
+                <h2 className="click-plus-instructions">
+                  Click the "+" to add your pets!
+                </h2>
+              )}
             </div>
           </div>
           <div className="add-new-pet">

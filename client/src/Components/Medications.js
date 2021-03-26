@@ -164,6 +164,7 @@ const Medications = (props) => {
       </div>
     </div>
   );
+
 };
 
 export default Medications;

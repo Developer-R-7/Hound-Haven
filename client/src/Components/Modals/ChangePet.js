@@ -6,22 +6,23 @@ import Moment from "moment";
 import { toast } from "react-toastify";
 
 const ChangePet = (props) => {
-  const {REACT_APP_LOCAL_STORAGE} = process.env;
-  const uploadedImage = useRef(null);
-  const imageUploader = useRef(null);
-  const [file, setFile] = useState(null);
+	const { REACT_APP_LOCAL_STORAGE } = process.env;
+	const uploadedImage = useRef(null);
+	const imageUploader = useRef(null);
+	const [file, setFile] = useState(null);
 
-  //state for new pet data to be added to db
+	//state for new pet data to be added to db
 
-  const [newPet, setnewPet] = useState(null);
-  const [PetImageLoc, setPetImgLoc] = useState(null);
-  const { newPetData, setNewPetData } = useContext(PetContext);
-  const pet = props.data;
-  const history = useHistory();
+	const [newPet, setnewPet] = useState(null);
+	const [PetImageLoc, setPetImgLoc] = useState(null);
+	const { newPetData, setNewPetData } = useContext(PetContext);
+	const pet = props.data;
+	const history = useHistory();
 
-  useEffect(() => {
-    pet && setnewPet(pet);
-  }, [pet]);
+	useEffect(() => {
+		pet && setnewPet(pet);
+	}, [pet]);
+
 
   useEffect(() => {
     newPetData &&
@@ -31,51 +32,62 @@ const ChangePet = (props) => {
       });
   }, [newPetData,history]);
 
-  //handle change of form data to be set for newPet state
-  const handleChange = (e) => {
-    setnewPet({ ...newPet, [e.target.name]: e.target.value });
-  };
 
-  const updatePet = async (e) => {
-    newPet.PetImageLoc = PetImageLoc;
-    e.preventDefault();
-    try {
-      await axios.patch("/api/updatepet/" + newPet._id, newPet, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      setNewPetData(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+	//handle change of form data to be set for newPet state
+	const handleChange = (e) => {
+		setnewPet({ ...newPet, [e.target.name]: e.target.value });
+	};
 
-  const handleImage = async (e) => {
-    e.preventDefault();
-    try {
-      let data;
-      let file = e.target.files[0];
-      file && setFile(file);
-      if (file) {
-        const reader = new FileReader();
-        const {current} = uploadedImage;
-        current.file = file;
-        reader.onload = (e) => {
-            current.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-      }
+	const updatePet = async (e) => {
+		newPet.PetImageLoc = PetImageLoc;
+		e.preventDefault();
+		try {
+			await axios.patch("/api/updatepet/" + newPet._id, newPet, {
+				headers: { "x-auth-token": localStorage.getItem("auth-token") },
+			});
+			setNewPetData(true);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-      var formData = new FormData();
+	const handleImage = async (e) => {
+		e.preventDefault();
+		try {
+			let data;
+			let file = e.target.files[0];
+			file && setFile(file);
+			if (file) {
+				const reader = new FileReader();
+				const { current } = uploadedImage;
+				current.file = file;
+				reader.onload = (e) => {
+					current.src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
 
-      formData.append("file", file);
-       /// if local env set use local storage
-      if(REACT_APP_LOCAL_STORAGE) {
-              data = await axios.post("/api/saveLocImage", formData, {
-              headers: { "x-auth-token": localStorage.getItem("auth-token") },
-            })
-            setPetImgLoc(data.data.fileUrl)
-        } else {
+			var formData = new FormData();
 
+			formData.append("file", file);
+			/// if local env set use local storage
+			if (REACT_APP_LOCAL_STORAGE) {
+				data = await axios.post("/api/saveLocImage", formData, {
+					headers: { "x-auth-token": localStorage.getItem("auth-token") },
+				});
+				setPetImgLoc(data.data.fileUrl);
+			} else {
+				await axios.post("/api/saveImage", formData, {
+					headers: { "x-auth-token": localStorage.getItem("auth-token") },
+				});
+				setPetImgLoc(data.data.fileUrl);
+			}
+		} catch (error) {
+			toast.error(
+				"There was a problem uploading the image, please try again" + error
+			);
+		}
+	};
             data = await axios.post("/api/saveImage", formData, {
             headers: { "x-auth-token": localStorage.getItem("auth-token") },
             })
@@ -216,6 +228,7 @@ const ChangePet = (props) => {
       </div>
     </div>
   );
+
 };
 
 export default ChangePet;

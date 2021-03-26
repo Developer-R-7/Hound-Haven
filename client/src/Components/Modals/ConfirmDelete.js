@@ -31,8 +31,9 @@ const ConfirmDelete = (props) => {
 
 
 
-  const deletePet = async (e) => {
-    e.preventDefault();
+
+	const deletePet = async (e) => {
+		e.preventDefault();
 
     try {
       await axios.delete(`/api/pet/${petId}`, {
@@ -76,6 +77,7 @@ const ConfirmDelete = (props) => {
       </div>
     </div>
   );
+
 };
 
 export default ConfirmDelete;

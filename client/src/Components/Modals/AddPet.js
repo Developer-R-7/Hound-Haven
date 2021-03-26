@@ -8,9 +8,10 @@ import { toast } from "react-toastify";
 //import {resizeFile} from '../Helpers/PetFunctions';
 
 const AddPet = () => {
-  // const { userData } = useContext(UserContext);
-  // const [user] = useState(userData.user?.id);
-  const {REACT_APP_LOCAL_STORAGE} = process.env;
+	// const { userData } = useContext(UserContext);
+	// const [user] = useState(userData.user?.id);
+	const { REACT_APP_LOCAL_STORAGE } = process.env;
+
 
   const [file, setFile] = useState(null);
   const uploadedImage = useRef(null);
@@ -20,15 +21,17 @@ const AddPet = () => {
   const [imgLoc, setImgLoc] = useState(null);
   const { setNewPetData } = useContext(PetContext);
 
-  //handle change of form data to be set for newPet state
-  const handleChange = (e) => {
-    setnewPet({ ...newPet, [e.target.name]: e.target.value });
-  };
 
-  //handel save button to add a new pet to db
-  const saveNewPet = async (e) => {
-    e.preventDefault();
-    newPet.PetImageLoc = imgLoc;
+	//handle change of form data to be set for newPet state
+	const handleChange = (e) => {
+		setnewPet({ ...newPet, [e.target.name]: e.target.value });
+	};
+
+	//handel save button to add a new pet to db
+	const saveNewPet = async (e) => {
+		e.preventDefault();
+		newPet.PetImageLoc = imgLoc;
+
 
     try {
       await axios.post("/api/pet", newPet, {
@@ -61,7 +64,8 @@ const AddPet = () => {
         reader.readAsDataURL(file);
       }
 
-      var formData = new FormData();
+
+			var formData = new FormData();
 
       formData.append("file", file);
       /// if local env set use local storage
@@ -207,6 +211,7 @@ const AddPet = () => {
       </div>
     </div>
   );
+
 };
 
 export default AddPet;

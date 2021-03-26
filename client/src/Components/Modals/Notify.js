@@ -3,15 +3,20 @@ import Moment from "react-moment";
 import { Tabs, Tab } from "react-bootstrap";
 
 const Notify = (props) => {
-	const [notifyItems] = useState(props?.vals);
+  const [notifyItems] = useState(props?.vals);
 
-	const [med] = useState(notifyItems ? notifyItems[0] : null);
-	const [vet] = useState(notifyItems ? notifyItems[1] : null);
-	const [rem] = useState(notifyItems ? notifyItems[2] : null);
-	const [defActKey, setDefActKey] = useState('meds' );
+  const [med] = useState(notifyItems ? notifyItems[0] : null);
+  const [vet] = useState(notifyItems ? notifyItems[1] : null);
+  const [rem] = useState(notifyItems ? notifyItems[2] : null);
+  const [defActKey, setDefActKey] = useState("meds");
+
 
 	// lazy logic if all three meds will be open as it is the last set
 
+
+  useEffect(() => {
+    setActTab();
+  }, [notifyItems, setActTab]);
 
 	useEffect(() => {
 		const setActTab = ()  => {
@@ -65,6 +70,7 @@ const Notify = (props) => {
 			</Tab> }
 		</Tabs>
 	);
+
 };
 
 export default Notify;
