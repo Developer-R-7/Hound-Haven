@@ -49,7 +49,7 @@ Google Cloud Storage
 ```
 
 ## Authors 
-  Kathleen Welch, Sam Ayler, Shelsy Barrera, Kailee Smith, & Faith Elsen
+  Kathleen Welch, Sam Ayler, Shelsy Barrera, Kailee Smith, Faith Elsen & Lucah Endicott
 
 ## Deployed
 deployed to Heroku 
