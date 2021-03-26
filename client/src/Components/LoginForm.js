@@ -18,7 +18,9 @@ const LoginForm = () => {
       const { data } = await axios.post("/users/login", form);
 
       if (!data.user.confirmed) {
-        toast.error("Your account has not been verified, please check your email.")
+        toast.error(
+          "Your account has not been verified, please check your email."
+        );
       } else {
         setUserData({
           token: data.token,
@@ -39,7 +41,7 @@ const LoginForm = () => {
   }, [userData.user, history]);
 
   return (
-    <div className="col-md-6">
+    <div className="col-md-6 log-reg-form">
       <form onSubmit={submitLoginForm}>
         <div className="form-group">
           <label>Email</label>
@@ -68,8 +70,11 @@ const LoginForm = () => {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button className="login-btn rounded-pill" type="submit">
+          Login
+        </button>
         <button
+          className="register-btn rounded-pill"
           style={{ margin: 20 }}
           onClick={() => history.push("/Register")}
         >

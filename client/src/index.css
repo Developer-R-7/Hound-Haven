@@ -2,15 +2,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Single+Day&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Boogaloo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Boogaloo&family=Londrina+Sketch&display=swap");
 
 body {
   margin: 0;
-
   font-family: "Source Sans Pro", sans-serif;
   font-family: "Boogaloo", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-image: url("https://www.transparenttextures.com/patterns/inspiration-geometry.png"); */
+  background-image: url("https://www.transparenttextures.com/patterns/inspiration-geometry.png");
 }
 
 code {
@@ -19,17 +19,23 @@ code {
 }
 
 .navbar {
-  background-color: #fea6a629;
+  background-color: #fae6e6;
+  width: 100% !important;
 }
 
 .navbar-nav > li > a {
   margin-right: 10px !important;
 }
 
+.navbar-brand {
+  padding: 0;
+  margin-left: 8%;
+}
+
 .myPet-header {
   font-family: "Single Day", cursive;
   font-size: 100px;
-  -webkit-text-fill-color: #636363;
+  -webkit-text-fill-color: #4d4c4c;
   font-weight: bolder;
   margin-bottom: -17px;
   margin-top: 15px;
@@ -37,10 +43,34 @@ code {
   letter-spacing: 2px;
 }
 
+.click-plus-instructions {
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .myPet-header {
     font-size: 50px;
   }
+}
+
+/* BUTTON STYLES */
+
+.register-btn,
+.login-btn {
+  background-color: #747d8c;
+  outline: none;
+  border: none;
+  color: #ffffff;
+}
+
+.register-btn:hover,
+.login-btn:hover {
+  background-color: #9f9f9f;
+}
+
+.log-reg-form,
+.about-card {
+  margin-bottom: 15% !important;
 }
 
 .delete-saved-entry {
@@ -185,7 +215,7 @@ code {
   transition: all 0.5s;
   cursor: pointer;
   margin-right: 5%;
-  width: 17rem;
+  width: 50%;
   box-shadow: 2px 2px 3px #999;
 }
 
@@ -239,6 +269,11 @@ code {
 }
 
 /* MODAL STYLES */
+
+.notifications-list {
+  padding: 5px;
+}
+
 .modal-confirm {
   color: #636363;
 }
@@ -332,8 +367,7 @@ html {
 
 body {
   margin: 0 0 100px;
-  /* bottom = footer height */
-  /* padding: 25px; */
+  padding: 0;
 }
 
 footer {

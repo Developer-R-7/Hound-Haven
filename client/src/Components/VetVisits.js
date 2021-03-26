@@ -87,15 +87,14 @@ const VetVists = (props) => {
   return (
     <div className="card m-2 shadow rounded" id="petDashCard">
       <div className="card-body text-center">
-        <h3 className="card-title">Visits</h3>
+        <h3 className="card-title">Vet Visits</h3>
         <div className="pet-table">
           <ul className="overflow-auto">
             {visits.map((visit) => (
-              <div className="container py-1">
+              <div key={visit._id} className="container py-1">
                 <li
                   name="editVisitBtn"
                   onClick={(e) => update(e, visit)}
-                  key={visit._id}
                   className="pet-list btn w-75"
                 >
                   <div>
@@ -114,7 +113,7 @@ const VetVists = (props) => {
           onClick={(e) => add(e, "{_id: 0}")}
           className="edit-visis-btn btn btn-circle shadow"
         >
-          <i class="fa fa-plus my-float"></i>
+          <i className="fa fa-plus my-float"></i>
         </button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
