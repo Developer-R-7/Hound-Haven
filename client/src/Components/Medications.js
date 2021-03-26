@@ -9,7 +9,7 @@ import { getPetData } from "./Helpers/PetFunctions";
 import PetContext from "../Context/PetContext";
 
 const Medications = (props) => {
-	const petId = props.petId;
+	const { petId, setPetId } = useContext(PetContext);
 	const [meds, setMeds] = useState(props.meds);
 	const [show, setShow] = useState(false);
 	const [modalData, setModalData] = useState(null);

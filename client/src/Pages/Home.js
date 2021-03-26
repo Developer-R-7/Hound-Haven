@@ -33,32 +33,6 @@ const Home = () => {
   },[setNewPetData,user,setPets])
 
 
-  // useEffect(() => {
-  //   const loadUserPets = async (user) => {
-  //     let url = `/api/getpetbyuser/${user}`;
-  //     try {
-  //       const { data } = await axios.get(url, {
-  //         headers: { "x-auth-token": localStorage.getItem("auth-token") },
-  //       });
-  //       setPets(data);
-  //       setNewPetData(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   loadUserPets(user)
-  // }, [user, newPetData, setPets]);
-
-  // useEffect(() => {
-  //   petData &&
-  //     history.push({
-  //       pathname: "/petDash",
-  //       state: { info: petData },
-  //     });
-  // }, [petData, history]);
-
-
-
   const routePet = async (e, id) => {
     // we already had the data no need to go back to the DB
     e.preventDefault();
