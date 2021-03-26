@@ -49,11 +49,11 @@ Google Cloud Storage
 ```
 
 ## Authors 
-  Kathleen Welch, Sam Ayler, Shelsy Barrera, Kailee Smith, & Faith Elsen
+  Kathleen Welch, Sam Ayler, Shelsy Barrera, Kailee Smith, Faith Elsen & Lucah Endicott
 
 ## Deployed
-This project has been deployed to GitHub Pages. To test it out yourself, you can follow this deployment link: 
-https://faitheden1.github.io/My_Vet/ or Heroku https://mypet-kw.herokuapp.com/
+deployed to Heroku 
+https://proj3-kw.herokuapp.com/
   
   
 ## Credits
