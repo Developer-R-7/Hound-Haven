@@ -55,6 +55,9 @@ const ChangePet = (props) => {
       let data;
       let file = e.target.files[0];
       file && setFile(file);
+      
+      setFile(e.target.files[0]);
+    
       if (file) {
         const reader = new FileReader();
         const {current} = uploadedImage;
@@ -68,25 +71,27 @@ const ChangePet = (props) => {
       var formData = new FormData();
 
       formData.append("file", file);
-       /// if local env set use local storage
+      /// if local env set use local storage
       if(REACT_APP_LOCAL_STORAGE) {
-              data = await axios.post("/api/saveLocImage", formData, {
-              headers: { "x-auth-token": localStorage.getItem("auth-token") },
-            })
-            setPetImgLoc(data.data.fileUrl)
-        } else {
+          data = await axios.post("/api/saveLocImage", formData, {
+          headers: { "x-auth-token": localStorage.getItem("auth-token") },
+        })
+        setImgLoc(data.data.fileUrl)
 
-            data = await axios.post("/api/saveImage", formData, {
-            headers: { "x-auth-token": localStorage.getItem("auth-token") },
-            })
-            setPetImgLoc(data.data.fileUrl)
-        }
+      } else {
 
-        } catch (error) {
-        toast.error(
+        data = await axios.post("/api/saveImage", formData, {
+        headers: { "x-auth-token": localStorage.getItem("auth-token") },
+      })
+      console.log(data)
+      setImgLoc(data.data.fileUrl)
+    }
+
+    } catch (error) {
+      toast.error(
         "There was a problem uploading the image, please try again" + error
-        );
-      }
+      );
+    }
   };
 
   return (
