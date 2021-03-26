@@ -62,8 +62,7 @@ module.exports = {
 				from: "confirmmypet@gmail.com",
 				to: newUser.email,
 				subject: "Thanks for signing up",
-				text: `Email was sent: https://mypet-kw.herokuapp.com/confirm_token/${confirmationToken.token}`,
-			
+				text: `Email was sent: ${process.env.HEROKU}${confirmationToken.token}`,
 			};
 
 			transporter.sendMail(mailOptions, (error, info) => {
@@ -71,7 +70,7 @@ module.exports = {
 					console.log(error);
 				} else {
 					console.log(
-						`Email was sent: https://mypet-kw.herokuapp.com/confirm_token/${confirmationToken.token}`
+						`Email was sent: ${process.env.HEROKU}${confirmationToken.token}`
 					);
 				}
 			});
