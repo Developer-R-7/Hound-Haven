@@ -75,7 +75,7 @@ const ChangePet = (props) => {
 				});
 				setPetImgLoc(data.data.fileUrl);
 			} else {
-				await axios.post("/api/saveImage", formData, {
+				data = await axios.post("/api/saveImage", formData, {
 					headers: { "x-auth-token": localStorage.getItem("auth-token") },
 				});
 				setPetImgLoc(data.data.fileUrl);
