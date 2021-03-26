@@ -11,7 +11,7 @@ const ChangePet = (props) => {
   const imageUploader = useRef(null);
   const [file, setFile] = useState(null);
   const [imgLoc, setImgLoc] = useState(null);
-  const { setNewPetData } = useContext(PetContext);
+  
   //state for new pet data to be added to db
 
   const [newPet, setnewPet] = useState(null);
