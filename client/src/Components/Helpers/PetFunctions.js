@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 async function getPetData(petid) {
+	console.log(petid);
 	try {
 		const { data } = await axios.get(`/api/pet/${petid}`, {
 			headers: { "x-auth-token": localStorage.getItem("auth-token") },
@@ -26,6 +27,6 @@ const loadUserPets = async (user) => {
 	}
 };
 
-const useEffectOnlyOnce = (func) => useEffect(func, []);
+const useEffectOnlyOnce = (func) => useEffect(func, [func]);
 
 export { getPetData, loadUserPets, useEffectOnlyOnce };

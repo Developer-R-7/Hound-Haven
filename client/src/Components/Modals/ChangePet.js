@@ -23,13 +23,15 @@ const ChangePet = (props) => {
 		pet && setnewPet(pet);
 	}, [pet]);
 
-	useEffect(() => {
-		newPetData &&
-			history.push({
-				pathname: "/petDash",
-				state: { info: newPetData },
-			});
-	}, [newPetData]);
+
+  useEffect(() => {
+    newPetData &&
+      history.push({
+        pathname: "/petDash",
+        state: { info: newPetData },
+      });
+  }, [newPetData,history]);
+
 
 	//handle change of form data to be set for newPet state
 	const handleChange = (e) => {
@@ -86,131 +88,147 @@ const ChangePet = (props) => {
 			);
 		}
 	};
+            data = await axios.post("/api/saveImage", formData, {
+            headers: { "x-auth-token": localStorage.getItem("auth-token") },
+            })
+            setPetImgLoc(data.data.fileUrl)
+        }
 
-	return (
-		<div className="modal" id="editAPetModal" tabIndex="-1">
-			<div className="modal-dialog modal-md">
-				<div className="modal-content">
-					<div className="modal-header">
-						<h4>Pet Editor</h4>
-						<button
-							type="button"
-							className="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
-					</div>
-					<div
-						style={{ display: "inline-flex", justifyContent: "center" }}
-						className="modal-body"
-					>
-						<form>
-							<div className="form-group">
-								<label>
-									Add Photo <i className="fa fa-camera"></i>
-								</label>
-								<br />
+        } catch (error) {
+        toast.error(
+        "There was a problem uploading the image, please try again" + error
+        );
+      }
+  };
 
-								<div
-									style={{
-										height: "60px",
-										width: "60px",
-										border: "1px dashed black",
-										borderRadius: "100%",
-									}}
-									onClick={() => imageUploader.current.click()}
-								>
-									<img
-										ref={uploadedImage}
-										style={{
-											height: "60px",
-											width: "60px",
-											border: "none",
-											borderRadius: "100%",
-										}}
-									/>
-								</div>
-								<input
-									onChange={(e) => handleImage(e)}
-									ref={imageUploader}
-									type="file"
-									accept="image/*"
-									multiple={false}
-									name="PetImageLoc"
-									style={{
-										display: "none",
-									}}
-								/>
-							</div>
-							<p></p>
-							<div className="form-group">
-								<input
-									onChange={handleChange}
-									placeholder="Pet name"
-									name="PetName"
-									type="text"
-									defaultValue={newPet && newPet.PetName}
-								/>
-							</div>
-							<p></p>
-							<div className="form-group">
-								<label>Birth Date</label>
-								<br />
-								<input
-									onChange={handleChange}
-									placeholder="Birth Date"
-									name="BirthDate"
-									type="date"
-									defaultValue={
-										newPet && (Moment(newPet.BirthDate).format = "MM/DD/YYYY")
-									}
-								/>
-							</div>
-							<p></p>
-							<div className="form-group">
-								<input
-									onChange={handleChange}
-									placeholder="Gender"
-									name="Gender"
-									type="text"
-									defaultValue={newPet && newPet.Gender}
-								/>
-							</div>
-							<p></p>
-							<div className="form-group">
-								<input
-									onChange={handleChange}
-									placeholder="Type"
-									name="TypeOfPet"
-									type="text"
-									defaultValue={newPet && newPet.TypeOfPet}
-								/>
-							</div>
-							<p></p>
-							<div className="form-group">
-								<input
-									onChange={handleChange}
-									placeholder="Breed"
-									name="Breed"
-									type="text"
-									defaultValue={newPet && newPet.Breed}
-								/>
-							</div>
-						</form>
-					</div>
-					<div
-						onClick={updatePet}
-						className="modal-footer"
-						data-bs-dismiss="modal"
-					>
-						<button type="submit" className="btn save-pet-submit">
-							Save Pet
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="modal" id="editAPetModal" tabIndex="-1">
+      <div className="modal-dialog modal-md">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4>Pet Editor</h4>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div
+            style={{ display: "inline-flex", justifyContent: "center" }}
+            className="modal-body"
+          >
+            <form>
+              <div className="form-group">
+                <label>
+                  Add Photo <i className="fa fa-camera"></i>
+                </label>
+                <br />
+
+                <div
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    border: "1px dashed black",
+                    borderRadius: "100%",
+                  }}
+                  onClick={() => imageUploader.current.click()}
+                >
+                  <img
+                    ref={uploadedImage}
+                    style={{
+                      height: "60px",
+                      width: "60px",
+                      border: "none",
+                      borderRadius: "100%",
+                    }}
+                    alt=""
+                  />
+                </div>
+                <input
+                  onChange={(e) => handleImage(e)}
+                  ref={imageUploader}
+                  type="file"
+                  accept="image/*"
+                  multiple={false}
+                  name="PetImageLoc"
+                  style={{
+                    display: "none",
+                  }}
+                />
+              </div>
+              <p></p>
+              <div className="form-group">
+                <input
+                  onChange={handleChange}
+                  placeholder="Pet name"
+                  name="PetName"
+                  type="text"
+                  defaultValue={newPet && newPet.PetName}
+                />
+              </div>
+              <p></p>
+              <div className="form-group">
+                <label>Birth Date</label>
+                <br />
+                <input
+                  onChange={handleChange}
+                  placeholder="Birth Date"
+                  name="BirthDate"
+                  type="date"
+                  defaultValue={
+          
+                    newPet && (Moment(newPet.BirthDate).format=("MM/DD/YYYY"))}
+        
+                  
+                />
+              </div>
+              <p></p>
+              <div className="form-group">
+                <input
+                  onChange={handleChange}
+                  placeholder="Gender"
+                  name="Gender"
+                  type="text"
+                  defaultValue={newPet && newPet.Gender}
+                />
+              </div>
+              <p></p>
+              <div className="form-group">
+                <input
+                  onChange={handleChange}
+                  placeholder="Type"
+                  name="TypeOfPet"
+                  type="text"
+                  defaultValue={newPet && newPet.TypeOfPet}
+                />
+              </div>
+              <p></p>
+              <div className="form-group">
+                <input
+                  onChange={handleChange}
+                  placeholder="Breed"
+                  name="Breed"
+                  type="text"
+                  defaultValue={newPet && newPet.Breed}
+                />
+              </div>
+            </form>
+          </div>
+          <div
+            onClick={updatePet}
+            className="modal-footer"
+            data-bs-dismiss="modal"
+          >
+            <button type="submit" className="btn save-pet-submit">
+              Save Pet
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
 };
 
 export default ChangePet;

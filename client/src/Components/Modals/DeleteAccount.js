@@ -42,7 +42,7 @@ const DeleteAccount = () => {
 							data-bs-dismiss="modal"
 						>
 							Cancel
-						</button>
+
 
 						<button
 							onClick={handleDelete}

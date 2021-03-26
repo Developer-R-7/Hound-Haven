@@ -7,33 +7,38 @@ import Medications from "../Components/Medications";
 import Reminders from "../Components/Reminders";
 import Moment from "react-moment";
 import ChangePet from "../Components/Modals/ChangePet";
-
 import PetContext from "../Context/PetContext";
 import { getPetData } from "../Components/Helpers/PetFunctions";
 
 const PetDash = () => {
+  const { petId, setPetId } = useContext(PetContext);
   const { userData } = useContext(UserContext);
   const [data, setData] = useState();
   const [img] = useState();
   const history = useHistory();
   const location = useLocation();
   const { newPetData, setNewPetData } = useContext(PetContext);
-  let petId;
+  //let petId;
 
-  useEffect(() => {
-    setData(location.state.info); // added this to refersh after update
-    data ? console.log(data) : console.log("no Data");
-    data ? (petId = data._id) : (petId = "");
-  }, [location, newPetData]);
+  // useEffect(() => {
+  //   console.log(location.state.info)
+  //   setData(location.state.info); // added this to refersh after update
+  // }, [location, newPetData,setData]);
 
   setNewPetData(false);
 
-  useEffect(() => {}, [data]);
+  // useEffect(() => {
+  //   data ? console.log(data) : console.log("no Data");
+  //   data ? (setPetId(data._id)) : setPetId("");
+  // }, [data,setPetId]);
 
-  useEffect(async () => {
-    const data = await getPetData(petId);
-    data && setData(data);
-  }, [newPetData]);
+  useEffect( () => {
+    const  fetchMyAPI = async () => {
+      const data = await getPetData(petId);
+      data && setData(data);
+    }
+    fetchMyAPI()
+  }, [newPetData,petId]);
 
 
 	useEffect(() => {}, [img]);
@@ -89,12 +94,12 @@ const PetDash = () => {
           <div className="pet-dash-cards col-sm-9 py-5">
             <div className="row">
               {data && (
-                <Reminders petId={data._id} Reminders={data.Reminders} />
+                <Reminders petI={data._id} Reminders={data.Reminders} />
               )}
               {data && (
-                <VetVisits petId={data._id} VetVisits={data.VetVisits} />
+                <VetVisits petI={data._id} VetVisits={data.VetVisits} />
               )}
-              {data && <Medications petId={data._id} meds={data.Medications} />}
+              {data && <Medications petI={data._id} meds={data.Medications} />}
             </div>
           </div>
         </div>

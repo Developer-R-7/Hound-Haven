@@ -40,6 +40,7 @@ const NavBar = () => {
 		showAbout(true);
 	};
 
+
 	useEffect(async () => {
 		if (!userData.user) {
 			setLinks(
@@ -102,6 +103,7 @@ const NavBar = () => {
 				</ul>
 			);
 			setAppt(HandleAppoint(pets, "nav"));
+
 
 			appt && setVals(HandleAppoint(pets, "notify"));
 		}

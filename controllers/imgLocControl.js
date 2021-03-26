@@ -5,11 +5,13 @@ const fs = require("fs");
 
 module.exports = {
     saveLocImage: async (req,res,next) => {
+		try{
 		if(!req.file) {
 		  res.status(500);
 		  return next(err);
 		}
 		res.json({ fileUrl: '/images/' + req.file.filename });
+	} catch (err) {err => res.send({msg: err})}
 	  },
 	getLocImages: async (req, res) => {
 		const uploadDirectory = path.join( "client", "public", "images");
