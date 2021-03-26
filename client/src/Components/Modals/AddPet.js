@@ -58,7 +58,7 @@ const AddPet = () => {
         reader.onload = (e) => {
             current.src = e.target.result;
         }
-        reader.readAsDataURL(file1);
+        reader.readAsDataURL(file);
       }
 
       var formData = new FormData();
@@ -70,12 +70,13 @@ const AddPet = () => {
           headers: { "x-auth-token": localStorage.getItem("auth-token") },
         })
         setImgLoc(data.data.fileUrl)
+
       } else {
 
-        await axios.post("/api/saveImage", formData, {
+        data = await axios.post("/api/saveImage", formData, {
         headers: { "x-auth-token": localStorage.getItem("auth-token") },
       })
-      console.log(data.data)
+      console.log(data)
       setImgLoc(data.data.fileUrl)
     }
 
