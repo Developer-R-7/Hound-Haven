@@ -53,7 +53,8 @@ const ChangePet = (props) => {
     e.preventDefault();
     try {
       let data;
-      setFile(e.target.files[0]);
+      let file = e.target.files[0];
+      file && setFile(file);
       if (file) {
         const reader = new FileReader();
         const {current} = uploadedImage;
