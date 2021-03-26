@@ -3,15 +3,17 @@ import { useHistory } from "react-router-dom";
 import AddPet from "../Components/Modals/AddPet";
 import UserContext from "../Context/UserContext";
 import PetContext from "../Context/PetContext";
-import axios from "axios";
+// import axios from "axios";
 import ConfirmDelete from "../Components/Modals/ConfirmDelete";
+import {loadUserPets  } from "../Components/Helpers/PetFunctions"
+import PetDash from "./PetDash"
 
 // import UpcomingAppointments from "../Components/Modals/UpcomingAppoiments";
 
 const Home = () => {
   const { userData } = useContext(UserContext);
   const { newPetData, setNewPetData } = useContext(PetContext);
-  const { petId, setPetId } = useContext(PetContext);
+  const { setPetId } = useContext(PetContext);
   const history = useHistory();
   //const [pets, setUserPets] = useState([]);
   const { pets, setPets } = useContext(PetContext);
@@ -19,42 +21,59 @@ const Home = () => {
   const [petData, setPetData] = useState();
   const displayName = userData.user?.displayName;
 
-  const loadUserPets = async (user) => {
-    let url = `/api/getpetbyuser/${user}`;
-    try {
-      const { data } = await axios.get(url, {
-        headers: { "x-auth-token": localStorage.getItem("auth-token") },
-      });
-      data && setPets(data);
-      setNewPetData(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
   useEffect(() => {
     if (!userData.user) history.push("/login");
   }, [userData.user, history]);
 
   useEffect(() => {
-    user && loadUserPets(user);
-  }, [user, newPetData, petId]);
+  setPets(loadUserPets(user))
+  setNewPetData(false)
+  },[setNewPetData,user,setPets])
 
-  useEffect(() => {
-    petData &&
-      history.push({
-        pathname: "/petDash",
-        state: { info: petData },
-      });
-  }, [petData, history]);
+
+  // useEffect(() => {
+  //   const loadUserPets = async (user) => {
+  //     let url = `/api/getpetbyuser/${user}`;
+  //     try {
+  //       const { data } = await axios.get(url, {
+  //         headers: { "x-auth-token": localStorage.getItem("auth-token") },
+  //       });
+  //       setPets(data);
+  //       setNewPetData(false);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   loadUserPets(user)
+  // }, [user, newPetData, setPets]);
+
+  // useEffect(() => {
+  //   petData &&
+  //     history.push({
+  //       pathname: "/petDash",
+  //       state: { info: petData },
+  //     });
+  // }, [petData, history]);
+
+
 
   const routePet = async (e, id) => {
     // we already had the data no need to go back to the DB
     e.preventDefault();
-    let thisPet = pets.filter((pet) => {
-      return pet._id === id;
-    });
-    setPetData(thisPet[0]);
+    try {
+            setPetId(id); 
+            let thisPet = pets.filter((pet) => {
+              return pet._id === id;
+            });
+           setPetData(thisPet);
+          
+            history.push({
+                    pathname: "/petDash",
+                    state: { info: thisPet },
+                  });
+        } catch  {console.log('something wrong')}
   };
 
   //map user data and send pets as buttons in list items
@@ -74,8 +93,10 @@ const Home = () => {
               <div>
                 {pets.length > 0 &&
                   pets.map((pet, i) => (
-                    <div key={i} className="row">
-                      <div className="user-saved-pets py-1">
+
+                    <div className="row" key={i+"r1"}>
+                      <div className="user-saved-pets py-1" key={i+"test"}>
+
                         <button
                           data-bs-toggle="modal"
                           data-bs-target="#confirmDelete"
@@ -85,11 +106,14 @@ const Home = () => {
                           type="button"
                           className=" delete-pet-btn btn"
                         >
-                          <i className="fa fa-minus-circle"></i>
+
+                          <i className="fa fa-minus-circle" key={i+"t1"}></i>
+
                         </button>
                         <button
                           onClick={(e) => routePet(e, pet._id)}
                           key={pet._id}
+                          value={pet._id}
                           type="button"
                           className="saved-pet-btn btn btn-floating"
                         >

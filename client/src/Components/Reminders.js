@@ -1,19 +1,24 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Moment from "react-moment";
 import AddReminder from "./Modals/AddReminder";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { getPetData } from "./Helpers/PetFunctions";
+import PetContext from "../Context/PetContext";
+
 
 const Reminders = (props) => {
-	let newData = props;
-	const petId = props.petId;
-	const [reminders, setReminders] = useState(newData.Reminders);
-	const [existing, setExisting] = useState(false);
-	const [show, setShow] = useState(false);
-	const [modalData, setModalData] = useState(null);
+
+  let newData = props;
+  const { petId, setPetId } = useContext(PetContext);
+  setPetId(props?.petI)
+  const [reminders, setReminders] = useState(newData.Reminders);
+  const [existing, setExisting] = useState(false);
+  const [show, setShow] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
 
 	const handleClose = () => {
 		setShow(false);
