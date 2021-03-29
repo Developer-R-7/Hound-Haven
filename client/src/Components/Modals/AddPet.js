@@ -22,24 +22,10 @@ const AddPet = () => {
 	//handel save button to add a new pet to db
 	const saveNewPet = async (e) => {
 		e.preventDefault();
-		// newPet.PetImageLoc = imgLoc;
 		try {
 			var formData = new FormData();
 
 			formData.append("file", file);
-			/// if local env set use local storage
-
-			// await axios
-			// 	.post("/api/saveLocImage", formData, {
-			// 		headers: { "x-auth-token": localStorage.getItem("auth-token") },
-			// 	})
-			// 	.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
-
-			// await axios
-			// 	.post("/api/saveImage", formData, {
-			// 		headers: { "x-auth-token": localStorage.getItem("auth-token") },
-			// 	})
-			// 	.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
 
 			if (REACT_APP_LOCAL_STORAGE) {
 				await axios
