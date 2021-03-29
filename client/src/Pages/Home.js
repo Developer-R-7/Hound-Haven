@@ -16,8 +16,6 @@ const Home = () => {
 	const [petData, setPetData] = useState();
 	const displayName = userData.user?.displayName;
 
-	// setNewPetData(false);
-
 	useEffect(() => {
 		if (!userData.user) history.push("/login");
 	}, [userData.user, history]);

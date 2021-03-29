@@ -43,20 +43,6 @@ const AddPet = () => {
 					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
 			}
 
-			// if (REACT_APP_LOCAL_STORAGE) {
-			// 	await axios
-			// 		.post("/api/saveLocImage", formData, {
-			// 			headers: { "x-auth-token": localStorage.getItem("auth-token") },
-			// 		})
-			// 		.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
-			// } else {
-			// 	await axios
-			// 		.post("/api/saveImage", formData, {
-			// 			headers: { "x-auth-token": localStorage.getItem("auth-token") },
-			// 		})
-			// 		.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
-			// }
-
 			await axios.post("/api/pet", newPet, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
