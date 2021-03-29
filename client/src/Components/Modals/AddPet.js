@@ -5,14 +5,13 @@ import PetContext from "../../Context/PetContext";
 import { toast } from "react-toastify";
 
 const AddPet = () => {
-	// const { REACT_APP_LOCAL_STORAGE } = process.env;
+	const { REACT_APP_LOCAL_STORAGE } = process.env;
 
 	const [file, setFile] = useState(null);
 	const uploadedImage = useRef(null);
 	const imageUploader = useRef(null);
 	//state for new pet data to be added to db
 	const [newPet, setnewPet] = useState(null);
-	// const [imgLoc, setImgLoc] = useState(null);
 	const { setNewPetData } = useContext(PetContext);
 
 	//handle change of form data to be set for newPet state
@@ -36,26 +35,26 @@ const AddPet = () => {
 			// 	})
 			// 	.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
 
-			await axios
-				.post("/api/saveImage", formData, {
-					headers: { "x-auth-token": localStorage.getItem("auth-token") },
-				})
-				.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
+			// await axios
+			// 	.post("/api/saveImage", formData, {
+			// 		headers: { "x-auth-token": localStorage.getItem("auth-token") },
+			// 	})
+			// 	.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
 
-			// if (REACT_APP_LOCAL_STORAGE) {
-			// 	await axios
-			// 		.post("/api/saveLocImage", formData, {
-			// 			headers: { "x-auth-token": localStorage.getItem("auth-token") },
-			// 		})
-			// 		.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
-			// } else {
-			// 	await axios
-			// 		.post("/api/saveImage", formData, {
-			// 			headers: { "x-auth-token": localStorage.getItem("auth-token") },
-			// 		})
-			// 		.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
-			// }
-			// newPet.PetImageLoc = imgLoc;
+			if (REACT_APP_LOCAL_STORAGE) {
+				await axios
+					.post("/api/saveLocImage", formData, {
+						headers: { "x-auth-token": localStorage.getItem("auth-token") },
+					})
+					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
+			} else {
+				await axios
+					.post("/api/saveImage", formData, {
+						headers: { "x-auth-token": localStorage.getItem("auth-token") },
+					})
+					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
+			}
+
 			await axios.post("/api/pet", newPet, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
