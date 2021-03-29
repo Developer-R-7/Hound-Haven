@@ -52,7 +52,6 @@ const ChangePet = (props) => {
 	const handleImage = async (e) => {
 		e.preventDefault();
 		try {
-			let data;
 			let file = e.target.files[0];
 			file && setFile(file);
 			if (file) {
@@ -70,15 +69,17 @@ const ChangePet = (props) => {
 			formData.append("file", file);
 			/// if local env set use local storage
 			if (REACT_APP_LOCAL_STORAGE) {
-				data = await axios.post("/api/saveLocImage", formData, {
-					headers: { "x-auth-token": localStorage.getItem("auth-token") },
-				});
-				setPetImgLoc(data.data.fileUrl);
+				await axios
+					.post("/api/saveLocImage", formData, {
+						headers: { "x-auth-token": localStorage.getItem("auth-token") },
+					})
+					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
 			} else {
-				data = await axios.post("/api/saveImage", formData, {
-					headers: { "x-auth-token": localStorage.getItem("auth-token") },
-				});
-				setPetImgLoc(data.data.fileUrl);
+				await axios
+					.post("/api/saveImage", formData, {
+						headers: { "x-auth-token": localStorage.getItem("auth-token") },
+					})
+					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
 			}
 		} catch (error) {
 			toast.error(
