@@ -16,14 +16,16 @@ const Home = () => {
 	const [petData, setPetData] = useState();
 	const displayName = userData.user?.displayName;
 
+	setNewPetData(false);
+
 	useEffect(() => {
 		if (!userData.user) history.push("/login");
 	}, [userData.user, history]);
 
 	useEffect(() => {
 		setPets(loadUserPets(user));
-		setNewPetData(false);
-	}, [setNewPetData, user, setPets]);
+		// setNewPetData(false);
+	}, [newPetData, user, setPets]);
 
 	const routePet = async (e, id) => {
 		// we already had the data no need to go back to the DB
