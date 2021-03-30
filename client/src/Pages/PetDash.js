@@ -42,11 +42,15 @@ const PetDash = () => {
 					{data && (
 						<div className="col-sm-3 py-5">
 							<div className="card m-2 shadow rounded">
-								<img
-									src={data.PetImageLoc}
-									className="card-img-top"
-									alt="petImage"
-								></img>
+								{data.PetImageLoc ? (
+									<img
+										src={data.PetImageLoc}
+										className="card-img-top"
+										alt="petImage"
+									></img>
+								) : (
+									<img src="./images/paw-print-small.png" alt="pet Image"></img>
+								)}
 
 								<div className="card-body text-center">
 									<h1 className="card-title">{data.PetName}</h1>
