@@ -10,11 +10,9 @@ const ChangePet = (props) => {
 	const uploadedImage = useRef(null);
 	const imageUploader = useRef(null);
 	const [file, setFile] = useState(null);
-
 	//state for new pet data to be added to db
-
 	const [newPet, setnewPet] = useState(null);
-	const [PetImageLoc, setPetImgLoc] = useState(null);
+
 	const { newPetData, setNewPetData } = useContext(PetContext);
 	const pet = props.data;
 	const history = useHistory();
@@ -37,9 +35,28 @@ const ChangePet = (props) => {
 	};
 
 	const updatePet = async (e) => {
-		newPet.PetImageLoc = PetImageLoc;
 		e.preventDefault();
 		try {
+			var formData = new FormData();
+
+			formData.append("file", file);
+
+			if (REACT_APP_LOCAL_STORAGE && file) {
+				await axios
+					.post("/api/saveLocImage", formData, {
+						headers: { "x-auth-token": localStorage.getItem("auth-token") },
+					})
+					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
+			}
+
+			if (!REACT_APP_LOCAL_STORAGE && file) {
+				await axios
+					.post("/api/saveImage", formData, {
+						headers: { "x-auth-token": localStorage.getItem("auth-token") },
+					})
+					.then((data) => (newPet.PetImageLoc = data.data.fileUrl));
+			}
+
 			await axios.patch("/api/updatepet/" + newPet._id, newPet, {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			});
@@ -52,7 +69,6 @@ const ChangePet = (props) => {
 	const handleImage = async (e) => {
 		e.preventDefault();
 		try {
-			let data;
 			let file = e.target.files[0];
 			file && setFile(file);
 			if (file) {
@@ -63,22 +79,6 @@ const ChangePet = (props) => {
 					current.src = e.target.result;
 				};
 				reader.readAsDataURL(file);
-			}
-
-			var formData = new FormData();
-
-			formData.append("file", file);
-			/// if local env set use local storage
-			if (REACT_APP_LOCAL_STORAGE) {
-				data = await axios.post("/api/saveLocImage", formData, {
-					headers: { "x-auth-token": localStorage.getItem("auth-token") },
-				});
-				setPetImgLoc(data.data.fileUrl);
-			} else {
-				data = await axios.post("/api/saveImage", formData, {
-					headers: { "x-auth-token": localStorage.getItem("auth-token") },
-				});
-				setPetImgLoc(data.data.fileUrl);
 			}
 		} catch (error) {
 			toast.error(

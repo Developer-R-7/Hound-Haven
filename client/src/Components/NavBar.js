@@ -7,7 +7,7 @@ import { Modal } from "react-bootstrap";
 import HandleAppoint from "./Helpers/HandleAppoint";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import logo from "./paw_logo.PNG";
+// import logo from "./paw_logo.PNG";
 
 const NavBar = () => {
 	const { userData, setUserData } = useContext(UserContext);
@@ -137,7 +137,7 @@ const NavBar = () => {
 									<h5 className="card-title">The My Pet App</h5>
 									<div className="card-body">
 										<img
-											src={logo}
+											src="../images/paw_logo.PNG"
 											alt="petLogo"
 											className="p-3 img-fluid rounded-circle w-10"
 										></img>
