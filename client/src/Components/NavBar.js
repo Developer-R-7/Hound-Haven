@@ -126,6 +126,19 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {links}
             <Modal name="test" show={show} onHide={handleClose}>
+              <div className="ms-auto">
+                <button
+                  style={{
+                    marginRight: "10px",
+                    marginTop: "10px",
+                    marginBottom: "0",
+                  }}
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={handleClose}
+                ></button>
+              </div>
               <Modal.Body>
                 <Notify vals={vals} />
               </Modal.Body>
