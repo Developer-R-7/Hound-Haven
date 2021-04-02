@@ -32,11 +32,6 @@ const RegisterForm = () => {
 				return toast.error("Password must contain at least 8 characters.");
 			}
 
-			// 	  displayName: "shellsea"
-			// email: "elainesbarrera@gmail.com"
-			// password: "123198"
-			// passwordCheck: "123198"
-
 			await axios.post("/users/register", form);
 			toast.success(
 				"Check your email and follow the link to verify your account!"

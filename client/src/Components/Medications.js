@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Moment from "react-moment";
 import AddMeds from "./Modals/AddMeds";
 import { Button, Modal } from "react-bootstrap";
@@ -87,8 +87,6 @@ const Medications = (props) => {
 		setModalData(data);
 		setExisting(true);
 		setShow(true);
-
-		console.log("button to update med", data);
 	};
 
 	const add = (e, data) => {
@@ -96,8 +94,6 @@ const Medications = (props) => {
 		setModalData(data);
 		setExisting(false);
 		setShow(true);
-
-		console.log("button to add med", data);
 	};
 
 	return (
