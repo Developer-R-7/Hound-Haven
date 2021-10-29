@@ -2,7 +2,8 @@
 
   
 ## Description
-  Our application creates a go-to-spot for a user to access all of their pets information in one place. Through our user freindly interface, a user can create indivual pet dashboards where they will store information such as vet visits, reminders and medications. From the main home screen a user will be able to manage thier current pet list. Once in the main pet dashboard, all information can be added and updated. As well, we utlitize authentication for personalized user expereince and to create a secure way for a user to view thier stored information.
+  Our application creates a go-to-spot for a user to access all of their pets information in one place. Through our user-friendly interface, a user can create individual pet dashboards where they will store information such as vet visits, reminders and medications. From the main home screen a user will be able to manage their current pet list. Once in the main pet dashboard, all information can be added and updated. As well, we utilize authentication for personalized user experience and to create a secure way for a user to view the stored information.
+
 
 ## Usage
   
