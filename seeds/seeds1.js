@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 
 mongoose.connect(
-	process.env.MONGODB_URI || "mongodb://localhost/myPet",
+	"mongodb+srv://rushi-patel:rushi2003@awstextract.05lv0sc.mongodb.net/myPet?retryWrites=true&w=majority",
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
@@ -197,7 +197,7 @@ addUsers();
 const getSumAsync = (num1, num2, callback) => {
  
   if (!num1 || !num2) {
-    return callback(new Error("Missing dependencies"), null);
+	return callback(new Error("Missing dependencies"), null);
   }
   
   const sum = num1 + num2;
