@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
 	},
 	password: { type: String, required: true, minLength: 5 },
 	displayName: { type: String, required: true },
-	confirmed: { type: Boolean, default: false },
+	confirmed: { type: Boolean, default: true },
 });
 
 userSchema.pre("remove", async function (next) {

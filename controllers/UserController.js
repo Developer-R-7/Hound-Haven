@@ -40,42 +40,10 @@ module.exports = {
 				email,
 				password: passwordHash,
 				displayName,
+
 			});
 
-			// confirmation with email starts here
-			const confirmationToken = new Confirm({
-				token: crypto.randomBytes(10).toString("hex"),
-				userID: newUser._id,
-			});
 
-			console.log(confirmationToken);
-
-			const transporter = nodemailer.createTransport({
-				service: "gmail",
-				auth: {
-					user: "confirmmypet@gmail.com",
-					pass: process.env.EPASS,
-				},
-			});
-
-			const mailOptions = {
-				from: "confirmmypet@gmail.com",
-				to: newUser.email,
-				subject: "Thanks for signing up",
-				text: `Email was sent: ${process.env.HEROKU}${confirmationToken.token}`,
-			};
-
-			transporter.sendMail(mailOptions, (error, info) => {
-				if (error) {
-					console.log(error);
-				} else {
-					console.log(
-						`Email was sent: ${process.env.HEROKU}${confirmationToken.token}`
-					);
-				}
-			});
-
-			await confirmationToken.save();
 			const savedUser = await newUser.save();
 			res.json(savedUser);
 		} catch (err) {
@@ -103,8 +71,8 @@ module.exports = {
 				res.status(400).json({ msg: "this was an incorrect password" });
 			}
 
-			const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-				expiresIn: "24h",
+			const token = jwt.sign({ id: user._id }, "GRYwY6jU", {
+				expiresIn: "48h",
 			});
 
 			res.json({
