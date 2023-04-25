@@ -10,7 +10,7 @@
     "start": "node server.js",
     "seed": "node seeds/seeds1.js",
     "install": "cd client && npm install",
-    "build": "cd client && npm run build",
+    "build": "node server.js",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],
