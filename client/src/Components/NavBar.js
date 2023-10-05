@@ -110,7 +110,7 @@ const NavBar = () => {
 		<>
 			<nav className="navbar navbar-expand-lg">
 				<div className="container-fluid">
-					<h3 className="navbar-brand">MyPet</h3>
+					<h3 className="navbar-brand">Hound Haven</h3>
 					<button
 						className="navbar-toggler"
 						type="button"
