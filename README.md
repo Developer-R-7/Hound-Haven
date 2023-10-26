@@ -49,14 +49,4 @@ jsonwebtoken
 Google Cloud Storage
 ```
 
-## Authors 
-  Kathleen Welch, Sam Ayler, Shelsy Barrera, Kailee Smith, Faith Elsen & Lucah Endicott
-
-## Deployed
-deployed to Heroku 
-https://proj3-kw.herokuapp.com/
-  
-  
-## Credits
-UC Berkeley provided project parameters
 
